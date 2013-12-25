@@ -9,6 +9,7 @@ import com.jeasywebframework.utils.AjaxUtil;
 import com.jeasywebframework.utils.MD5Util;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +83,23 @@ public class UserController {
 
     @RequestMapping(value = "save.ajax", method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject save(SysDeptUser sysDeptUser, HostHolder hostHolder) {
+    public JSONObject save(SysDeptUser sysDeptUser, String password2, HostHolder hostHolder) {
+
+
+        if (StringUtils.isEmpty(sysDeptUser.getUsername())) {
+            return AjaxUtil.failure("账号不能为空值，请重新输入数据！");
+        }
+
+
+        if (!org.apache.commons.lang.StringUtils.equals(password2, sysDeptUser.getPassword())) {
+            return AjaxUtil.failure("密码和确认密码不一致，请重新输入数据！");
+        }
+
+        if (password2.length() < 6) {
+            return AjaxUtil.failure("密码长度不能少于6位，请重新输入数据！");
+        }
+
+
         Date date = new Date(System.currentTimeMillis());
         sysDeptUser.setCreateTime(date);
         sysDeptUser.setUpdateTime(date);
@@ -116,7 +133,6 @@ public class UserController {
         }
 
 
-
         model.addAttribute("user", sysDeptUser);
         return "sys/dept/user/edit";
     }
@@ -138,8 +154,6 @@ public class UserController {
 
         sysDeptUser.setSalt(old.getSalt());
         sysDeptUser.setPassword(old.getPassword());
-        sysDeptUser.setLastLoginIp(old.getLastLoginIp());
-        sysDeptUser.setLastLoginTime(old.getLastLoginTime());
 
 
         userService.saveAndFlush(sysDeptUser);

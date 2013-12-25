@@ -9,34 +9,47 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "sys_config_dictitem")
-public class SysConfigDictitem implements Serializable{
+public class SysConfigDictitem implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
-    @Column(name = "item_text")
+
+    @Column(name = "item_text", nullable = false)
     private String text;
 
-    @Column(name = "item_value")
+    @Column(name = "item_value", nullable = false)
     private String value;
+
+
+    @Column(name = "group_name")
+    private String groupName;
 
     private String descp;
 
-    @Column(name = "create_time")
+    @Column(name = "create_time", nullable = false)
     private Date createTime;
 
-    @Column(name = "update_time")
+    @Column(name = "update_time", nullable = false)
     private Date updateTime;
 
-    @Column(name = "create_user_id")
+    @Column(name = "create_user_id", nullable = false)
     private Long createUserId;
 
-    @Column(name = "update_user_id")
+    @Column(name = "update_user_id", nullable = false)
     private Long updateUserId;
 
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
 
     public Long getId() {
         return id;

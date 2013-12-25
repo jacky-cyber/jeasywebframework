@@ -15,15 +15,20 @@ public class SysDeptResource implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
     private String code;
 
+    @Column(nullable = false)
     private String type;
+
 
     private String descp;
 
+
     private String url;
+
 
     private String method;
 
@@ -38,37 +43,39 @@ public class SysDeptResource implements Serializable {
 
     private String ext4;
 
-    private  String ext5;
-
+    private String ext5;
 
 
     // =========================
 
-    @Column(name = "parent_id")
+    @Column(name = "parent_id", nullable = false)
     private Long parentId;
 
+    @Column(nullable = false)
     private Long oorder;
 
+    @Column(nullable = false)
     private String path;
 
-    @Column(name = "children_num")
+    @Column(name = "children_num", nullable = false)
     private Long childrenNum;
 
-    private int level;
+    @Column(nullable = false)
+    private Integer level;
 
     // =========================
 
-    @Column(name = "create_time")
+    @Column(name = "create_time", nullable = false)
     private Date createTime; // 创建时间
 
-    @Column(name = "update_time")
+    @Column(name = "update_time", nullable = false)
     private Date updateTime; // 最后修改时间
 
 
-    @Column(name = "create_user_id")
+    @Column(name = "create_user_id", nullable = false)
     private Long createUserId;
 
-    @Column(name = "update_user_id")
+    @Column(name = "update_user_id", nullable = false)
     private Long updateUserId;
     // ========================================================================================
     // ========================================================================================
@@ -179,11 +186,11 @@ public class SysDeptResource implements Serializable {
         this.path = path;
     }
 
-    public int getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 

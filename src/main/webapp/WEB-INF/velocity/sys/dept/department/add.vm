@@ -83,7 +83,7 @@
                         <div class="col-lg-5">
                             <div class="ace-spinner" style="width: 70px;">
                                 <div class="input-group">
-                                    <input type="text" id="oorder" name="oorder" />
+                                    <input type="text" id="oorder" name="oorder" value="100" />
                                 </div>
                             </div>
                         </div>
@@ -93,7 +93,7 @@
                     <div class="form-group ">
                         <label class="col-lg-3 control-label no-padding-left" for="enabled"> 是否有效 </label>
                         <div class="col-lg-5">
-                            <select id="enabled" class="col-lg-10 jd-chosen-select" name="enabled" >
+                            <select id="enabled" class="col-lg-8 jd-chosen-select" name="enabled" >
                                 <option value="Y">是</option>
                                 <option value="N">否</option>
                             </select>
@@ -107,27 +107,14 @@
                         <label class="col-lg-3 control-label no-padding-left" for="descp"> 描述</label>
 
                         <div class="col-lg-9">
-                            <textarea style="padding: 5px;" id="descp" name="descp" placeholder="描述"
-                                      class="col-xs-10 col-sm-5"></textarea>
+                            <textarea style="padding: 5px;" id="descp" name="descp" placeholder="描述" class="col-xs-10 col-sm-5"></textarea>
                         </div>
                     </div>
                     <div class="clearfix form-actions">
                         <div class="col-md-offset-3 col-md-9">
-                            <button class="btn btn-info btn-sm" type="submit">
-                                <i class="icon-ok bigger-110"></i>
-                                保存
-                            </button>
-
+                            <button class="btn btn-info btn-sm" type="submit"> <i class="icon-ok bigger-110"></i> 保存 </button>
                             &nbsp; &nbsp; &nbsp;
-                            <button class="btn  btn-sm" type="reset">
-                                <i class="icon-undo bigger-110"></i>
-                                重置
-                            </button>
-                            &nbsp; &nbsp; &nbsp;
-                            <a class="btn  btn-sm" href="/sys/dept/department/list.html">
-                                <i class="icon-reply bigger-110"></i>
-                                返回列表
-                            </a>
+                            <a class="btn  btn-sm" href="/sys/dept/department/list.html"> <i class="icon-reply bigger-110"></i> 返回列表 </a>
                         </div>
                     </div>
                 </form>

@@ -48,5 +48,10 @@ public class DepartmentServiceImpl implements DepartmentService {
         return sysDeptDepartmentDao.findAll(sort);
     }
 
+    @Override
+    public SysDeptDepartment findByCode(String code) {
+        return sysDeptDepartmentDao.findByCode(code);
+    }
+
 
 }

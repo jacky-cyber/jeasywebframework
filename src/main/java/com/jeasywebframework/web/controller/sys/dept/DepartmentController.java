@@ -7,6 +7,7 @@ import com.jeasywebframework.utils.AjaxUtil;
 import com.jeasywebframework.utils.json.WebJsonConfig;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,6 +122,12 @@ public class DepartmentController {
     public JSONObject save(SysDeptDepartment sysDeptDepartment, HostHolder hostHolder) {
         Long parentId = sysDeptDepartment.getParentId();
 
+        SysDeptDepartment test1 = departmentService.findByCode(sysDeptDepartment.getCode());
+        if (test1 != null) {
+            return AjaxUtil.failure("机构编码不能重复，请重新输入数据！");
+        }
+
+
         String path = "";
         if (parentId == 0L) {
             sysDeptDepartment.setLevel(1);
@@ -142,6 +149,9 @@ public class DepartmentController {
 
         sysDeptDepartment.setChildrenNum(0L);
 
+        if (StringUtils.isEmpty(sysDeptDepartment.getPath())) {
+            sysDeptDepartment.setPath("/");
+        }
 
         departmentService.save(sysDeptDepartment);
 
@@ -174,6 +184,14 @@ public class DepartmentController {
     @RequestMapping(value = "update.ajax", method = RequestMethod.POST)
     @ResponseBody
     public JSONObject update(SysDeptDepartment sysDeptDepartment, HostHolder hostHolder) {
+
+
+        SysDeptDepartment test1 = departmentService.findByCode(sysDeptDepartment.getCode());
+        if (test1 != null && test1.getId().intValue() != sysDeptDepartment.getId().intValue()) {
+            return AjaxUtil.failure("机构编码不能重复，请重新输入数据！");
+        }
+
+
         SysDeptDepartment old = departmentService.findOne(sysDeptDepartment.getId());
 
         // 不能修改的属性

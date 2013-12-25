@@ -7,9 +7,6 @@ $(document).ready(function () {
 
     $('#addForm').validate({
         rules: {
-            parentId: {
-                required: true
-            },
             name: {
                 required: true
             },
@@ -17,7 +14,14 @@ $(document).ready(function () {
                 required: true
             }
         },
-
+        messages: {
+            name: {
+                required: '机构名称不能为空值！'
+            },
+            code: {
+                required: '机构编码不能为空值！'
+            }
+        },
         errorElement: 'div',
         errorClass: 'help-block',
         focusInvalid: false,

@@ -33,14 +33,14 @@
                 #parse("sys/message.vm")
                 <li class="light-blue">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                        <span class="user-info" style="top: -1px; vertical-align: middle; font-size:14px;"> 管理员 </span>
+                        <span class="user-info" style="top: -1px; vertical-align: middle; font-size:14px;"> ${hostHolder} </span>
                         <i class="icon-caret-down"></i>
                     </a>
 
                     <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                        <li><a href="/admin/profile/reset-pwd.html"><i class="icon-cog"></i>密码设置</a></li>
-                        <li><a href="/admin/profile/edit.html"><i class="icon-user"></i>个人设置</a></li>
-                        <li><a href="/admin/logout.html" onclick="return confirm('您确实要退出系统？');"><i class="icon-off"></i>退出登录</a></li>
+                        <li><a href="/sys/profile/reset-pwd.html"><i class="icon-cog"></i>密码设置</a></li>
+                        <li><a href="/sys/profile/info.html"><i class="icon-user"></i>个人设置</a></li>
+                        <li><a href="/sys/logout.html" onclick="return confirm('您确实要退出系统？');"><i class="icon-off"></i>退出登录</a></li>
                     </ul>
                 </li>
             </ul>

@@ -53,6 +53,7 @@ public class LoginController {
     @ResponseBody
     public JSONObject loginCheck(
             HttpServletResponse response,//
+            String returnUrl,
             String username, String password, @RequestParam(value = "remember", defaultValue = "0") int remember) {
 
         if (StringUtils.isEmpty(username)) {

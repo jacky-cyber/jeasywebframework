@@ -42,13 +42,25 @@ $(document).ready(function () {
 
     $('#addForm').validate({
         rules: {
-            departmentId: {
+            username: {
+                required: true
+            },
+            password: {
+                required: true
+            },
+            password2: {
                 required: true
             },
             name: {
                 required: true
             },
             email: {
+                required: true
+            },
+            birthday: {
+                required: true
+            },
+            mobile: {
                 required: true
             }
         },
@@ -71,6 +83,9 @@ $(document).ready(function () {
                 url: '/sys/dept/user/save.ajax',
                 type: 'post',
                 dataType: 'json',
+                error: function (jqXHR, textStatus, errorThown) {
+                    alert('发送请求失败，请刷新页面后重试！');
+                },
                 success: function (json, statusText, xhr, $form) {
                     if (json._success) {
                         window.location.href = "/sys/dept/user/list.html";

@@ -15,37 +15,43 @@ public class SysDeptDepartment implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
     private Long oorder;
 
+    @Column(nullable = false)
     private String enabled;
 
+    @Column(nullable = false)
     private String path;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(unique = true, nullable = false)
     private String code;
 
     private String descp;
 
-    private int level;
+    @Column(nullable = false)
+    private Integer level;
 
-    @Column(name = "children_num")
+    @Column(name = "children_num", nullable = false)
     private Long childrenNum;
 
-    @Column(name = "parent_id")
+    @Column(name = "parent_id", nullable = false)
     private Long parentId;
 
-    @Column(name = "create_time")
+    @Column(name = "create_time", nullable = false)
     private Date createTime; // 创建时间
 
-    @Column(name = "update_time")
+    @Column(name = "update_time", nullable = false)
     private Date updateTime; // 最后修改时间
 
 
-    @Column(name = "create_user_id")
+    @Column(name = "create_user_id", nullable = false)
     private Long createUserId;
 
-    @Column(name = "update_user_id")
+    @Column(name = "update_user_id", nullable = false)
     private Long updateUserId;
     // ========================================================================================
     // ========================================================================================
@@ -101,7 +107,6 @@ public class SysDeptDepartment implements Serializable {
     }
 
 
-
     public String getCode() {
         return code;
     }
@@ -150,11 +155,11 @@ public class SysDeptDepartment implements Serializable {
         this.descp = descp;
     }
 
-    public int getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 

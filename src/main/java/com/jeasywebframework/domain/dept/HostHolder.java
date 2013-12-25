@@ -13,7 +13,7 @@ public class HostHolder {
     public static final String COOKIE_KEY_USERNAME = "_$u";
 
 
-    public static final String REQUEST_KEY_HOLDER = "_$host_holder";
+    public static final String REQUEST_KEY_HOLDER = "hostHolder";
 
 
 

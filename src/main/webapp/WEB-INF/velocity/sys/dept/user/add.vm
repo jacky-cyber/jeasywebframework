@@ -224,22 +224,9 @@
                     <div class="space-4"></div>
                     <div class="clearfix form-actions">
                         <div class="col-md-offset-3 col-md-9">
-                            <button class="btn btn-info btn-sm" type="submit" id="btn-submit">
-                                <i class="icon-ok bigger-110"></i>
-                                保存
-                            </button>
-
+                            <button class="btn btn-info btn-sm" type="submit" id="btn-submit"> <i class="icon-ok bigger-110"></i> 保存 </button>
                             &nbsp; &nbsp; &nbsp;
-                            <button class="btn  btn-sm" type="reset">
-                                <i class="icon-undo bigger-110"></i>
-                                重置
-                            </button>
-
-                            &nbsp; &nbsp; &nbsp;
-                            <a class="btn btn-sm" type="reset" href="/sys/dept/user/list.html">
-                                <i class="icon-reply bigger-110"></i>
-                                返回列表
-                            </a>
+                            <a class="btn btn-sm" type="reset" href="/sys/dept/user/list.html"> <i class="icon-reply bigger-110"></i> 返回列表 </a>
                         </div>
                     </div>
 

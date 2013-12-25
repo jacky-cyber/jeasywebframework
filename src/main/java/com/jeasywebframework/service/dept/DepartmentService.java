@@ -28,4 +28,5 @@ public interface DepartmentService {
     List<SysDeptDepartment> findAll(Sort sort);
 
 
+    SysDeptDepartment findByCode(String code);
 }

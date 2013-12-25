@@ -15,24 +15,27 @@ public class SysDeptRole {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
     private String descp;
 
+    @Column(nullable = false)
     private String enabled;
 
+    @Column(nullable = false)
     private Long oorder;
 
-    @Column(name = "create_user_id")
+    @Column(name = "create_user_id", nullable = false)
     private Long createUserId;
 
-    @Column(name = "update_user_id")
+    @Column(name = "update_user_id", nullable = false)
     private Long updateUserId;
 
-    @Column(name = "create_time")
+    @Column(name = "create_time", nullable = false)
     private Date createTime;
 
-    @Column(name = "update_time")
+    @Column(name = "update_time", nullable = false)
     private Date updateTime;
 
 

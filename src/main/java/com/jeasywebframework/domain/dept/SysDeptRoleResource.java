@@ -17,22 +17,22 @@ public class SysDeptRoleResource implements Serializable {
     private Long id;
 
 
-    @Column(name = "role_id")
+    @Column(name = "role_id", nullable = false)
     private Long roleId;
 
-    @Column(name = "resource_id")
+    @Column(name = "resource_id", nullable = false)
     private Long resourceId;
 
-    @Column(name = "create_user_id")
+    @Column(name = "create_user_id", nullable = false)
     private Long createUserId;
 
-    @Column(name = "update_user_id")
+    @Column(name = "update_user_id", nullable = false)
     private Long updateUserId;
 
-    @Column(name = "create_time")
+    @Column(name = "create_time", nullable = false)
     private Date createTime;
 
-    @Column(name = "update_time")
+    @Column(name = "update_time", nullable = false)
     private Date updateTime;
 
 

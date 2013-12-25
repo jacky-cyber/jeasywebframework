@@ -16,5 +16,5 @@ public interface SysDeptDepartmentDao extends JpaRepository<SysDeptDepartment, L
     Long countByParentId(Long parentId);
 
 
-
+    SysDeptDepartment findByCode(String code);
 }

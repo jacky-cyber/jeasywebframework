@@ -15,34 +15,46 @@ public class SysDeptUser implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id; // 主键ID
 
+    @Column(nullable = false)
     private String username; // 用户名
+
+    @Column(nullable = false)
     private String password; // 密码
+
+    @Column(nullable = false)
     private String salt; // 密码盐
 
+    @Column(nullable = false)
     private Date birthday; // 生日
 
-    @Column(name = "department_id")
+    @Column(name = "department_id", nullable = false)
     private Long departmentId; // 机构ID
 
+    @Column(nullable = false)
     private String enabled; // 是否有效
+
 
     private String address; //  地址
 
 
+    @Column(nullable = false)
     private Long oorder; // 排序
+
 
     private String msn;
 
     private String qq;
 
-
+    @Column(nullable = false)
     private String sex; // 性别
 
 
     private String postcode; // 邮编
 
-
+    @Column(nullable = false)
     private String name; // 姓名
+
+    @Column(nullable = false, unique = true)
     private String mobile; // 手机号码
 
     @Column(name = "home_phone")
@@ -51,8 +63,9 @@ public class SysDeptUser implements Serializable {
     @Column(name = "office_phone")
     private String officePhone; // 工作电话
 
-
+    @Column(nullable = false, unique = true)
     private String email; // 邮箱
+
 
     @Column(name = "id_card")
     private String idCard; // 身份证号码
@@ -60,23 +73,17 @@ public class SysDeptUser implements Serializable {
 
     private String descp;//描述
 
-    @Column(name = "last_login_ip")
-    private String lastLoginIp; // 最后登录IP
 
-    @Column(name = "last_login_time")
-    private Date lastLoginTime; // 最后登录时间
-
-
-    @Column(name = "create_time")
+    @Column(name = "create_time", nullable = false)
     private Date createTime; // 创建时间
 
-    @Column(name = "update_time")
+    @Column(name = "update_time", nullable = false)
     private Date updateTime; // 最后修改时间
 
-    @Column(name = "create_user_id")
+    @Column(name = "create_user_id", nullable = false)
     private Long createUserId;
 
-    @Column(name = "update_user_id")
+    @Column(name = "update_user_id", nullable = false)
     private Long updateUserId;
 
 
@@ -198,21 +205,6 @@ public class SysDeptUser implements Serializable {
         this.officePhone = officePhone;
     }
 
-    public String getLastLoginIp() {
-        return lastLoginIp;
-    }
-
-    public void setLastLoginIp(String lastLoginIp) {
-        this.lastLoginIp = lastLoginIp;
-    }
-
-    public Date getLastLoginTime() {
-        return lastLoginTime;
-    }
-
-    public void setLastLoginTime(Date lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
-    }
 
     public String getName() {
         return name;

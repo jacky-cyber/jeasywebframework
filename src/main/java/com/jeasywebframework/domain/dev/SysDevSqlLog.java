@@ -15,25 +15,26 @@ public class SysDevSqlLog implements Serializable {
     private Long id;
 
 
-    @Column(name = "sql_type")
+    @Column(name = "sql_type", nullable = false)
     private String sqlType;
 
-    @Column(name = "sql_str")
+    @Column(name = "sql_str", nullable = false)
     private String sql;
 
 
-    @Column(name = "create_time")
+    @Column(name = "create_time", nullable = false)
     private Date createTime;
 
-    @Column(name = "update_time")
+    @Column(name = "update_time", nullable = false)
     private Date updateTime;
 
-    @Column(name = "create_user_id")
+    @Column(name = "create_user_id", nullable = false)
     private Long createUserId;
 
-    @Column(name = "update_user_id")
+    @Column(name = "update_user_id", nullable = false)
     private Long updateUserId;
 
+    @Column(nullable = false)
     private String ip;
 
 

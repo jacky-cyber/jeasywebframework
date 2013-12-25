@@ -92,7 +92,7 @@
                     <div class="form-group ">
                         <label class="col-lg-3 control-label no-padding-left" for="enabled"> 是否有效 </label>
                         <div class="col-lg-5">
-                            <select id="enabled" class="col-lg-10 jd-chosen-select" name="enabled" >
+                            <select id="enabled" class="col-lg-8 jd-chosen-select" name="enabled" >
                                 <option value="Y"  #if($dept.enabled=='Y')selected
                                 #end>是</option>
                                 <option value="N" #if($dept.enabled=='N')selected
@@ -112,21 +112,11 @@
                     </div>
                     <div class="clearfix form-actions">
                         <div class="col-md-offset-3 col-md-9">
-                            <button class="btn btn-info btn-sm" type="submit">
-                                <i class="icon-ok bigger-110"></i>
-                                保存
-                            </button>
 
+                            <button class="btn btn-info btn-sm" type="submit"> <i class="icon-ok bigger-110"></i> 保存 </button>
                             &nbsp; &nbsp; &nbsp;
-                            <button class="btn  btn-sm" type="reset">
-                                <i class="icon-undo bigger-110"></i>
-                                重置
-                            </button>
-                            &nbsp; &nbsp; &nbsp;
-                            <a class="btn  btn-sm" href="/sys/dept/department/list.html">
-                                <i class="icon-reply bigger-110"></i>
-                                返回列表
-                            </a>
+                            <a class="btn  btn-sm" href="/sys/dept/department/list.html"> <i class="icon-reply bigger-110"></i> 返回列表 </a>
+
                         </div>
                     </div>
                 </form>

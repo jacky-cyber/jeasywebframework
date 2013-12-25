@@ -13,7 +13,7 @@ $(document).ready(function () {
         autowidth: true,
         rowNum: 200,
         mtype: "GET",
-        colNames: [ 'ID', '名称', '编码' , '描述', '有效标记', '父ID', '操作' ],
+        colNames: [ 'ID', '名称', '编码' , '描述', '有效标记', 'PID', '创建人', '创建时间', '修改人', '修改时间', '操作' ],
         colModel: [
             {name: 'id', index: 'id', hidden: true, width: 60, key: true },
             {name: 'name', index: 'name'  },
@@ -21,6 +21,10 @@ $(document).ready(function () {
             {name: 'descp', index: 'descp' },
             {name: 'enabled', index: 'enabled' },
             {name: 'parentId', index: 'parentId', hidden: true },
+            {name: 'createUserId', index: 'createUserId', hidden: true },
+            {name: 'createTime', index: 'createTime', hidden: true},
+            {name: 'updateUserId', index: 'updateUserId', hidden: true},
+            {name: 'updateTime', index: 'updateTime', hidden: true},
             {
                 name: 'ops', index: '', fixed: true, sortable: false, resize: false,
                 formatter: function (param1, param2, record) {
@@ -65,16 +69,15 @@ $(document).ready(function () {
             });
 
         },
-        ondblClickRow:function(rowid,iRow,iCol,e) {
-            var rowData = $(grid_selector).jqGrid('getRowData',rowid);
-            $('tr[id="'+rowData.id+'"]').find('div.treeclick').click();
+        ondblClickRow: function (rowid, iRow, iCol, e) {
+            var rowData = $(grid_selector).jqGrid('getRowData', rowid);
+            $('tr[id="' + rowData.id + '"]').find('div.treeclick').click();
         },
-        onSelectRow:function(rowid,status) {
-            $('tr[id="'+rowid+'"]').find('div.treeclick').click();
+        onSelectRow: function (rowid, status) {
+            $('tr[id="' + rowid + '"]').find('div.treeclick').click();
         },
         autowidth: true
     });
-
 
 
 });

@@ -84,12 +84,10 @@
         <bean class="com.jeasywebframework.web.interceptor.SystemInfoInterceptor"></bean>
         <mvc:interceptor>
             <mvc:mapping path="/sys/**"/>
-            <mvc:mapping path="/sys/index.html"/>
             <bean class="com.jeasywebframework.web.interceptor.HostHolderInterceptor"/>
         </mvc:interceptor>
         <mvc:interceptor>
             <mvc:mapping path="/sys/**"/>
-            <mvc:mapping path="/sys/index.html"/>
             <bean class="com.jeasywebframework.web.interceptor.LoginRequiredInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

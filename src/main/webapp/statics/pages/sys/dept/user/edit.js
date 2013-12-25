@@ -27,6 +27,9 @@ $(document).ready(function () {
         url: '/sys/dept/department/list-tree.ajax',
         method: 'get',
         dataType: 'json',
+        error: function (jqXHR, textStatus, errorThown) {
+            alert('发送请求失败，请刷新页面后重试！');
+        },
         success: function (data) {
             jQuery.fn.zTree.init(jQuery('#tree1'), settings, data);
             var ztree = jQuery.fn.zTree.getZTreeObj("tree1");
@@ -71,6 +74,9 @@ $(document).ready(function () {
                 url: '/sys/dept/user/update.ajax',
                 type: 'post',
                 dataType: 'json',
+                error: function (jqXHR, textStatus, errorThown) {
+                    alert('发送请求失败，请刷新页面后重试！');
+                },
                 success: function (json, statusText, xhr, $form) {
                     if (json._success) {
                         window.location.href = "/sys/dept/user/list.html";

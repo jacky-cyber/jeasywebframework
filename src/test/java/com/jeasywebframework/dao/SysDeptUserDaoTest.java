@@ -16,7 +16,7 @@ import java.util.Date;
 /**
  * Created by jeasywebframework@gmail.com on 13-12-18.
  */
-@Ignore
+//@Ignore
 @ContextConfiguration("classpath:applicationContext.xml")
 public class SysDeptUserDaoTest extends AbstractJUnit4SpringContextTests {
 
@@ -46,6 +46,7 @@ public class SysDeptUserDaoTest extends AbstractJUnit4SpringContextTests {
         user.setCreateUserId(0L);
         user.setUpdateTime(now);
         user.setUpdateUserId(0L);
+        user.setMobile("159****");
 
         user.setEnabled("Y");
         user.setName("admin");
