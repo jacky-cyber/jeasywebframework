@@ -93,7 +93,7 @@ public class ResourceController {
     @ResponseBody
     public JSONArray loadTree() {
         JSONArray jsonArray = new JSONArray();
-        List<SysDeptResource> moduleList = resourceService.findAll();
+        List<SysDeptResource> moduleList = resourceService.findAll(new Sort(Sort.Direction.DESC, SysDeptResource.PATH));
 
         for (SysDeptResource module : moduleList) {
             JSONObject jo = JSONObject.fromObject(module, WebJsonConfig.getInstance());
@@ -197,7 +197,6 @@ public class ResourceController {
     }
 
 
-
     @RequestMapping(value = "batch-add.html", method = RequestMethod.GET)
     public String batchAdd(
             String className, //
@@ -267,7 +266,6 @@ public class ResourceController {
 
         return "sys/dept/resource/batch-add";
     }
-
 
 
     @RequestMapping(value = "batch-save.ajax", method = RequestMethod.POST)

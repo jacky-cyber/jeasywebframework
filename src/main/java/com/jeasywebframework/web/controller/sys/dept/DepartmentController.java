@@ -112,7 +112,7 @@ public class DepartmentController {
             model.addAttribute("pIdName", "顶级机构名称");
         }
 
-        List<SysDeptDepartment> departmentList = departmentService.findAll();
+        List<SysDeptDepartment> departmentList = departmentService.findAll(new Sort(Sort.Direction.ASC, "path"));
         model.addAttribute("deptList", departmentList);
         return "sys/dept/department/add";
     }
@@ -175,7 +175,7 @@ public class DepartmentController {
             model.addAttribute("pIdName", "顶级机构名称");
         }
 
-        List<SysDeptDepartment> departmentList = departmentService.findAll();
+        List<SysDeptDepartment> departmentList = departmentService.findAll(new Sort(Sort.Direction.ASC, "path"));
         model.addAttribute("deptList", departmentList);
         return "sys/dept/department/edit";
     }

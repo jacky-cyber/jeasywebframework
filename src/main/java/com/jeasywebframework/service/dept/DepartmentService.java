@@ -9,14 +9,12 @@ import java.util.List;
  * Created by jeasywebframework@gmail.com on 13-12-24.
  */
 public interface DepartmentService {
+    String CACHE_VALUE = "sys_dept_department";
 
 
     SysDeptDepartment findOne(Long id);
 
     void saveAndFlush(SysDeptDepartment sysDeptDepartment);
-
-
-    List<SysDeptDepartment> findAll();
 
 
     void save(SysDeptDepartment sysDeptDepartment);

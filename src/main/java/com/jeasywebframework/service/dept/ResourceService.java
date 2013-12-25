@@ -10,11 +10,10 @@ import java.util.List;
  */
 public interface ResourceService {
 
+    String CACHE_VALUE = "sys_dept_resource";
+
 
     List<SysDeptResource> findAll(Sort path);
-
-
-    List<SysDeptResource> findAll();
 
 
     SysDeptResource findOne(Long id);

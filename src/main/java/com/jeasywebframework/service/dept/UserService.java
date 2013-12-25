@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
  */
 public interface UserService {
 
+    String CACHE_VALUE = "sys_dept_user";
+
     boolean hasAccess(Long hostId, String url);
 
     SysDeptUser findByCookieUsernameAndPwd(String id, String pwd);

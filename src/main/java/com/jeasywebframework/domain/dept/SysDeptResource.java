@@ -11,6 +11,9 @@ import java.util.Date;
 @Table(name = "sys_dept_resource")
 public class SysDeptResource implements Serializable {
 
+    public static final String PATH = "path";
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

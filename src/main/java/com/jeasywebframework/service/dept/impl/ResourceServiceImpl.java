@@ -4,6 +4,8 @@ import com.jeasywebframework.dao.dept.SysDeptResourceDao;
 import com.jeasywebframework.domain.dept.SysDeptResource;
 import com.jeasywebframework.service.dept.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -18,15 +20,12 @@ public class ResourceServiceImpl implements ResourceService {
     @Autowired
     private SysDeptResourceDao sysDeptResourceDao;
 
+    @Cacheable(value = ResourceService.CACHE_VALUE)
     @Override
     public List<SysDeptResource> findAll(Sort sort) {
         return sysDeptResourceDao.findAll(sort);
     }
 
-    @Override
-    public List<SysDeptResource> findAll() {
-        return sysDeptResourceDao.findAll();
-    }
 
     @Override
     public SysDeptResource findOne(Long id) {
@@ -38,19 +37,23 @@ public class ResourceServiceImpl implements ResourceService {
         return sysDeptResourceDao.countByParentId(parentId);
     }
 
+    @CacheEvict(value = ResourceService.CACHE_VALUE)
     @Override
     public void saveAndFlush(SysDeptResource sysDeptResource) {
         sysDeptResourceDao.saveAndFlush(sysDeptResource);
     }
 
+
+    @CacheEvict(value = ResourceService.CACHE_VALUE)
     @Override
     public void save(SysDeptResource sysDeptResource) {
         sysDeptResourceDao.save(sysDeptResource);
     }
 
+    @CacheEvict(value = ResourceService.CACHE_VALUE)
     @Override
     public void batchSave(List<SysDeptResource> resources) {
-
+        sysDeptResourceDao.save(resources);
     }
 
 

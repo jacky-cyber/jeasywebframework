@@ -27,6 +27,7 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private SysDeptRoleResourceDao sysDeptRoleResourceDao;
 
+
     @Override
     public Page<SysDeptRole> findAll(Pageable pageable) {
         return sysDeptRoleDao.findAll(pageable);

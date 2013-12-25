@@ -12,6 +12,8 @@ import java.util.List;
  */
 public interface RoleService {
 
+    String CACHE_VALUE = "sys_dept_role";
+
 
     Page<SysDeptRole> findAll(Pageable pageable);
 
