@@ -2,7 +2,7 @@ package com.jeasywebframework.web.controller.sys.dev;
 
 import com.jeasywebframework.domain.dev.SysGenColumn;
 import com.jeasywebframework.domain.dev.SysGenTable;
-import com.jeasywebframework.service.generator.GeneratorService;
+import com.jeasywebframework.service.dev.GeneratorService;
 import com.jeasywebframework.utils.AjaxUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -22,7 +22,7 @@ import java.util.List;
  * Created by jeasywebframework@gmail.com on 13-12-20.
  */
 @Controller
-@RequestMapping("/dev/generator/table/")
+@RequestMapping("/sys/dev/gen/table/")
 public class TableController {
 
 
@@ -40,7 +40,7 @@ public class TableController {
         List<SysGenTable> tableList = generatorService.findAllTable();
         model.addAttribute("tableList", tableList);
 
-        return "sys/dev/table/list";
+        return "sys/dev/gen/table/list";
     }
 
     @RequestMapping(value = "edit.html", method = RequestMethod.GET)
@@ -53,7 +53,7 @@ public class TableController {
         model.addAttribute("columnList", columnList);
         model.addAttribute("table", table);
 
-        return "sys/dev/table/edit";
+        return "sys/dev/gen/table/edit";
     }
 
 

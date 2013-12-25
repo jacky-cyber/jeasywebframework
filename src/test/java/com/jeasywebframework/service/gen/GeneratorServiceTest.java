@@ -1,7 +1,7 @@
 package com.jeasywebframework.service.gen;
 
 import com.jeasywebframework.domain.dev.SysGenTable;
-import com.jeasywebframework.service.generator.GeneratorService;
+import com.jeasywebframework.service.dev.GeneratorService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

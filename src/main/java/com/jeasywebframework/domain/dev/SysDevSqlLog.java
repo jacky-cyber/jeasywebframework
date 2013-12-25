@@ -15,6 +15,9 @@ public class SysDevSqlLog implements Serializable {
     private Long id;
 
 
+    @Column(name = "sql_type")
+    private String sqlType;
+
     @Column(name = "sql_str")
     private String sql;
 
@@ -32,6 +35,15 @@ public class SysDevSqlLog implements Serializable {
     private Long updateUserId;
 
     private String ip;
+
+
+    public String getSqlType() {
+        return sqlType;
+    }
+
+    public void setSqlType(String sqlType) {
+        this.sqlType = sqlType;
+    }
 
     public Long getId() {
         return id;

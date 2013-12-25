@@ -3,6 +3,7 @@ package com.jeasywebframework.web.controller.sys.dev;
 import com.jeasywebframework.dao.dev.SysDevSqlLogDao;
 import com.jeasywebframework.domain.dept.HostHolder;
 import com.jeasywebframework.domain.dev.SysDevSqlLog;
+import com.jeasywebframework.service.dev.SqlLogService;
 import com.jeasywebframework.utils.AjaxUtil;
 import com.jeasywebframework.utils.IpUtil;
 import net.sf.json.JSONArray;
@@ -32,13 +33,13 @@ import java.util.Date;
  * Created by jeasywebframework@gmail.com on 13-12-25.
  */
 @Controller
-@RequestMapping("/dev/sql/")
+@RequestMapping("/sys/dev/sql/")
 public class SqlController {
 
     private static final Logger logger = LoggerFactory.getLogger(SqlController.class);
 
     @Autowired
-    private SysDevSqlLogDao sysDevSqlLogDao;
+    private SqlLogService sqlLogService;
 
     @Autowired
     DataSource dataSource;
@@ -58,7 +59,7 @@ public class SqlController {
     public JSONObject sqlLogAjax(@RequestParam(value = "page", defaultValue = "1") int page,
                                  @RequestParam(value = "rows", defaultValue = "20") int rows) {
         Pageable pageable = new PageRequest(page - 1, rows);
-        Page<SysDevSqlLog> pageRst = sysDevSqlLogDao.findAll(pageable);
+        Page<SysDevSqlLog> pageRst = sqlLogService.findAll(pageable);
         return AjaxUtil.jqGridJson(pageRst);
     }
 
@@ -86,6 +87,8 @@ public class SqlController {
             sqlLog.setCreateTime(now);
             sqlLog.setUpdateUserId(hostHolder.getHostId());
             sqlLog.setUpdateTime(now);
+
+            sqlLog.setSqlType("query");
 
             sqlLog.setSql(sql);
             sqlLog.setIp(IpUtil.getIp(request));
@@ -184,7 +187,7 @@ public class SqlController {
      */
     @RequestMapping(value = "/update.ajax", method = RequestMethod.GET)
     @ResponseBody
-    public JSONObject update(String sql, HttpServletRequest request) {
+    public JSONObject update(String sql, HttpServletRequest request, HostHolder hostHolder) {
 
         logger.debug("开始执行通用查询，sql=[" + sql + "]......");
 
@@ -195,6 +198,19 @@ public class SqlController {
 
 
         try { //记录SQL操作日志
+            Date now = new Date(System.currentTimeMillis());
+
+            SysDevSqlLog sqlLog = new SysDevSqlLog();
+            sqlLog.setIp(IpUtil.getIp(request));
+            sqlLog.setCreateUserId(hostHolder.getHostId());
+            sqlLog.setCreateTime(now);
+            sqlLog.setUpdateTime(now);
+            sqlLog.setUpdateUserId(hostHolder.getHostId());
+            sqlLog.setSql(sql);
+
+            sqlLog.setSqlType("update");
+
+            sqlLogService.save(sqlLog);
 
         } catch (Exception ex) {
             logger.error("记录用户操作记录失败！", ex);

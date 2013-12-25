@@ -2,7 +2,7 @@ package com.jeasywebframework.web.controller.sys.dev;
 
 import com.jeasywebframework.domain.dev.SysGenColumn;
 import com.jeasywebframework.domain.dev.SysGenTable;
-import com.jeasywebframework.service.generator.GeneratorService;
+import com.jeasywebframework.service.dev.GeneratorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import java.util.List;
  * Created by jeasywebframework@gmail.com on 13-12-20.
  */
 @Controller
-@RequestMapping("/dev/generator/1table_grid/")
+@RequestMapping("/sys/dev/gen/1table_grid/")
 public class OneTableGridController {
 
 

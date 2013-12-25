@@ -1,5 +1,5 @@
 #set($page_title="数据库表管理")
-#set($selected_menu_id="menu_generator_table_list")
+#set($selected_menu_id="menu_sys_gen_table_list")
 
 <div class="main-content">
     <div class="breadcrumbs" id="breadcrumbs">
@@ -51,7 +51,7 @@
                             <td>$!{table.controllerClass}</td>
                             <td>$!{table.urlPrefix}</td>
                             <td>$!{table.velocityPathPrefix}</td>
-                            <td><a href="/dev/generator/table/edit.html?name=${table.name}">配置</a></td>
+                            <td><a href="/sys/dev/gen/table/edit.html?name=${table.name}">配置</a></td>
                         </tr>
                     #end
                 </table>

@@ -1,4 +1,4 @@
-package com.jeasywebframework.service.generator;
+package com.jeasywebframework.service.dev;
 
 import com.jeasywebframework.domain.dev.SysGenColumn;
 import com.jeasywebframework.domain.dev.SysGenTable;

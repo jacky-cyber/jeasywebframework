@@ -1,5 +1,5 @@
 #set($page_title="单表grid生成")
-#set($selected_menu_id="menu_generator_1table_grid")
+#set($selected_menu_id="menu_sys_dev_gen_1table_grid")
 
 <div class="main-content">
     <div class="breadcrumbs" id="breadcrumbs">
@@ -39,22 +39,22 @@
                     </tr>
                     #foreach($table in $tableList)
                         <tr>
-                            <td><a href="/dev/generator/table/edit.html?name=${table.name}"> ${table.name}</a></td>
+                            <td><a href="/sys/dev/gen/table/edit.html?name=${table.name}"> ${table.name}</a></td>
                             <td>$!{table.cname}</td>
                             <td>
-                                <a href="/dev/generator/1table_grid/domain.html?name=${table.name}"  target="_blank">${table.domainPkg}.$!{table.domainClass}</a><br/>
-                                <a href="/dev/generator/1table_grid/dao.html?name=${table.name}"  target="_blank">${table.daoPkg}.$!{table.daoClass}</a><br/>
-                                <a href="/dev/generator/1table_grid/controller.html?name=${table.name}"  target="_blank">${table.controllerPkg}.$!{table.controllerClass}</a>
+                                <a href="/sys/dev/gen/1table_grid/domain.html?name=${table.name}"  target="_blank">${table.domainPkg}.$!{table.domainClass}</a><br/>
+                                <a href="/sys/dev/gen/1table_grid/dao.html?name=${table.name}"  target="_blank">${table.daoPkg}.$!{table.daoClass}</a><br/>
+                                <a href="/sys/dev/gen/1table_grid/controller.html?name=${table.name}"  target="_blank">${table.controllerPkg}.$!{table.controllerClass}</a>
                             </td>
                             <td>
-                                <a href="/dev/generator/1table_grid/list.vm.html?name=${table.name}" target="_blank">$!{table.urlPrefix}list.vm</a><br/>
-                                <a href="/dev/generator/1table_grid/add.vm.html?name=${table.name}" target="_blank">$!{table.urlPrefix}add.vm</a><br/>
-                                <a href="/dev/generator/1table_grid/edit.vm.html?name=${table.name}" target="_blank">$!{table.urlPrefix}edit.vm</a>
+                                <a href="/sys/dev/gen/1table_grid/list.vm.html?name=${table.name}" target="_blank">$!{table.urlPrefix}list.vm</a><br/>
+                                <a href="/sys/dev/gen/1table_grid/add.vm.html?name=${table.name}" target="_blank">$!{table.urlPrefix}add.vm</a><br/>
+                                <a href="/sys/dev/gen/1table_grid/edit.vm.html?name=${table.name}" target="_blank">$!{table.urlPrefix}edit.vm</a>
                             </td>
                             <td>
-                                <a href="/dev/generator/1table_grid/list.js.html?name=${table.name}" target="_blank">$!{table.urlPrefix}list.js</a><br/>
-                                <a href="/dev/generator/1table_grid/add.js.html?name=${table.name}" target="_blank">$!{table.urlPrefix}add.js</a><br/>
-                                <a href="/dev/generator/1table_grid/edit.js.html?name=${table.name}" target="_blank">$!{table.urlPrefix}edit.js</a>
+                                <a href="/sys/dev/gen/1table_grid/list.js.html?name=${table.name}" target="_blank">$!{table.urlPrefix}list.js</a><br/>
+                                <a href="/sys/dev/gen/1table_grid/add.js.html?name=${table.name}" target="_blank">$!{table.urlPrefix}add.js</a><br/>
+                                <a href="/sys/dev/gen/1table_grid/edit.js.html?name=${table.name}" target="_blank">$!{table.urlPrefix}edit.js</a>
                             </td>
                         </tr>
                     #end

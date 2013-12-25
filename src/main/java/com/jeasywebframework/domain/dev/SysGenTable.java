@@ -7,7 +7,7 @@ import java.io.Serializable;
  * Created by jeasywebframework@gmail.com on 13-12-20.
  */
 @Entity
-@Table(name = "sys_gen_table")
+@Table(name = "sys_dev_gen_table")
 public class SysGenTable implements Serializable {
 
     @Id

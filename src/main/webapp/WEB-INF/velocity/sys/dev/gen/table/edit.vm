@@ -1,5 +1,5 @@
 #set($page_title="单表grid代码生成")
-#set($selected_menu_id="menu_generator_table_list")
+#set($selected_menu_id="menu_gen_table_list")
 
 <div class="main-content">
     <div class="breadcrumbs" id="breadcrumbs">
@@ -207,7 +207,7 @@
                             </button>
 
                             &nbsp; &nbsp; &nbsp;
-                            <a class="btn  btn-sm" href="/sys/generator/1table_grid/list.html">
+                            <a class="btn  btn-sm" href="/sys/dev/gen/1table_grid/list.html">
                                 <i class="icon-reply bigger-110"></i>
                                 返回列表
                             </a>
@@ -226,4 +226,4 @@
 
 
 
-<script type="application/javascript" src="/statics/pages/sys/gen/table/edit.js?_v=${staticVersion}"></script>
+<script type="application/javascript" src="/statics/pages/sys/dev/gen/table/edit.js?_v=${staticVersion}"></script>

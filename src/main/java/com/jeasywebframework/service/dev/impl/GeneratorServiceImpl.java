@@ -1,10 +1,10 @@
-package com.jeasywebframework.service.generator.impl;
+package com.jeasywebframework.service.dev.impl;
 
 import com.jeasywebframework.dao.dev.SysGenColumnDao;
 import com.jeasywebframework.dao.dev.SysGenTableDao;
 import com.jeasywebframework.domain.dev.SysGenColumn;
 import com.jeasywebframework.domain.dev.SysGenTable;
-import com.jeasywebframework.service.generator.GeneratorService;
+import com.jeasywebframework.service.dev.GeneratorService;
 import com.jeasywebframework.utils.NameUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
