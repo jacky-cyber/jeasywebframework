@@ -1,0 +1,51 @@
+
+#set($layout="sys/gen/layout_code.vm")
+#set($page_title=${table.velocityPathPrefix} + 'list.vm')
+
+<pre class="prettyprint linenums">
+
+&lt;div class="main-content"&gt;
+    &lt;div class="breadcrumbs" id="breadcrumbs"&gt;
+        &lt;script type="text/javascript"&gt;
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        &lt;/script&gt;
+
+        &lt;ul class="breadcrumb"&gt;
+            &lt;li&gt;
+                &lt;i class="icon-home home-icon"&gt;&lt;/i&gt;
+                &lt;a href="/sys/index.html"&gt;首页&lt;/a&gt;
+            &lt;/li&gt;
+
+            &lt;li class="active"&gt;【${table.cname}】管理&lt;/li&gt;
+        &lt;/ul&gt;
+
+    &lt;/div&gt;
+
+    &lt;div class="page-content"&gt;
+        &lt;div class="page-header"&gt;
+            &lt;h1&gt;【${table.cname}】管理  &lt;/h1&gt;
+        &lt;/div&gt;
+
+        &lt;div class="row"&gt;
+            &lt;div class="col-lg-12"&gt;
+                &lt;div class=" col-lg-7 col-lg-offset-5 text-right" style="padding-right: 0px; margin-right: -12px;"&gt;
+                    &lt;a id="btn-add" class="btn btn-sm btn-primary" href="${table.urlPrefix}add.html"&gt;&lt;i class="icon-plus bigger-125"&gt;&lt;/i&gt;添加  &lt;/a&gt;
+                    &lt;button id="btn-delete" class="btn btn-danger btn-sm"  &gt;&lt;i class="icon-trash bigger-125"&gt;&lt;/i&gt;批量删除  &lt;/button&gt;
+                &lt;/div&gt;
+
+                &lt;hr/&gt;
+
+                &lt;table id="grid-table" class="col-lg-12 table table-striped table-bordered table-hover"&gt;&lt;/table&gt;
+                &lt;div id="grid-pager"&gt;&lt;/div&gt;
+
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;script src="/statics/pages${table.velocityPathPrefix}list.js" &gt; &lt;/script&gt;
+</pre>

@@ -1,0 +1,100 @@
+<ul class="nav nav-list">
+    <li id="menu_sys_index">
+        <a href="/sys/index.html"><i class="icon-home"></i><span class="menu-text"> 首页 </span></a>
+    </li>
+
+    <li id="menu_dept" data-id="2">
+        <a href="#" class="dropdown-toggle" >
+            <i class="icon-user"></i> <span class="menu-text">用户权限模块</span>
+            <b class="arrow icon-angle-down"></b>
+        </a>
+
+        <ul class="submenu">
+            <li id="menu_sys_dept_department">
+                <a href="/sys/dept/department/list.html"  >  <i class="icon-double-angle-right"></i>机构管理 </a>
+            </li>
+            <li id="menu_sys_dept_user">
+                <a href="/sys/dept/user/list.html"  >  <i class="icon-double-angle-right"></i>用户管理 </a>
+            </li>
+            <li id="menu_sys_dept_resource">
+                <a href="/sys/dept/resource/list.html"  >  <i class="icon-double-angle-right"></i>资源管理 </a>
+            </li>
+            <li id="menu_sys_dept_role">
+                <a href="/sys/dept/role/list.html"  >  <i class="icon-double-angle-right"></i>角色管理 </a>
+            </li>
+        </ul>
+    </li>
+
+    <li id="menu_config"  >
+        <a href="#" class="dropdown-toggle" >
+            <i class="icon-cogs"></i> <span class="menu-text">数据配置模块</span>
+            <b class="arrow icon-angle-down"></b>
+        </a>
+
+        <ul class="submenu">
+            <li id="menu_config_constant">
+                <a href="/sys/config/constant/list.html"  >  <i class="icon-double-angle-right"></i>系统常量配置 </a>
+            </li>
+            <li id="menu_config_dict">
+                <a href="/sys/config/dict/list.html"  >  <i class="icon-double-angle-right"></i>代码表配置 </a>
+            </li>
+            <li id="menu_config_dict">
+                <a href="/sys/config/area/list.html"  >  <i class="icon-double-angle-right"></i>行政区划配置 </a>
+            </li>
+        </ul>
+    </li>
+
+    <li id="menu_cms"  >
+        <a href="#" class="dropdown-toggle" >
+            <i class="icon-pencil"></i> <span class="menu-text">CMS模块</span>
+            <b class="arrow icon-angle-down"></b>
+        </a>
+
+        <ul class="submenu">
+            <li id="menu_cms_catalog">
+                <a href="/cms/catalog/list.html"  >  <i class="icon-double-angle-right"></i>分类管理 </a>
+            </li>
+            <li id="menu_cms_article">
+                <a href="/cms/article/list.html"  >  <i class="icon-double-angle-right"></i>文章管理 </a>
+            </li>
+            <li id="menu_cms_photo">
+                <a href="/cms/photo/list.html"  >  <i class="icon-double-angle-right"></i>图集管理 </a>
+            </li>
+            <li id="menu_cms_vedio">
+                <a href="/cms/vedio/list.html"  >  <i class="icon-double-angle-right"></i>视频管理 </a>
+            </li>
+            <li id="menu_cms_download">
+                <a href="/cms/download/list.html"  >  <i class="icon-double-angle-right"></i>下载管理 </a>
+            </li>
+            <li id="menu_cms_product">
+                <a href="/cms/product/list.html"  >  <i class="icon-double-angle-right"></i>产品管理 </a>
+            </li>
+        </ul>
+    </li>
+
+    <li id="menu_generator"  >
+        <a href="#" class="dropdown-toggle" >
+            <i class="icon-code"></i> <span class="menu-text">代码生成模块</span>
+            <b class="arrow icon-angle-down"></b>
+        </a>
+
+        <ul class="submenu">
+            <li id="menu_generator_table_list">
+                <a href="/dev/generator/table/list.html"  >  <i class="icon-double-angle-right"></i>数据库表管理 </a>
+            </li>
+            <li id="menu_generator_1table_grid">
+                <a href="/dev/generator/1table_grid/list.html"  >  <i class="icon-double-angle-right"></i>单表grid生成 </a>
+            </li>
+            <li id="menu_generator_1table_treegrid">
+                <a href="/dev/generator/1table_treegrid/list.html"  >  <i class="icon-double-angle-right"></i>单表treegrid生成 </a>
+            </li>
+            <li id="menu_generator_2table_tree_grid">
+                <a href="/dev/generator/2table_tree_grid/list.html"  >  <i class="icon-double-angle-right"></i>双表tree加grid生成 </a>
+            </li>
+            <li id="menu_generator_2table_grid_grid">
+                <a href="/dev/generator/2table_grid_grid/list.html"  >  <i class="icon-double-angle-right"></i>双表grid加grid生成 </a>
+            </li>
+        </ul>
+    </li>
+
+</ul>

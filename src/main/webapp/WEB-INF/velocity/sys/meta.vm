@@ -1,0 +1,36 @@
+    <link rel="stylesheet" href="/statics/ace/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/statics/ace/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/statics/ace/css/jquery-ui-1.10.3.full.min.css"/>
+    <link rel="stylesheet" href="/statics/ace/css/zTreeStyle.css"/>
+    <link rel="stylesheet" href="/statics/ace/css/google-font.css"/>
+    <link rel="stylesheet" href="/statics/ace/css/jquery-ui-1.10.3.full.min.css"/>
+    <link rel="stylesheet" href="/statics/ace/css/datepicker.css"/>
+    <link rel="stylesheet" href="/statics/ace/css/bootstrap-timepicker.css"/>
+    <link rel="stylesheet" href="/statics/ace/css/daterangepicker.css"/>
+    <link rel="stylesheet" href="/statics/ace/css/chosen.css" />
+    <link rel="stylesheet" href="/statics/ace/css/ui.jqgrid-zb.css"/>
+    <link rel="stylesheet" href="/statics/ace/css/ace.min.css"/>
+    <link rel="stylesheet" href="/statics/ace/css/ace-rtl.min.css"/>
+    <link rel="stylesheet" href="/statics/ace/css/ace-skins.min.css"/>
+    <link rel="stylesheet" href="/statics/ace/css/ace-jd.css"/>
+    <link rel="stylesheet" href="/statics/plugin/layer/skin/layer.css"/>
+
+
+    <script src="/statics/ace/js/ace-extra.min.js"></script>
+    <script src="/statics/ace/js/jquery.min.js"></script>
+    <script src="/statics/ace/js/bootstrap.min.js"></script>
+    <script src="/statics/ace/js/ace-elements.min.js"></script>
+    <script src="/statics/ace/js/ace.min.js"></script>
+
+    <script src="/statics/ace/js/jqgrid/jquery.jqGrid.min.js"></script>
+    <script src="/statics/ace/js/jqgrid/grid.locale-cn.js"></script>
+
+    <script src="/statics/ace/js/date-time/bootstrap-datepicker.min.js"></script>
+
+    <script src="/statics/ace/js/fuelux/fuelux.spinner.min.js"></script>
+    <script src="/statics/ace/js/jquery.form.min.js"></script>
+    <script src="/statics/ace/js/jquery.validate.min.js"></script>
+    <script src="/statics/ace/js/chosen.jquery.min.js"></script>
+    <script src="/statics/ace/js/ztree/jquery.ztree.core-3.5.min.js"></script>
+    <script src="/statics/ace/js/ztree/jquery.ztree.core-3.5.js"></script>
+    <script src="/statics/ace/js/ztree/jquery.ztree.all-3.5.js"></script>

@@ -1,0 +1,64 @@
+#set($page_title="数据库表管理")
+#set($selected_menu_id="menu_generator_table_list")
+
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="/sys/index.html">首页</a>
+            </li>
+
+            <li class="active">数据库表管理</li>
+        </ul>
+        <!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>数据库表管理</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-bordered ">
+                    <tr>
+                        <th>Name</th>
+                        <th>CName</th>
+                        <th>Descp</th>
+                        <th>Domain</th>
+                        <th>Dao</th>
+                        <th>Controller</th>
+                        <th>UrlPrefix</th>
+                        <th>VelocityPrefix</th>
+                        <th>操作</th>
+                    </tr>
+                    #foreach($table in $tableList)
+                        <tr>
+                            <td>${table.name}</td>
+                            <td>$!{table.cname}</td>
+                            <td>$!{table.descp}</td>
+                            <td>$!{table.domainClass}</td>
+                            <td>$!{table.daoClass}</td>
+                            <td>$!{table.controllerClass}</td>
+                            <td>$!{table.urlPrefix}</td>
+                            <td>$!{table.velocityPathPrefix}</td>
+                            <td><a href="/dev/generator/table/edit.html?name=${table.name}">配置</a></td>
+                        </tr>
+                    #end
+                </table>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.page-content -->
+</div><!-- /.main-content -->

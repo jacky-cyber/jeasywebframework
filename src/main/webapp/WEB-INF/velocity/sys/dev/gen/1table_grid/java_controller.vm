@@ -1,0 +1,111 @@
+
+
+#set($layout="sys/gen/layout_code.vm")
+#set($page_title=${table.controllerPkg}+'.'+${table.controllerClass})
+
+<pre class="prettyprint linenums">
+
+package ${table.controllerPkg};
+
+import ${table.daoPkg}.${table.daoClass};
+import ${table.domainPkg}.${table.domainClass};
+import com.jeasywebframework.utils.AjaxUtil;
+import net.sf.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Date;
+import java.util.StringTokenizer;
+
+/**
+ * 表【${table.name}】对应的controller代码.
+ * @author wangchangbing@gmail.com
+ * @date 2013-12-20
+ */
+@Controller
+@RequestMapping(&quot;${table.urlPrefix}&quot;)
+public class ${table.domainClass}Controller} {
+
+    @Autowired
+    private ${table.daoClass} $table.smallFirst(${table.daoClass});
+
+    @RequestMapping(value = &quot;list.html&quot;, method = RequestMethod.GET)
+    public String list() {
+        return &quot;${table.velocityPathPrefix}list&quot;;
+    }
+
+
+    @RequestMapping(value = &quot;list.ajax&quot;, method = RequestMethod.GET)
+    @ResponseBody
+    public JSONObject listData(@RequestParam(value = &quot;page&quot;, defaultValue = &quot;1&quot;) int page,
+                               @RequestParam(value = &quot;rows&quot;, defaultValue = &quot;50&quot;) int rows) {
+        Pageable pageable = new PageRequest(page - 1, rows);
+        Page&lt;${table.domainClass}&gt; pageRst = ${table.smallFirst(${table.daoClass})}.findAll(pageable);
+        return AjaxUtil.jqGridJson(pageRst);
+    }
+
+
+    @RequestMapping(value = &quot;add.html&quot;, method = RequestMethod.GET)
+    public String add() {
+        return &quot;${table.velocityPathPrefix}add&quot;;
+    }
+
+    @RequestMapping(value = &quot;save.ajax&quot;, method = RequestMethod.POST)
+    @ResponseBody
+    public JSONObject save(${table.domainClass} $table.smallFirst($table.domainClass)) {
+        // TODO
+        Date now = new Date(System.currentTimeMillis());
+        ${table.smallFirst(${table.domainClass})}.setCreateTime(now);
+        ${table.smallFirst(${table.domainClass})}.setUpdateTime(now);
+
+        ${table.smallFirst($table.daoClass)}.save(${table.smallFirst($table.domainClass)});
+        return AjaxUtil.success();
+    }
+
+    @RequestMapping(value = &quot;edit.html&quot;, method = RequestMethod.GET)
+    public String edit(Model model, Long id) {
+        ${table.domainClass} ${table.smallFirst($table.domainClass)} =  ${table.smallFirst($table.daoClass)}
+    .findOne(id);
+        model.addAttribute(&quot;${table.smallFirst($table.domainClass)}&quot;, ${table.smallFirst($table.domainClass)}
+    );
+
+        return &quot;${table.velocityPathPrefix}edit&quot;;
+    }
+
+    @RequestMapping(value = &quot;update.ajax&quot;, method = RequestMethod.POST)
+    @ResponseBody
+    public JSONObject update(${table.domainClass} ${table.smallFirst($table.domainClass)}) {
+        // TODO
+        Date now = new Date(System.currentTimeMillis());
+        ${table.smallFirst($table.domainClass)}.setUpdateTime(now);
+
+        // TODO  不能修改的数据项目
+        ${table.domainClass} old = ${table.smallFirst($table.daoClass)}.findOne(${table.smallFirst($table.domainClass)}
+    .getId());
+        ${table.smallFirst($table.domainClass)}.setCreateTime(old.getCreateTime());
+
+        ${table.smallFirst($table.daoClass)}.saveAndFlush(${table.smallFirst($table.domainClass)});
+        return AjaxUtil.success();
+    }
+
+    @RequestMapping(value = &quot;delete.ajax&quot;, method = RequestMethod.POST)
+    @ResponseBody
+    public JSONObject delete(String ids) {
+        StringTokenizer stringTokenizer = new StringTokenizer(ids, &quot;,&quot;);
+        while (stringTokenizer.hasMoreTokens()) {
+            String ID = stringTokenizer.nextToken();
+            ${table.smallFirst($table.daoClass)}.delete(Long.parseLong(ID));
+        }
+        return AjaxUtil.success();
+    }
+
+
+
+}
+
+
+</pre>

@@ -1,0 +1,53 @@
+#set($layout="sys/layout.vm")
+
+#set($page_title="资源管理")
+#set($selected_menu_id="menu_sys_dept_resource")
+
+
+
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="/sys/index.html">首页</a>
+            </li>
+
+            <li class="active">资源管理</li>
+        </ul>
+        <!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>资源管理  </h1>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-8 col-lg-offset-4 text-right">
+                <a class="btn btn-sm btn-primary" href="/sys/dept/resource/add.html">
+                    <i class="icon-plus align-top bigger-125"></i>添加
+                </a>
+                <a class="btn btn-sm btn-primary" href="/sys/dept/resource/batch-add.html">
+                    <i class="icon-plus align-top bigger-125"></i>批量添加
+                </a>
+            </div>
+            <div class="col-lg-12 widget-main">
+                <table id="grid-table"></table>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.page-content -->
+</div><!-- /.main-content -->
+
+<script type="application/javascript" src="/statics/pages/sys/dept/resource/list.js?_v=${staticVersion}"></script>

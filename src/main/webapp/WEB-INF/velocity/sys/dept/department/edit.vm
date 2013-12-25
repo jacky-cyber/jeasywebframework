@@ -1,0 +1,143 @@
+#set($layout="sys/layout.vm")
+
+#set($page_title="机构管理")
+#set($selected_menu_id="menu_sys_dept_department")
+
+
+
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="/sys/index.html">首页</a>
+            </li>
+
+            <li class="active">机构管理</li>
+        </ul>
+        <!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>修改【机构】</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <form id="addForm" class="form-horizontal" role="form">
+                    <input type="hidden" name="id" id="id" value="${dept.id}" />
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="pId"> 上级机构 </label>
+
+                        <div class="col-lg-9  ">
+                            <input type="text" id="pIdName" name="pIdName"   readonly="true"
+                                   placeholder="默认顶级机构" value="$!{pIdName}" class="col-xs-10 col-sm-5"/>
+
+                            <div style="display: none; min-width: 300px; margin-left: 12px;"
+                                 class="clearfix dropdown-menu" id="treeContainer">
+                                <div id="tree1" class="ztree" style="padding: 5px 4px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="parentId"> 上级机构ID </label>
+
+                        <div class="col-lg-9  ">
+                            <input type="text" id="parentId" name="parentId" readonly="true" value="$!{parentId}" class="col-xs-10 col-sm-5">
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="name"> 名称 </label>
+
+                        <div class="col-lg-9">
+                            <input type="text" id="name" name="name" placeholder="名称" value="$!{dept.name}" class="col-xs-10 col-sm-5"/>
+                        </div>
+                    </div>
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="code"> 编码 </label>
+
+                        <div class="col-lg-9">
+                            <input type="text" id="code" name="code" placeholder="编码" value="$!{dept.code}" class="col-xs-10 col-sm-5"/>
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="oorder"> 排序值 </label>
+
+                        <div class="col-lg-5">
+                            <div class="ace-spinner" style="width: 70px;">
+                                <div class="input-group">
+                                    <input type="text" id="oorder" name="oorder" value="$!{dept.oorder}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+                    <div class="form-group ">
+                        <label class="col-lg-3 control-label no-padding-left" for="enabled"> 是否有效 </label>
+                        <div class="col-lg-5">
+                            <select id="enabled" class="col-lg-10 jd-chosen-select" name="enabled" >
+                                <option value="Y"  #if($dept.enabled=='Y')selected
+                                #end>是</option>
+                                <option value="N" #if($dept.enabled=='N')selected
+                                #end>否</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="descp"> 描述</label>
+
+                        <div class="col-lg-9">
+                            <textarea style="padding: 5px;" id="descp" name="descp" placeholder="描述"
+                                      class="col-xs-10 col-sm-5">$!{dept.descp}</textarea>
+                        </div>
+                    </div>
+                    <div class="clearfix form-actions">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button class="btn btn-info btn-sm" type="submit">
+                                <i class="icon-ok bigger-110"></i>
+                                保存
+                            </button>
+
+                            &nbsp; &nbsp; &nbsp;
+                            <button class="btn  btn-sm" type="reset">
+                                <i class="icon-undo bigger-110"></i>
+                                重置
+                            </button>
+                            &nbsp; &nbsp; &nbsp;
+                            <a class="btn  btn-sm" href="/sys/dept/department/list.html">
+                                <i class="icon-reply bigger-110"></i>
+                                返回列表
+                            </a>
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.page-content -->
+</div><!-- /.main-content -->
+
+
+<script type="application/javascript" src="/statics/pages/sys/dept/department/edit.js?_v=${staticVersion}"></script>

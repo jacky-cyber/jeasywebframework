@@ -1,0 +1,255 @@
+#set($layout="sys/layout.vm")
+
+#set($page_title="用户管理")
+#set($selected_menu_id="menu_sys_dept_user")
+
+
+
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="/sys/index.html">首页</a>
+            </li>
+
+            <li class="active">用户管理</li>
+        </ul>
+        <!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>添加【用户】</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <form class="form-horizontal" role="form" id="addForm" name="addForm" action=""  method="post">
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="pId"> 所属机构 </label>
+
+                        <div class="col-lg-9  ">
+                            <input type="text" id="pIdName" name="pIdName" style="cursor: pointer;" readonly="true"
+                                   placeholder="所属机构" value="$!{pIdName}" class="col-xs-10 col-sm-5"/>
+
+                            <div style="display: none; min-width: 300px; margin-left: 12px;" class="clearfix dropdown-menu" id="treeContainer">
+                                <div id="tree1" class="ztree" style="padding: 5px 4px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="departmentId"> 所属机构ID </label>
+
+                        <div class="col-lg-9  ">
+                            <input type="text" id="departmentId" name="departmentId" readonly="true" value="$!{departmentId}" class="col-xs-10 col-sm-5">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="username"> 用户名 </label>
+
+                        <div class="col-lg-5">
+                            <input type="text" id="username" name="username" placeholder="用户名" class="col-lg-8" >
+                        </div>
+                    </div>
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="password"> 密码 </label>
+
+                        <div class="col-lg-5">
+                            <input type="password" id="password" name="password" placeholder="密码" class="col-lg-8" >
+                        </div>
+                    </div>
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="password2"> 密码确认 </label>
+
+                        <div class="col-lg-5">
+                            <input type="password" id="password2" name="password2" placeholder="密码确认" class="col-lg-8" >
+                        </div>
+                    </div>
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="name"> 姓名 </label>
+
+                        <div class="col-lg-5">
+                            <input type="text" id="name" name="name" placeholder="姓名" class="col-lg-8" >
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+                    <div class="form-group ">
+                        <label class="col-lg-3 control-label no-padding-left" for="sex"> 性别 </label>
+                        <div class="col-lg-5">
+                            <select id="sex" class="col-lg-10 jd-chosen-select" name="sex" >
+                                <option value="男">男</option>
+                                <option value="女">女</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+                    <div class="form-group ">
+                        <label class="col-lg-3 control-label no-padding-left" for="birthday"> 生日 </label>
+                        <div class="col-lg-5"  >
+                            <span class="input-icon input-icon-right">
+                                <input type="text" id="birthday" name="birthday" class="date-picker"  data-date-format="yyyy-mm-dd">
+                                <i class="icon-calendar  "></i>
+                            </span>
+                        </div>
+                    </div>
+
+
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="email"> 邮箱 </label>
+
+                        <div class="col-lg-5">
+                            <input type="text" id="email" name="email" placeholder="邮箱" class="col-lg-8" >
+                        </div>
+                    </div>
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="mobile"> 手机 </label>
+
+                        <div class="col-lg-5">
+                            <input type="text" id="mobile" name="mobile" placeholder="手机" class="col-lg-8" >
+                        </div>
+                    </div>
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="idCard"> 身份证 </label>
+
+                        <div class="col-lg-5">
+                            <input type="text" id="idCard" name="idCard" placeholder="身份证" class="col-lg-8" >
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="homePhone"> 家庭电话 </label>
+                        <div class="col-lg-9">
+                            <input type="text" id="homePhone" name="homePhone" placeholder="家庭电话" class="col-xs-10 col-sm-5"/>
+                        </div>
+                    </div>
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="officePhone"> 工作电话 </label>
+                        <div class="col-lg-9">
+                            <input type="text" id="officePhone" name="officePhone" placeholder="工作电话" class="col-xs-10 col-sm-5"/>
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="address"> 地址 </label>
+                        <div class="col-lg-9">
+                            <input type="text" id="address" name="address" placeholder="地址" class="col-xs-10 col-sm-5"/>
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="postcode"> 邮编 </label>
+                        <div class="col-lg-9">
+                            <input type="text" id="postcode" name="postcode" placeholder="邮编" class="col-xs-10 col-sm-5"/>
+                        </div>
+                    </div>
+
+
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="qq"> QQ </label>
+                        <div class="col-lg-9">
+                            <input type="text" id="qq" name="qq" placeholder="QQ" class="col-xs-10 col-sm-5"/>
+                        </div>
+                    </div>
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="msn"> MSN </label>
+                        <div class="col-lg-9">
+                            <input type="text" id="msn" name="msn" placeholder="MSN" class="col-xs-10 col-sm-5"/>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="space-4"></div>
+                    <div class="form-group ">
+                        <label class="col-lg-3 control-label no-padding-left" for="enabled"> 是否有效 </label>
+                        <div class="col-lg-5">
+                            <select id="enabled" class="col-lg-10 jd-chosen-select" name="enabled" >
+                                <option value="Y">是</option>
+                                <option value="N">否</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="oorder"> 排序值 </label>
+
+                        <div class="col-lg-5">
+                            <div class="ace-spinner" style="width: 70px;">
+                                <div class="input-group">
+                                    <input type="text" id="oorder" name="oorder" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="descp"> 描述</label>
+
+                        <div class="col-lg-9">
+                            <textarea style="padding: 5px;" id="descp" name="descp" placeholder="描述"
+                                      class="col-xs-10 col-sm-5"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="space-4"></div>
+                    <div class="clearfix form-actions">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button class="btn btn-info btn-sm" type="submit" id="btn-submit">
+                                <i class="icon-ok bigger-110"></i>
+                                保存
+                            </button>
+
+                            &nbsp; &nbsp; &nbsp;
+                            <button class="btn  btn-sm" type="reset">
+                                <i class="icon-undo bigger-110"></i>
+                                重置
+                            </button>
+
+                            &nbsp; &nbsp; &nbsp;
+                            <a class="btn btn-sm" type="reset" href="/sys/dept/user/list.html">
+                                <i class="icon-reply bigger-110"></i>
+                                返回列表
+                            </a>
+                        </div>
+                    </div>
+
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="application/javascript" src="/statics/pages/sys/dept/user/add.js?_v=${staticVersion}"></script>

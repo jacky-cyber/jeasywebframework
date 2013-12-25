@@ -1,0 +1,44 @@
+#set($layout="sys/gen/layout_code.vm")
+#set($page_title=${table.velocityPathPrefix} + 'add.js')
+
+<pre class="prettyprint linenums">
+$(document).ready(function(){
+
+   $('#addForm').validate({
+        rules: {
+            #foreach($column in $columnList)
+   //  ${column.smallName} : { required : true },
+            #end
+},
+        errorElement: 'div',
+        errorClass: 'help-block',
+        focusInvalid: false,
+        invalidHandler: function (event, validator) { //display error alert on form submit
+            $('.alert-danger', $('.login-form')).show();
+        },
+        highlight: function (e) {
+            $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+        },
+        success: function (e) {
+            $(e).closest('.form-group').removeClass('has-error').addClass('has-info');
+            $(e).remove();
+        },
+        submitHandler: function (form) {
+            $('#addForm').ajaxSubmit({
+                url: '${table.urlPrefix}save.ajax',
+                type: 'post',
+                dataType: 'json',
+                success: function (json, statusText, xhr, $form) {
+                    if (json.success) {
+                        window.location.href = "${table.urlPrefix}list.html";
+                    } else {
+                        alert(json.msg);
+                    }
+                }
+            });
+        }
+    });
+
+
+}));
+</pre>

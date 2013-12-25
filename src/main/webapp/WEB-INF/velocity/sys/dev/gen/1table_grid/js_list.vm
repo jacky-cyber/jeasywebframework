@@ -1,0 +1,105 @@
+#set($layout="sys/gen/layout_code.vm")
+#set($page_title=${table.velocityPathPrefix} + 'list.js')
+
+<pre class="prettyprint linenums">
+$(document).ready(function(){
+
+    var grid_selector = "#grid-table";
+    var pager_selector = "#grid-pager";
+
+
+
+    $(grid_selector).jqGrid({
+        url: "${table.urlPrefix}list.ajax",
+        datatype: "json",
+        height: '100%',
+        mtype: "GET",
+        postData: {
+            // TODO
+        },
+        colNames: [
+            #foreach($column in $columnList)
+            '${column.cname}',
+            #end
+            '操作'
+        ],
+        colModel: [
+            #foreach($column in $columnList)
+            {name: '${column.smallName}', index: '${column.smallName}', width: 100  },
+            #end
+            {
+                            name: 'ops',
+                            index: '',
+                            fixed: true,
+                            width: 80,
+                            sortable: false,
+                            resize: false,
+                            formatter: function (p1, p2, record) {
+                                var btn_edit = '&lt;a href="/sys/sys_dept_user/edit.html?id=' + record.id + '" class="no-underline btn btn-xs btn-info" title="修改"&gt;&lt;i class="icon-edit bigger-120"&gt;&lt;/i&gt;&lt;/a&gt;'
+                                return btn_edit;
+                            }
+                        }
+        ],
+        viewrecords: true,
+        rowNum: 10,
+        rowList: [10, 20, 50, 100],
+        pager: pager_selector,
+        altRows: true,
+        multiselect: true,
+        multiboxonly: true,
+        // caption: "【${table.cname}】列表",
+        autowidth: true,
+        loadComplete: function () {
+            setGridIcon();
+        }
+    });
+
+
+    function setGridIcon(){
+        setTimeout(function () {
+            var replacement = {
+                'ui-icon-seek-first': 'icon-double-angle-left bigger-140',
+                'ui-icon-seek-prev': 'icon-angle-left bigger-140',
+                'ui-icon-seek-next': 'icon-angle-right bigger-140',
+                'ui-icon-seek-end': 'icon-double-angle-right bigger-140'
+            };
+            $('.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon').each(function () {
+                var icon = $(this);
+                var _class = $.trim(icon.attr('class').replace('ui-icon', ''));
+
+                if (_class in replacement) {
+                    icon.attr('class', 'ui-icon ' + replacement[_class]);
+                }
+            });
+        }, 0);
+    }
+
+
+    $('#btn-delete').click(function () {
+        var ids = $(grid_selector).jqGrid('getGridParam', 'selarrrow');
+        if (ids == null || ids.length == 0) {
+            alert('请选择要删除的记录！');
+            return false;
+        }
+        if (confirm("确定要删除数据？")) {
+            jQuery.ajax({
+                url: '${table.urlPrefix}delete.ajax',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    ids: ids.join(',')
+                },
+                success: function (json, statusText, xhr, $form) {
+                    if (json._success) {
+                        $(grid_selector).jqGrid('setGridParam', { postData: {}, page: 1 }).trigger("reloadGrid");
+                    } else {
+                        alert(json._msg);
+                    }
+                }
+            })
+        }
+    });
+
+
+}));
+</pre>

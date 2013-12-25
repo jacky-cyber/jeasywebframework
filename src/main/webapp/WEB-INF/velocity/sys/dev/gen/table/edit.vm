@@ -1,0 +1,229 @@
+#set($page_title="单表grid代码生成")
+#set($selected_menu_id="menu_generator_table_list")
+
+<div class="main-content">
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="/admin/index.html">首页</a>
+            </li>
+
+            <li class="active">单表grid代码生成</li>
+        </ul>
+        <!-- .breadcrumb -->
+
+    </div>
+
+    <div class="page-content">
+        <div class="page-header">
+            <h1>配置【${table.name}】</h1>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <form id="addForm" class="form-horizontal" role="form">
+                    <input type="hidden" name="id" id="id" value="$!{table.id}" />
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="name"> 名称 </label>
+
+                        <div class="col-lg-9">
+                            <input type="text" id="name" readonly name="name" value="${table.name}" placeholder="名称" class="col-xs-10 col-sm-5"/>
+                        </div>
+                    </div>
+                    <div class="space-4"></div>
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="cname"> 中文名称 </label>
+
+                        <div class="col-lg-9">
+                            <input type="text" id="cname"   name="cname" value="$!{table.cname}" placeholder="中文名称" class="col-xs-10 col-sm-5"/>
+                        </div>
+                    </div>
+                    <div class="space-4"></div>
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="descp"> 描述 </label>
+                        <div class="col-lg-9">
+                            <input type="text" id="descp"   name="descp" value="$!{table.descp}" placeholder="描述" class="col-xs-10 col-sm-5"/>
+                        </div>
+                    </div>
+                    <div class="space-4"></div>
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="domainPkg"> DomainPackage </label>
+                        <div class="col-lg-9">
+                            <input type="text" id="domainPkg"   name="domainPkg" value="$!{table.domainPkg}"  class="col-xs-10 col-sm-5"/>
+                        </div>
+                    </div>
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="domainClass"> DomainClass </label>
+                        <div class="col-lg-9">
+                            <input type="text" id="domainClass"   name="domainClass" value="$!{table.domainClass}"  class="col-xs-10 col-sm-5"/>
+                        </div>
+                    </div>
+                    <div class="space-4"></div>
+
+
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="daoPkg"> DaoPackage </label>
+                        <div class="col-lg-9">
+                            <input type="text" id="daoPkg"   name="daoPkg" value="$!{table.daoPkg}"  class="col-xs-10 col-sm-5"/>
+                        </div>
+                    </div>
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="daoClass"> DaoClass </label>
+                        <div class="col-lg-9">
+                            <input type="text" id="daoClass"   name="daoClass" value="$!{table.daoClass}"  class="col-xs-10 col-sm-5"/>
+                        </div>
+                    </div>
+                    <div class="space-4"></div>
+
+
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="controllerClass"> ControllerPackage </label>
+                        <div class="col-lg-9">
+                            <input type="text" id="controllerPkg"   name="controllerPkg" value="$!{table.controllerPkg}"  class="col-xs-10 col-sm-5"/>
+                        </div>
+                    </div>
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="controllerClass"> ControllerClass </label>
+                        <div class="col-lg-9">
+                            <input type="text" id="controllerClass"   name="controllerClass" value="$!{table.controllerClass}"  class="col-xs-10 col-sm-5"/>
+                        </div>
+                    </div>
+                    <div class="space-4"></div>
+
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="urlPrefix"> URL Prefix </label>
+                        <div class="col-lg-9">
+                            <input type="text" id="urlPrefix"   name="urlPrefix" value="$!{table.urlPrefix}"  class="col-xs-10 col-sm-5"/>
+                        </div>
+                    </div>
+                    <div class="space-4"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label no-padding-left" for="velocityPathPrefix"> Velocity Prefix </label>
+                        <div class="col-lg-9">
+                            <input type="text" id="velocityPathPrefix"   name="velocityPathPrefix" value="$!{table.velocityPathPrefix}"  class="col-xs-10 col-sm-5"/>
+                        </div>
+                    </div>
+                    <div class="space-4"></div>
+
+                </form>
+            </div>
+
+            <div class="col-lg-12" style="overflow-x: scroll; overflow-y: hidden;">
+                <table class="table table-bordered table-hover table-striped" style="white-space: nowrap;">
+                    <tr>
+                        <th>Name</th>
+                        <th>DbType</th>
+                        <th>DbKey</th>
+                        <th>DbNull</th>
+                        <th>CName</th>
+                        <th>Descp</th>
+                        <th>JavaType</th>
+                        <th>HtmlType</th>
+                        <th>Required</th>
+                        <th>RequiredMsg</th>
+                        <th>MinLength-MaxLength</th>
+                        <th>MinVal-MaxVal</th>
+                        <th>DateFormat</th>
+                    </tr>
+                    #foreach($column in $columnList)
+                        <tr class="column-data" cid="$!{column.id}">
+                            <td class="column-name">${column.name}</td>
+                            <td class="column-dbType">$!{column.dbType}</td>
+                            <td class="column-dbKey">$!{column.dbKey}</td>
+                            <td class="column-dbNull">${column.dbNull}</td>
+                            <td class="column-cname"><input value="$!{column.cname}" name="cname" type="text" /> </td>
+                            <td class="column-descp"><input value="$!{column.descp}" name="descp" type="text" /></td>
+                            <td class="column-javaType">
+                                <select>
+                                    <option value="java.lang.String" #if(${column.javaType} == 'java.lang.String')selected
+                                    #end>java.lang.String</option>
+                                    <option value="java.lang.Integer" #if(${column.javaType} == 'java.lang.Integer')selected
+                                    #end>java.lang.Integer</option>
+                                    <option value="java.util.Date" #if(${column.javaType} == 'java.util.Date')selected
+                                    #end>java.util.Date</option>
+                                    <option value="java.lang.Long" #if(${column.javaType} == 'java.lang.Long')selected
+                                    #end>java.lang.Long</option>
+                                    <option value="java.lang.Float" #if(${column.javaType} == 'java.lang.Float')selected
+                                    #end>java.lang.Float</option>
+                                    <option value="java.lang.Double" #if(${column.javaType} == 'java.lang.Double')selected
+                                    #end>java.lang.Double</option>
+                                </select>
+
+                            </td>
+                            <td class="column-htmlType">
+                                <select>
+                                    <option value="text" >Text</option>
+                                    <option value="password" >Password</option>
+                                    <option value="textarea">Textarea</option>
+                                    <option value="url">URL</option>
+                                    <option value="date_input">DateInput</option>
+                                    <option value="number">Number</option>
+                                </select>
+                            </td>
+                            <td class="column-required">
+                                <select>
+                                    <option value="Y" #if($!{column.required}=='Y')selected
+                                    #end>是</option>
+                                    <option value="N" #if($!{column.required} == 'N')selected
+                                    #end>否</option>
+                                </select>
+                            </td>
+                            <td class="column-requiredMsg"><input value="$!{column.requiredMsg}" type="text" /></td>
+                            <td class="column-length">
+                                <input value="$!{column.minLength}" type="text" style="width:50px;"/> -
+                                <input value="$!{column.maxLength}" type="text" style="width:50px;"/>
+                            </td>
+                            <td class="column-val">
+                                <input value="$!{column.minVal}" type="text" style="width:50px;"/> -
+                                <input value="$!{column.maxVal}" type="text" style="width:50px;"/>
+                            </td>
+                            <td class="column-dateFormat"><input value="$!{column.dateFormat}" type="text"/> </td>
+                        </tr>
+                    #end
+                </table>
+
+                <form class="form-horizontal">
+                    <div class="clearfix form-actions">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button class="btn btn-info btn-sm" type="button" id="btn-submit">
+                                <i class="icon-ok bigger-110"></i>
+                                保存
+                            </button>
+
+                            &nbsp; &nbsp; &nbsp;
+                            <a class="btn  btn-sm" href="/sys/generator/1table_grid/list.html">
+                                <i class="icon-reply bigger-110"></i>
+                                返回列表
+                            </a>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.page-content -->
+</div><!-- /.main-content -->
+
+
+
+<script type="application/javascript" src="/statics/pages/sys/gen/table/edit.js?_v=${staticVersion}"></script>

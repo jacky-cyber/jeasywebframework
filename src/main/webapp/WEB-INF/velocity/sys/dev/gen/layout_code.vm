@@ -1,0 +1,27 @@
+
+
+
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="utf-8"/>
+    <title>$!{page_title}</title>
+    <link rel="stylesheet" href="/statics/ace/css/prettify.css" />
+
+</head>
+<body>
+
+    $screen_content
+
+<script src="/statics/ace/js/jquery.min.js"></script>
+<script src="/statics/ace/js/bootstrap.min.js"></script>
+<script src="/statics/ace/js/prettify.js"></script>
+<script type="text/javascript">
+    jQuery(function($) {
+        window.prettyPrint && prettyPrint();
+    });
+</script>
+
+</body>
+</html>
+

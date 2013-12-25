@@ -1,0 +1,90 @@
+
+
+/*.chosen-container-single .chosen-drop {*/
+    /*border-bottom:1px solid #F9A021;*/
+    /*border-color: #F9A021;*/
+
+/*}*/
+/*.chosen-container-single .chosen-single div b:hover{*/
+    /*background:#F9A021;*/
+/*}*/
+/*.chosen-container-active .chosen-single, .chosen-container-active .chosen-choices {*/
+    /*border: 1px solid #F9A021;*/
+/*}*/
+/*.chosen-container .chosen-results li.highlighted {*/
+    /*background-color: #F9A021;*/
+/*}*/
+/*.chosen-container-active.chosen-with-drop .chosen-single{*/
+    /*border: 1px solid #F9A021;*/
+/*}*/
+/*.datepicker .icon-arrow-right:hover, .datepicker .icon-arrow-left:hover{*/
+    /*cursor:pointer;*/
+    /*color:#F9A021;*/
+/*}*/
+/*textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], input[type="checkbox"].ace + .lbl::before, input[type="radio"].ace + .lbl::before{*/
+    /*border-color:#aaa;*/
+/*}*/
+
+
+/*table*/
+/*.ui-jqgrid-view > .ui-jqgrid-titlebar{*/
+    /*background:#6fb3e0;*/
+/*}*/
+/*.ui-jqgrid .ui-jqgrid-labels {*/
+    /*border-left: 1px solid #a7cfed!important;*/
+    /*background:#a7ceea ;*/
+
+
+
+/*}*/
+/*th[aria-selected="true"] {*/
+
+    /*background:#95c6e9 ;*/
+/*}*/
+/*.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td{*/
+    /*border-top:none*/
+/*}*/
+/*.ui-jqgrid-hdiv .ui-jqgrid-htable {*/
+    /*border-top: 1px solid #a7cfed;*/
+/*}*/
+/*.ui-jqgrid .ui-jqgrid-htable th div{*/
+    /*color:#fff;*/
+/*}*/
+/*.ui-jqgrid .ui-jqgrid-labels th{*/
+    /*border-right:1px solid #98c7ec!important;*/
+/*}*/
+/*.datepicker td:hover{*/
+    /*background:#f9bd68;*/
+    /*color:#fff;*/
+    /*cursor:pointer;*/
+/*}*/
+/*.datepicker td.active, .daterangepicker td.active, .datepicker td.active:hover, .daterangepicker td.active:hover{*/
+    /*background:#F9A021!important;*/
+    /*color:#fff;*/
+/*}*/
+/*.ui-jqgrid tr.ui-row-ltr td, .ui-jqgrid tr.ui-row-rtl td{*/
+    /*border-color:#a7cfed;*/
+/*}*/
+/*.ui-jqgrid .ui-jqgrid-btable {*/
+    /*border-left: 1px solid #a7cfed;*/
+/*}*/
+/*.ui-state-disabled {*/
+    /*color: #f6f8f8;*/
+/*}*/
+
+/*page*/
+/*.ui-pg-table>tbody>tr>.ui-pg-button>.ui-icon:hover {*/
+	/*color: #F9A021;*/
+	/*border-color: #F9A021*/
+/*}*/
+/*.ui-jqgrid .ui-jqgrid-pager{*/
+    /*background:#c1daec!important;*/
+    /*border-top:1px solid #c1daec!important;*/
+    /*border-bottom:1px solid #c1daec!important;*/
+/*}*/
+
+
+
+.bdp-textarea{
+    padding: 5px 4px;
+}

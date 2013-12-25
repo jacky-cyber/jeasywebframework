@@ -1,0 +1,7 @@
+#set($layout="sys/gen/layout_code.vm")
+#set($page_title=${table.velocityPathPrefix} + 'edit.vm')
+
+<pre class="prettyprint linenums">
+
+</pre>
+

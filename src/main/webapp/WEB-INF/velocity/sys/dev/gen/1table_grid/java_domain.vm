@@ -1,0 +1,65 @@
+#set($layout="sys/gen/layout_code.vm")
+#set($page_title=${table.domainPkg}+'.'+${table.domainClass})
+
+<pre class="prettyprint linenums">
+
+package ${table.domainPkg};
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
+
+
+/**
+* &lt;p&gt;
+* 数据库表【${table.name}】对应的domain对象.
+* &lt;/p&gt;
+* @author wangchangbing@gmail.com
+* @date $dateTool.format('yyyy-MM-dd', $now)
+*/
+@Entity()
+@Table(name = "${table.name}")
+public class ${table.domainClass} implements Serializable{
+
+
+
+    #foreach($column in $columnList)
+
+    #if($column.dbKey == 'PRI')
+    @Id
+        @GeneratedValue(strategy = GenerationType.AUTO)
+    #else
+    @Column(name = "${column.name}" )
+    #end
+    private ${column.javaType} ${column.smallName}; // $!{column.cname}
+
+
+    #end
+
+
+
+
+    // ========================================================================================
+    // ========================================================================================
+    // ========================================================================================
+    #foreach($column in $columnList)
+/**
+     * ${column.cname}
+     * @return
+     */
+    public ${column.javaType} get${column.bigName}() {
+        return ${column.smallName};
+    }
+
+    /**
+     * ${column.cname}
+     * @param ${column.smallName}
+     */
+    public void set${column.bigName}(${column.javaType} ${column.smallName}) {
+        this.${column.smallName} = ${column.smallName};
+    }
+    #end
+
+}
+
+</pre>

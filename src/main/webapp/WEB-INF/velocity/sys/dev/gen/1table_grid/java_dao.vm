@@ -1,0 +1,28 @@
+
+#set($layout="sys/gen/layout_code.vm")
+#set($page_title=${table.daoPkg}+'.'+${table.daoClass})
+
+<pre class="prettyprint linenums">
+
+package ${table.daoPkg};
+
+import ${table.domainPkg}.${table.domainClass};
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+
+/**
+* &lt;p&gt;
+* 数据库表【${table.name}】对应的dao对象.
+* &lt;/p&gt;
+* @author wangchangbing@gmail.com
+* @date $dateTool.format('yyyy-MM-dd', $now)
+    */
+@Repository
+public interface ${table.daoClass} extends JpaRepository<${table.domainClass}, Long> {
+
+
+}
+
+</pre>
