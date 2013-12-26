@@ -1,7 +1,7 @@
 package com.jeasywebframework.service.dept;
 
-import com.jeasywebframework.domain.dept.SysDeptRole;
-import com.jeasywebframework.domain.dept.SysDeptRoleResource;
+import com.jeasywebframework.domain.dept.Role;
+import com.jeasywebframework.domain.dept.RoleResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -15,20 +15,20 @@ public interface RoleService {
     String CACHE_VALUE = "sys_dept_role";
 
 
-    Page<SysDeptRole> findAll(Pageable pageable);
+    Page<Role> findAll(Pageable pageable);
 
 
-    SysDeptRole findOne(Long id);
+    Role findOne(Long id);
 
 
     void delete(Long id);
 
 
-    void save(SysDeptRole sysDeptRole, String resourceIds);
+    void save(Role role, String resourceIds);
 
 
-    void update(SysDeptRole sysDeptRole, String resourceIds);
+    void update(Role role, String resourceIds);
 
 
-    List<SysDeptRoleResource> findAllRoleResourceByRoleId(Long roleId);
+    List<RoleResource> findAllRoleResourceByRoleId(Long roleId);
 }

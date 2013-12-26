@@ -1,7 +1,7 @@
 package com.jeasywebframework.web.controller.sys.dev;
 
-import com.jeasywebframework.domain.dev.SysGenColumn;
-import com.jeasywebframework.domain.dev.SysGenTable;
+import com.jeasywebframework.domain.dev.GenColumn;
+import com.jeasywebframework.domain.dev.GenTable;
 import com.jeasywebframework.service.dev.GeneratorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +36,7 @@ public class OneTableGridController {
         Date now = new Date(System.currentTimeMillis());
         model.addAttribute("now", now);
 
-        List<SysGenTable> tableList = generatorService.findAllTable();
+        List<GenTable> tableList = generatorService.findAllTable();
         model.addAttribute("tableList", tableList);
         return "sys/dev/gen/1table_grid/list";
     }
@@ -48,8 +48,8 @@ public class OneTableGridController {
         model.addAttribute("now", now);
 
 
-        SysGenTable table = generatorService.findByName(name);
-        List<SysGenColumn> columnList = generatorService.findAllColumn(name);
+        GenTable table = generatorService.findByName(name);
+        List<GenColumn> columnList = generatorService.findAllColumn(name);
         model.addAttribute("table", table);
         model.addAttribute("columnList", columnList);
 
@@ -62,8 +62,8 @@ public class OneTableGridController {
         model.addAttribute("now", now);
 
 
-        SysGenTable table = generatorService.findByName(name);
-        List<SysGenColumn> columnList = generatorService.findAllColumn(name);
+        GenTable table = generatorService.findByName(name);
+        List<GenColumn> columnList = generatorService.findAllColumn(name);
         model.addAttribute("table", table);
         model.addAttribute("columnList", columnList);
 
@@ -76,8 +76,8 @@ public class OneTableGridController {
         model.addAttribute("now", now);
 
 
-        SysGenTable table = generatorService.findByName(name);
-        List<SysGenColumn> columnList = generatorService.findAllColumn(name);
+        GenTable table = generatorService.findByName(name);
+        List<GenColumn> columnList = generatorService.findAllColumn(name);
         model.addAttribute("table", table);
         model.addAttribute("columnList", columnList);
 
@@ -90,8 +90,8 @@ public class OneTableGridController {
         Date now = new Date(System.currentTimeMillis());
         model.addAttribute("now", now);
 
-        SysGenTable table = generatorService.findByName(name);
-        List<SysGenColumn> columnList = generatorService.findAllColumn(name);
+        GenTable table = generatorService.findByName(name);
+        List<GenColumn> columnList = generatorService.findAllColumn(name);
         model.addAttribute("table", table);
         model.addAttribute("columnList", columnList);
 
@@ -104,8 +104,8 @@ public class OneTableGridController {
         model.addAttribute("now", now);
 
 
-        SysGenTable table = generatorService.findByName(name);
-        List<SysGenColumn> columnList = generatorService.findAllColumn(name);
+        GenTable table = generatorService.findByName(name);
+        List<GenColumn> columnList = generatorService.findAllColumn(name);
         model.addAttribute("table", table);
         model.addAttribute("columnList", columnList);
 
@@ -118,8 +118,8 @@ public class OneTableGridController {
         Date now = new Date(System.currentTimeMillis());
         model.addAttribute("now", now);
 
-        SysGenTable table = generatorService.findByName(name);
-        List<SysGenColumn> columnList = generatorService.findAllColumn(name);
+        GenTable table = generatorService.findByName(name);
+        List<GenColumn> columnList = generatorService.findAllColumn(name);
         model.addAttribute("table", table);
         model.addAttribute("columnList", columnList);
 
@@ -132,8 +132,8 @@ public class OneTableGridController {
         Date now = new Date(System.currentTimeMillis());
         model.addAttribute("now", now);
 
-        SysGenTable table = generatorService.findByName(name);
-        List<SysGenColumn> columnList = generatorService.findAllColumn(name);
+        GenTable table = generatorService.findByName(name);
+        List<GenColumn> columnList = generatorService.findAllColumn(name);
         model.addAttribute("table", table);
         model.addAttribute("columnList", columnList);
 
@@ -145,8 +145,8 @@ public class OneTableGridController {
         Date now = new Date(System.currentTimeMillis());
         model.addAttribute("now", now);
 
-        SysGenTable table = generatorService.findByName(name);
-        List<SysGenColumn> columnList = generatorService.findAllColumn(name);
+        GenTable table = generatorService.findByName(name);
+        List<GenColumn> columnList = generatorService.findAllColumn(name);
         model.addAttribute("table", table);
         model.addAttribute("columnList", columnList);
 
@@ -159,8 +159,8 @@ public class OneTableGridController {
         Date now = new Date(System.currentTimeMillis());
         model.addAttribute("now", now);
 
-        SysGenTable table = generatorService.findByName(name);
-        List<SysGenColumn> columnList = generatorService.findAllColumn(name);
+        GenTable table = generatorService.findByName(name);
+        List<GenColumn> columnList = generatorService.findAllColumn(name);
         model.addAttribute("table", table);
         model.addAttribute("columnList", columnList);
 

@@ -1,7 +1,7 @@
 package com.jeasywebframework.web.controller.sys.dept;
 
 import com.jeasywebframework.domain.dept.HostHolder;
-import com.jeasywebframework.domain.dept.SysDeptDepartment;
+import com.jeasywebframework.domain.dept.Department;
 import com.jeasywebframework.service.dept.DepartmentService;
 import com.jeasywebframework.utils.AjaxUtil;
 import com.jeasywebframework.utils.json.WebJsonConfig;
@@ -11,7 +11,6 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,10 +44,10 @@ public class DepartmentController {
     @RequestMapping(value = "list-tree.ajax", method = RequestMethod.GET)
     @ResponseBody
     public JSONArray listTree() {
-        List<SysDeptDepartment> departmentList = departmentService.findAll(new Sort(Sort.Direction.ASC, "path"));
+        List<Department> departmentList = departmentService.findAll();
 
         JSONArray jsonArray = new JSONArray();
-        for (SysDeptDepartment department : departmentList) {
+        for (Department department : departmentList) {
             JSONObject jo = JSONObject.fromObject(department, WebJsonConfig.getInstance());
 
             jo.put("pId", department.getParentId());
@@ -63,10 +62,10 @@ public class DepartmentController {
     public JSONObject listGrid() {
         JSONObject jsonObject = new JSONObject();
 
-        List<SysDeptDepartment> departmentList = departmentService.findAll(new Sort(Sort.Direction.ASC, "path"));
+        List<Department> departmentList = departmentService.findAll();
 
         JSONArray jsonArray = new JSONArray();
-        for (SysDeptDepartment department : departmentList) {
+        for (Department department : departmentList) {
             JSONObject jo = JSONObject.fromObject(department);
 
             if (department.getChildrenNum().intValue() > 0) {
@@ -106,23 +105,23 @@ public class DepartmentController {
         model.addAttribute("parentId", parentId);
 
         if (parentId != 0L) {
-            SysDeptDepartment parent = departmentService.findOne(parentId);
+            Department parent = departmentService.findOne(parentId);
             model.addAttribute("pIdName", parent.getName());
         } else {
             model.addAttribute("pIdName", "顶级机构名称");
         }
 
-        List<SysDeptDepartment> departmentList = departmentService.findAll(new Sort(Sort.Direction.ASC, "path"));
+        List<Department> departmentList = departmentService.findAll();
         model.addAttribute("deptList", departmentList);
         return "sys/dept/department/add";
     }
 
     @RequestMapping(value = "save.ajax", method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject save(SysDeptDepartment sysDeptDepartment, HostHolder hostHolder) {
-        Long parentId = sysDeptDepartment.getParentId();
+    public JSONObject save(Department department, HostHolder hostHolder) {
+        Long parentId = department.getParentId();
 
-        SysDeptDepartment test1 = departmentService.findByCode(sysDeptDepartment.getCode());
+        Department test1 = departmentService.findByCode(department.getCode());
         if (test1 != null) {
             return AjaxUtil.failure("机构编码不能重复，请重新输入数据！");
         }
@@ -130,10 +129,10 @@ public class DepartmentController {
 
         String path = "";
         if (parentId == 0L) {
-            sysDeptDepartment.setLevel(1);
+            department.setLevel(1);
         } else {
-            SysDeptDepartment parent = departmentService.findOne(parentId);
-            sysDeptDepartment.setLevel(parent.getLevel() + 1);
+            Department parent = departmentService.findOne(parentId);
+            department.setLevel(parent.getLevel() + 1);
             path = parent.getPath();
 
             Long count = departmentService.countByParentId(parentId);
@@ -142,40 +141,40 @@ public class DepartmentController {
         }
 
         Date date = new Date(System.currentTimeMillis());
-        sysDeptDepartment.setCreateTime(date);
-        sysDeptDepartment.setUpdateTime(date);
-        sysDeptDepartment.setCreateUserId(hostHolder.getHostId());
-        sysDeptDepartment.setUpdateUserId(hostHolder.getHostId());
+        department.setCreateTime(date);
+        department.setUpdateTime(date);
+        department.setCreateUserId(hostHolder.getHostId());
+        department.setUpdateUserId(hostHolder.getHostId());
 
-        sysDeptDepartment.setChildrenNum(0L);
+        department.setChildrenNum(0L);
 
-        if (StringUtils.isEmpty(sysDeptDepartment.getPath())) {
-            sysDeptDepartment.setPath("/");
+        if (StringUtils.isEmpty(department.getPath())) {
+            department.setPath("/");
         }
 
-        departmentService.save(sysDeptDepartment);
+        departmentService.save(department);
 
 
-        sysDeptDepartment.setPath(path + "/" + sysDeptDepartment.getId());
-        departmentService.saveAndFlush(sysDeptDepartment);
+        department.setPath(path + "/" + department.getId());
+        departmentService.saveAndFlush(department);
 
         return AjaxUtil.success();
     }
 
     @RequestMapping(value = "edit.html", method = RequestMethod.GET)
     public String edit(Model model, Long id) {
-        SysDeptDepartment department = departmentService.findOne(id);
+        Department department = departmentService.findOne(id);
         model.addAttribute("dept", department);
 
         model.addAttribute("parentId", department.getParentId());
         if (department.getParentId() > 0L) {
-            SysDeptDepartment parent = departmentService.findOne(department.getParentId());
+            Department parent = departmentService.findOne(department.getParentId());
             model.addAttribute("pIdName", parent.getName());
         } else {
             model.addAttribute("pIdName", "顶级机构名称");
         }
 
-        List<SysDeptDepartment> departmentList = departmentService.findAll(new Sort(Sort.Direction.ASC, "path"));
+        List<Department> departmentList = departmentService.findAll();
         model.addAttribute("deptList", departmentList);
         return "sys/dept/department/edit";
     }
@@ -183,30 +182,30 @@ public class DepartmentController {
 
     @RequestMapping(value = "update.ajax", method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject update(SysDeptDepartment sysDeptDepartment, HostHolder hostHolder) {
+    public JSONObject update(Department department, HostHolder hostHolder) {
 
 
-        SysDeptDepartment test1 = departmentService.findByCode(sysDeptDepartment.getCode());
-        if (test1 != null && test1.getId().intValue() != sysDeptDepartment.getId().intValue()) {
+        Department test1 = departmentService.findByCode(department.getCode());
+        if (test1 != null && test1.getId().intValue() != department.getId().intValue()) {
             return AjaxUtil.failure("机构编码不能重复，请重新输入数据！");
         }
 
 
-        SysDeptDepartment old = departmentService.findOne(sysDeptDepartment.getId());
+        Department old = departmentService.findOne(department.getId());
 
         // 不能修改的属性
-        sysDeptDepartment.setCreateTime(old.getCreateTime());
-        sysDeptDepartment.setPath(old.getPath());
-        sysDeptDepartment.setLevel(old.getLevel());
-        sysDeptDepartment.setParentId(old.getParentId());
-        sysDeptDepartment.setChildrenNum(old.getChildrenNum());
+        department.setCreateTime(old.getCreateTime());
+        department.setPath(old.getPath());
+        department.setLevel(old.getLevel());
+        department.setParentId(old.getParentId());
+        department.setChildrenNum(old.getChildrenNum());
 
 
         Date now = new Date(System.currentTimeMillis());
-        sysDeptDepartment.setUpdateUserId(hostHolder.getHostId());
-        sysDeptDepartment.setUpdateTime(new Date(System.currentTimeMillis()));
+        department.setUpdateUserId(hostHolder.getHostId());
+        department.setUpdateTime(new Date(System.currentTimeMillis()));
 
-        departmentService.saveAndFlush(sysDeptDepartment);
+        departmentService.saveAndFlush(department);
 
         return AjaxUtil.success();
     }

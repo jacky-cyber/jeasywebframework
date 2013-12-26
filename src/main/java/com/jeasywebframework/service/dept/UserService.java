@@ -1,6 +1,6 @@
 package com.jeasywebframework.service.dept;
 
-import com.jeasywebframework.domain.dept.SysDeptUser;
+import com.jeasywebframework.domain.dept.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -13,18 +13,18 @@ public interface UserService {
 
     boolean hasAccess(Long hostId, String url);
 
-    SysDeptUser findByCookieUsernameAndPwd(String id, String pwd);
+    User findByCookieUsernameAndPwd(String id, String pwd);
 
-    SysDeptUser loginCheck(String username, String password);
+    User loginCheck(String username, String password);
 
-    Page<SysDeptUser> findByKeywordAndDeptId(Pageable pageable, String keyword, Long deptId);
+    Page<User> findByKeywordAndDeptId(Pageable pageable, String keyword, Long deptId);
 
     void delete(long id);
 
-    void save(SysDeptUser sysDeptUser);
+    void save(User user);
 
-    SysDeptUser findOne(Long id);
+    User findOne(Long id);
 
-    void saveAndFlush(SysDeptUser sysDeptUser);
+    void saveAndFlush(User user);
 
 }

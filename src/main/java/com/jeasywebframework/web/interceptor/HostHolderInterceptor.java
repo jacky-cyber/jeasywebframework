@@ -1,7 +1,7 @@
 package com.jeasywebframework.web.interceptor;
 
 import com.jeasywebframework.domain.dept.HostHolder;
-import com.jeasywebframework.domain.dept.SysDeptUser;
+import com.jeasywebframework.domain.dept.User;
 import com.jeasywebframework.domain.dev.Tracker;
 import com.jeasywebframework.service.dept.UserService;
 import com.jeasywebframework.service.dev.TrackerHolder;
@@ -55,10 +55,10 @@ public class HostHolderInterceptor implements HandlerInterceptor {
             HostHolder hostHolder = new HostHolder();
 
             if (StringUtils.isNotBlank(_username) && StringUtils.isNotBlank(_pwd)) {
-                SysDeptUser sysDeptUser = userService.findByCookieUsernameAndPwd(_username, _pwd);
+                User user = userService.findByCookieUsernameAndPwd(_username, _pwd);
 
-                if (sysDeptUser != null) {
-                    hostHolder.setHost(sysDeptUser);
+                if (user != null) {
+                    hostHolder.setHost(user);
                 }
 
             }

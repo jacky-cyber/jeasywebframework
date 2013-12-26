@@ -1,7 +1,7 @@
 package com.jeasywebframework.web.controller.sys.dev;
 
 import com.jeasywebframework.domain.dept.HostHolder;
-import com.jeasywebframework.domain.dev.SysDevSqlLog;
+import com.jeasywebframework.domain.dev.SqlLog;
 import com.jeasywebframework.service.dev.SqlLogService;
 import com.jeasywebframework.utils.AjaxUtil;
 import com.jeasywebframework.utils.IpUtil;
@@ -58,7 +58,7 @@ public class SqlController {
     public JSONObject sqlLogAjax(@RequestParam(value = "page", defaultValue = "1") int page,
                                  @RequestParam(value = "rows", defaultValue = "20") int rows) {
         Pageable pageable = new PageRequest(page - 1, rows);
-        Page<SysDevSqlLog> pageRst = sqlLogService.findAll(pageable);
+        Page<SqlLog> pageRst = sqlLogService.findAll(pageable);
         return AjaxUtil.jqGridJson(pageRst);
     }
 
@@ -79,7 +79,7 @@ public class SqlController {
         }
         try {
             //记录SQL操作日志
-            SysDevSqlLog sqlLog = new SysDevSqlLog();
+            SqlLog sqlLog = new SqlLog();
             Date now = new Date(System.currentTimeMillis());
 
             sqlLog.setCreateUserId(hostHolder.getHostId());
@@ -199,7 +199,7 @@ public class SqlController {
         try { //记录SQL操作日志
             Date now = new Date(System.currentTimeMillis());
 
-            SysDevSqlLog sqlLog = new SysDevSqlLog();
+            SqlLog sqlLog = new SqlLog();
             sqlLog.setIp(IpUtil.getRequestIp(request));
             sqlLog.setCreateUserId(hostHolder.getHostId());
             sqlLog.setCreateTime(now);

@@ -1,10 +1,7 @@
 package com.jeasywebframework.service.dept;
 
-import com.jeasywebframework.domain.dept.SysDeptUser;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.util.Assert;
@@ -24,11 +21,6 @@ public class DepartmentServiceTest extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void test_findAll() {
-        departmentService.findAll(new Sort(Sort.Direction.ASC, "path"));
-
-        departmentService.findAll(new Sort(Sort.Direction.ASC, "path"));
-
-
     }
 
 

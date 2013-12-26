@@ -1,7 +1,7 @@
 package com.jeasywebframework.web.controller.sys.dept;
 
 import com.jeasywebframework.domain.dept.HostHolder;
-import com.jeasywebframework.domain.dept.SysDeptResource;
+import com.jeasywebframework.domain.dept.Resource;
 import com.jeasywebframework.service.dept.ResourceService;
 import com.jeasywebframework.utils.AjaxUtil;
 import com.jeasywebframework.utils.json.WebJsonConfig;
@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,10 +51,10 @@ public class ResourceController {
     public JSONObject listGrid() {
         JSONObject jsonObject = new JSONObject();
 
-        List<SysDeptResource> departmentList = resourceService.findAll(new Sort(Sort.Direction.ASC, "path"));
+        List<Resource> departmentList = resourceService.findAll();
 
         JSONArray jsonArray = new JSONArray();
-        for (SysDeptResource department : departmentList) {
+        for (Resource department : departmentList) {
             JSONObject jo = JSONObject.fromObject(department);
             if (department.getChildrenNum().intValue() > 0) {
                 jo.put("isLeaf", false);
@@ -93,9 +92,9 @@ public class ResourceController {
     @ResponseBody
     public JSONArray loadTree() {
         JSONArray jsonArray = new JSONArray();
-        List<SysDeptResource> moduleList = resourceService.findAll(new Sort(Sort.Direction.DESC, SysDeptResource.PATH));
+        List<Resource> moduleList = resourceService.findAll();
 
-        for (SysDeptResource module : moduleList) {
+        for (Resource module : moduleList) {
             JSONObject jo = JSONObject.fromObject(module, WebJsonConfig.getInstance());
             jo.put("pId", module.getParentId());
             jsonArray.add(jo);
@@ -109,7 +108,7 @@ public class ResourceController {
         model.addAttribute("parentId", parentId);
 
         if (parentId != 0L) {
-            SysDeptResource parent = resourceService.findOne(parentId);
+            Resource parent = resourceService.findOne(parentId);
             model.addAttribute("pIdName", parent.getName());
         } else {
             model.addAttribute("pIdName", "顶级模块名称");
@@ -122,7 +121,7 @@ public class ResourceController {
 
     @RequestMapping(value = "save.ajax", method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject save(SysDeptResource sysDeptModule, HostHolder hostHolder) {
+    public JSONObject save(Resource sysDeptModule, HostHolder hostHolder) {
 
         Long parentId = sysDeptModule.getParentId();
 
@@ -130,7 +129,7 @@ public class ResourceController {
         if (parentId == 0L) {
             sysDeptModule.setLevel(1);
         } else {
-            SysDeptResource parent = resourceService.findOne(parentId);
+            Resource parent = resourceService.findOne(parentId);
             sysDeptModule.setLevel(parent.getLevel() + 1);
             path = parent.getPath();
 
@@ -158,12 +157,12 @@ public class ResourceController {
 
     @RequestMapping(value = "edit.html", method = RequestMethod.GET)
     public String edit(Model model, Long id) {
-        SysDeptResource department = resourceService.findOne(id);
+        Resource department = resourceService.findOne(id);
         model.addAttribute("dept", department);
 
         model.addAttribute("parentId", department.getParentId());
         if (department.getParentId() > 0L) {
-            SysDeptResource parent = resourceService.findOne(department.getParentId());
+            Resource parent = resourceService.findOne(department.getParentId());
             model.addAttribute("pIdName", parent.getName());
         } else {
             model.addAttribute("pIdName", "顶级模块名称");
@@ -175,9 +174,9 @@ public class ResourceController {
 
     @RequestMapping(value = "update.ajax", method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject update(SysDeptResource sysDeptModule, HostHolder hostHolder) {
+    public JSONObject update(Resource sysDeptModule, HostHolder hostHolder) {
 
-        SysDeptResource old = resourceService.findOne(sysDeptModule.getId());
+        Resource old = resourceService.findOne(sysDeptModule.getId());
 
         sysDeptModule.setUpdateTime(new Date(System.currentTimeMillis()));
         sysDeptModule.setUpdateUserId(hostHolder.getHostId());
@@ -203,7 +202,7 @@ public class ResourceController {
             @RequestParam(value = "moduleId", defaultValue = "0") Long moduleId,//
             Model model) {
         if (moduleId > 0) {
-            SysDeptResource module = resourceService.findOne(moduleId);
+            Resource module = resourceService.findOne(moduleId);
             model.addAttribute("pIdName", module.getName());
         } else {
             model.addAttribute("pIdName", "请选择模块");
@@ -217,7 +216,7 @@ public class ResourceController {
         List<String> controllerList = new ArrayList<String>();
 
 
-        List<SysDeptResource> resourceList = new ArrayList<SysDeptResource>();
+        List<Resource> resourceList = new ArrayList<Resource>();
 
         Map<String, String> treeMap = new HashMap<String, String>();
         while (iterator.hasNext()) {
@@ -226,7 +225,7 @@ public class ResourceController {
             treeMap.put(handlerMethod.getBeanType().getName(), handlerMethod.getBeanType().getName());
 
             if (StringUtils.equals(handlerMethod.getBeanType().getName(), className)) {
-                SysDeptResource sysDeptResource = new SysDeptResource();
+                Resource resource = new Resource();
                 RequestMapping requestMapping = handlerMethod.getMethodAnnotation(RequestMapping.class);
 
                 RequestMapping requestMapping1 = handlerMethod.getBeanType().getAnnotation(RequestMapping.class);
@@ -237,7 +236,7 @@ public class ResourceController {
                     }
                 }
 
-                sysDeptResource.setUrl(path + StringUtils.join(requestMapping.value(), ","));
+                resource.setUrl(path + StringUtils.join(requestMapping.value(), ","));
                 RequestMethod[] requestMethods = requestMapping.method();
                 String[] methods = new String[requestMethods.length];
                 int i = 0;
@@ -245,11 +244,11 @@ public class ResourceController {
                     methods[i++] = requestMethod.name();
                 }
 
-                sysDeptResource.setMethod(StringUtils.join(methods, "/"));
-                sysDeptResource.setJavaMethod(handlerMethod.getBeanType().getName() + "#" + handlerMethod.getMethod().getName());
+                resource.setMethod(StringUtils.join(methods, "/"));
+                resource.setJavaMethod(handlerMethod.getBeanType().getName() + "#" + handlerMethod.getMethod().getName());
 
 
-                resourceList.add(sysDeptResource);
+                resourceList.add(resource);
             }
         }
 
@@ -274,21 +273,21 @@ public class ResourceController {
 
         JSONArray jsonArray = JSONArray.fromObject(resourceList);
 
-        List<SysDeptResource> resources = new ArrayList<SysDeptResource>();
+        List<Resource> resources = new ArrayList<Resource>();
 
         for (int j = 0; j < jsonArray.size(); j++) {
             JSONObject jsonObject = jsonArray.getJSONObject(j);
-            SysDeptResource sysDeptResource = (SysDeptResource) jsonObject.toBean(jsonObject, SysDeptResource.class);
+            Resource resource = (Resource) jsonObject.toBean(jsonObject, Resource.class);
 
 
             Date now = new Date(System.currentTimeMillis());
-            sysDeptResource.setCreateTime(now);
-            sysDeptResource.setUpdateTime(now);
-            sysDeptResource.setCreateUserId(hostHolder.getHostId());
-            sysDeptResource.setUpdateUserId(hostHolder.getHostId());
+            resource.setCreateTime(now);
+            resource.setUpdateTime(now);
+            resource.setCreateUserId(hostHolder.getHostId());
+            resource.setUpdateUserId(hostHolder.getHostId());
 
 
-            resources.add(sysDeptResource);
+            resources.add(resource);
         }
         resourceService.batchSave(resources);
 

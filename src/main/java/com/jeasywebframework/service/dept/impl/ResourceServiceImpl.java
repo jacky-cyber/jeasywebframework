@@ -1,13 +1,11 @@
 package com.jeasywebframework.service.dept.impl;
 
-import com.jeasywebframework.dao.dept.SysDeptResourceDao;
-import com.jeasywebframework.domain.dept.SysDeptResource;
+import com.jeasywebframework.dao.dept.ResourceDao;
+import com.jeasywebframework.domain.dept.Resource;
 import com.jeasywebframework.service.dept.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,42 +16,42 @@ import java.util.List;
 public class ResourceServiceImpl implements ResourceService {
 
     @Autowired
-    private SysDeptResourceDao sysDeptResourceDao;
+    private ResourceDao resourceDao;
 
-    @Cacheable(value = ResourceService.CACHE_VALUE)
+
     @Override
-    public List<SysDeptResource> findAll(Sort sort) {
-        return sysDeptResourceDao.findAll(sort);
+    public List<Resource> findAll() {
+        return resourceDao.findAll();
     }
 
 
     @Override
-    public SysDeptResource findOne(Long id) {
-        return sysDeptResourceDao.findOne(id);
+    public Resource findOne(Long id) {
+        return resourceDao.findOne(id);
     }
 
     @Override
     public Long countByParentId(Long parentId) {
-        return sysDeptResourceDao.countByParentId(parentId);
+        return resourceDao.countByParentId(parentId);
     }
 
-    @CacheEvict(value = ResourceService.CACHE_VALUE)
     @Override
-    public void saveAndFlush(SysDeptResource sysDeptResource) {
-        sysDeptResourceDao.saveAndFlush(sysDeptResource);
+    public void saveAndFlush(Resource resource) {
+        resourceDao.update(resource);
     }
 
 
-    @CacheEvict(value = ResourceService.CACHE_VALUE)
     @Override
-    public void save(SysDeptResource sysDeptResource) {
-        sysDeptResourceDao.save(sysDeptResource);
+    public void save(Resource resource) {
+        resourceDao.save(resource);
     }
 
-    @CacheEvict(value = ResourceService.CACHE_VALUE)
+    @Transactional
     @Override
-    public void batchSave(List<SysDeptResource> resources) {
-        sysDeptResourceDao.save(resources);
+    public void batchSave(List<Resource> resources) {
+        for (Resource resource : resources) {
+            resourceDao.save(resource);
+        }
     }
 
 

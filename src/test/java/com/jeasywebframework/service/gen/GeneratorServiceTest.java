@@ -1,6 +1,6 @@
 package com.jeasywebframework.service.gen;
 
-import com.jeasywebframework.domain.dev.SysGenTable;
+import com.jeasywebframework.domain.dev.GenTable;
 import com.jeasywebframework.service.dev.GeneratorService;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -28,8 +28,8 @@ public class GeneratorServiceTest extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void test_findAll() {
-        List<SysGenTable> tableList = generatorService.findAllTable();
-        for (SysGenTable table : tableList) {
+        List<GenTable> tableList = generatorService.findAllTable();
+        for (GenTable table : tableList) {
             System.out.println("==============>" + table.getName());
         }
     }

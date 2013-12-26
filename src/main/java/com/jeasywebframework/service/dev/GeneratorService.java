@@ -1,7 +1,7 @@
 package com.jeasywebframework.service.dev;
 
-import com.jeasywebframework.domain.dev.SysGenColumn;
-import com.jeasywebframework.domain.dev.SysGenTable;
+import com.jeasywebframework.domain.dev.GenColumn;
+import com.jeasywebframework.domain.dev.GenTable;
 
 import java.util.List;
 
@@ -16,14 +16,14 @@ public interface GeneratorService {
 
 
 
-    List<SysGenTable> findAllTable();
+    List<GenTable> findAllTable();
 
 
-    SysGenTable findByName(String name);
+    GenTable findByName(String name);
 
-    List<SysGenColumn> findAllColumn(String name);
+    List<GenColumn> findAllColumn(String name);
 
-    void saveAll(SysGenTable table, List<SysGenColumn> columns);
+    void saveAll(GenTable table, List<GenColumn> columns);
 
 
 }

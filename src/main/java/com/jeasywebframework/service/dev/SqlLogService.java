@@ -1,6 +1,6 @@
 package com.jeasywebframework.service.dev;
 
-import com.jeasywebframework.domain.dev.SysDevSqlLog;
+import com.jeasywebframework.domain.dev.SqlLog;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -10,9 +10,9 @@ import org.springframework.data.domain.Pageable;
 public interface SqlLogService {
 
 
-    Page<SysDevSqlLog> findAll(Pageable pageable);
+    Page<SqlLog> findAll(Pageable pageable);
 
 
-    void save(SysDevSqlLog sqlLog);
+    void save(SqlLog sqlLog);
 
 }

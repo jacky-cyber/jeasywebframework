@@ -1,7 +1,6 @@
 package com.jeasywebframework.service.dept;
 
-import com.jeasywebframework.domain.dept.SysDeptResource;
-import org.springframework.data.domain.Sort;
+import com.jeasywebframework.domain.dept.Resource;
 
 import java.util.List;
 
@@ -10,24 +9,22 @@ import java.util.List;
  */
 public interface ResourceService {
 
-    String CACHE_VALUE = "sys_dept_resource";
+
+    List<Resource> findAll();
 
 
-    List<SysDeptResource> findAll(Sort path);
-
-
-    SysDeptResource findOne(Long id);
+    Resource findOne(Long id);
 
 
     Long countByParentId(Long parentId);
 
 
-    void saveAndFlush(SysDeptResource sysDeptResource);
+    void saveAndFlush(Resource resource);
 
 
-    void save(SysDeptResource sysDeptResource);
+    void save(Resource resource);
 
 
-    void batchSave(List<SysDeptResource> resources);
+    void batchSave(List<Resource> resources);
 
 }

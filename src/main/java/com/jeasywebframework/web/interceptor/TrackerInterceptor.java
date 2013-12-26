@@ -1,19 +1,17 @@
 package com.jeasywebframework.web.interceptor;
 
-import com.jeasywebframework.dao.dev.SysDevInsideDao;
+import com.jeasywebframework.dao.dev.TrackerDao;
 import com.jeasywebframework.domain.dev.Tracker;
 import com.jeasywebframework.service.dev.TrackerHolder;
 import com.jeasywebframework.utils.IpUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sound.midi.Track;
 import java.util.List;
 
 /**
@@ -25,7 +23,7 @@ public class TrackerInterceptor implements HandlerInterceptor {
 
 
     @Autowired
-    private SysDevInsideDao sysDevInsideDao;
+    private TrackerDao trackerDao;
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
@@ -59,12 +57,12 @@ public class TrackerInterceptor implements HandlerInterceptor {
         if (parent != null) {
             parent.setEndTime(System.currentTimeMillis());
 
-            sysDevInsideDao.save(parent);
+            trackerDao.save(parent);
             parent.setPath("/" + parent.getId());
             parent.setChildrenNum(Long.valueOf(parent.getChildren().size()));
             parent.setLevel(1);
             parent.setParentId(0L);
-            sysDevInsideDao.saveAndFlush(parent);
+            trackerDao.update(parent);
 
             saveTracker(parent);
         }
@@ -77,14 +75,14 @@ public class TrackerInterceptor implements HandlerInterceptor {
 
         List<Tracker> children = parent.getChildren();
         for (Tracker inside1 : children) {
-            sysDevInsideDao.save(inside1);
+            trackerDao.save(inside1);
 
             inside1.setParentId(parent.getId());
             inside1.setPath(parent.getPath() + "/" + inside1.getId());
             inside1.setChildrenNum(Long.valueOf(inside1.getChildren().size()));
             inside1.setLevel(parent.getLevel() + 1);
 
-            sysDevInsideDao.saveAndFlush(inside1);
+            trackerDao.update(inside1);
 
             saveTracker(inside1);
         }

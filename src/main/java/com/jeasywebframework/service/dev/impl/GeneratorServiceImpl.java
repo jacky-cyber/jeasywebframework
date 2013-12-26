@@ -1,9 +1,9 @@
 package com.jeasywebframework.service.dev.impl;
 
-import com.jeasywebframework.dao.dev.SysGenColumnDao;
-import com.jeasywebframework.dao.dev.SysGenTableDao;
-import com.jeasywebframework.domain.dev.SysGenColumn;
-import com.jeasywebframework.domain.dev.SysGenTable;
+import com.jeasywebframework.dao.dev.ColumnDao;
+import com.jeasywebframework.dao.dev.TableDao;
+import com.jeasywebframework.domain.dev.GenColumn;
+import com.jeasywebframework.domain.dev.GenTable;
 import com.jeasywebframework.service.dev.GeneratorService;
 import com.jeasywebframework.utils.NameUtil;
 import org.apache.commons.lang.StringUtils;
@@ -35,13 +35,13 @@ public class GeneratorServiceImpl implements GeneratorService {
 
 
     @Autowired
-    private SysGenTableDao sysGenTableDao;
+    private TableDao tableDao;
 
     @Autowired
-    private SysGenColumnDao sysGenColumnDao;
+    private ColumnDao columnDao;
 
     @Override
-    public List<SysGenTable> findAllTable() {
+    public List<GenTable> findAllTable() {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -49,26 +49,26 @@ public class GeneratorServiceImpl implements GeneratorService {
             connection = dataSource.getConnection();
             statement = connection.createStatement();
 
-            List<SysGenTable> tableList = new ArrayList<SysGenTable>();
+            List<GenTable> tableList = new ArrayList<GenTable>();
 
             resultSet = statement.executeQuery("show tables");
             while (resultSet.next()) {
                 String name = resultSet.getString(1);
-                SysGenTable table = new SysGenTable();
+                GenTable table = new GenTable();
                 table.setName(name);
                 tableList.add(table);
             }
 
 
-            List<SysGenTable> rst = sysGenTableDao.findAll();
+            List<GenTable> rst = tableDao.findAll();
 
-            Map<String, SysGenTable> map = list2Map(rst);
+            Map<String, GenTable> map = list2Map(rst);
 
-            List<SysGenTable> lastList = new ArrayList<SysGenTable>();
+            List<GenTable> lastList = new ArrayList<GenTable>();
 
-            for (SysGenTable table : tableList) {
+            for (GenTable table : tableList) {
                 if (map.containsKey(table.getName())) {
-                    SysGenTable ttt = map.get(table.getName());
+                    GenTable ttt = map.get(table.getName());
                     buildTable(ttt);
                     lastList.add(ttt);
                 } else {
@@ -109,7 +109,7 @@ public class GeneratorServiceImpl implements GeneratorService {
         return Collections.emptyList();
     }
 
-    private void buildTable(SysGenTable table) {
+    private void buildTable(GenTable table) {
         String bigName = NameUtil.getBigName(table.getName());
 
         if (StringUtils.isEmpty(table.getDomainPkg())) {
@@ -145,11 +145,11 @@ public class GeneratorServiceImpl implements GeneratorService {
 
 
     @Override
-    public SysGenTable findByName(String name) {
+    public GenTable findByName(String name) {
 
-        SysGenTable table = sysGenTableDao.findByName(name);
+        GenTable table = tableDao.findByName(name);
         if (table == null) {
-            table = new SysGenTable();
+            table = new GenTable();
             table.setName(name);
         }
         buildTable(table);
@@ -158,9 +158,9 @@ public class GeneratorServiceImpl implements GeneratorService {
     }
 
     @Override
-    public List<SysGenColumn> findAllColumn(String name) {
-        List<SysGenColumn> columnList = sysGenColumnDao.findByTableName(name);
-        Map<String, SysGenColumn> map = columnList2Map(columnList);
+    public List<GenColumn> findAllColumn(String name) {
+        List<GenColumn> columnList = columnDao.findByTableName(name);
+        Map<String, GenColumn> map = columnList2Map(columnList);
 
 
         Connection connection = null;
@@ -170,7 +170,7 @@ public class GeneratorServiceImpl implements GeneratorService {
             connection = dataSource.getConnection();
             statement = connection.createStatement();
 
-            List<SysGenColumn> columnList1 = new ArrayList<SysGenColumn>();
+            List<GenColumn> columnList1 = new ArrayList<GenColumn>();
 
             resultSet = statement.executeQuery("desc " + name);
             while (resultSet.next()) {
@@ -178,7 +178,7 @@ public class GeneratorServiceImpl implements GeneratorService {
 //                        | Field        | Type         | Null | Key | Default | Extra          |
 //                        +--------------+--------------+------+-----+---------+----------------+
 //                        | id           | bigint(20)   | NO   | PRI | NULL    | auto_increment |
-                SysGenColumn sgc = new SysGenColumn();
+                GenColumn sgc = new GenColumn();
                 sgc.setName(resultSet.getString(1));
                 sgc.setDbKey(resultSet.getString(4));
                 sgc.setDbType(resultSet.getString(2));
@@ -188,11 +188,11 @@ public class GeneratorServiceImpl implements GeneratorService {
             }
 
 
-            List<SysGenColumn> lastList = new ArrayList<SysGenColumn>();
+            List<GenColumn> lastList = new ArrayList<GenColumn>();
 
-            for (SysGenColumn c : columnList1) {
+            for (GenColumn c : columnList1) {
                 if (map.containsKey(c.getName())) {
-                    SysGenColumn sss = map.get(c.getName());
+                    GenColumn sss = map.get(c.getName());
                     buildColumn(sss);
                     lastList.add(sss);
                 } else {
@@ -234,15 +234,23 @@ public class GeneratorServiceImpl implements GeneratorService {
     }
 
     @Override
-    public void saveAll(SysGenTable table, List<SysGenColumn> columns) {
-        sysGenTableDao.saveAndFlush(table);
-        for (SysGenColumn column : columns) {
-            sysGenColumnDao.saveAndFlush(column);
+    public void saveAll(GenTable table, List<GenColumn> columns) {
+        if(table.getId()!=null && table.getId().intValue()>0){
+            tableDao.update(table);
+        }else{
+            tableDao.save(table);
+        }
+        for (GenColumn column : columns) {
+            if(column.getId()!=null && column.getId().intValue()>0){
+                columnDao.update(column);
+            }else{
+                columnDao.save(column);
+            }
         }
     }
 
 
-    private void buildColumn(SysGenColumn c) {
+    private void buildColumn(GenColumn c) {
         String dbType = c.getDbType();
 
         if (StringUtils.isEmpty(c.getJavaType())) {
@@ -324,18 +332,18 @@ public class GeneratorServiceImpl implements GeneratorService {
     }
 
 
-    private Map<String, SysGenColumn> columnList2Map(List<SysGenColumn> columns) {
-        Map<String, SysGenColumn> map = new HashMap<String, SysGenColumn>();
-        for (SysGenColumn column : columns) {
+    private Map<String, GenColumn> columnList2Map(List<GenColumn> columns) {
+        Map<String, GenColumn> map = new HashMap<String, GenColumn>();
+        for (GenColumn column : columns) {
             map.put(column.getName(), column);
         }
         return map;
     }
 
-    private Map<String, SysGenTable> list2Map(List<SysGenTable> tables) {
-        Map<String, SysGenTable> map = new HashMap<String, SysGenTable>();
+    private Map<String, GenTable> list2Map(List<GenTable> tables) {
+        Map<String, GenTable> map = new HashMap<String, GenTable>();
 
-        for (SysGenTable table : tables) {
+        for (GenTable table : tables) {
             map.put(table.getName(), table);
         }
 

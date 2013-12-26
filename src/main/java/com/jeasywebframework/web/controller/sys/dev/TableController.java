@@ -1,7 +1,7 @@
 package com.jeasywebframework.web.controller.sys.dev;
 
-import com.jeasywebframework.domain.dev.SysGenColumn;
-import com.jeasywebframework.domain.dev.SysGenTable;
+import com.jeasywebframework.domain.dev.GenColumn;
+import com.jeasywebframework.domain.dev.GenTable;
 import com.jeasywebframework.service.dev.GeneratorService;
 import com.jeasywebframework.utils.AjaxUtil;
 import net.sf.json.JSONArray;
@@ -37,7 +37,7 @@ public class TableController {
     @RequestMapping(value = "list.html", method = RequestMethod.GET)
     public String list(Model model) {
 
-        List<SysGenTable> tableList = generatorService.findAllTable();
+        List<GenTable> tableList = generatorService.findAllTable();
         model.addAttribute("tableList", tableList);
 
         return "sys/dev/gen/table/list";
@@ -45,9 +45,9 @@ public class TableController {
 
     @RequestMapping(value = "edit.html", method = RequestMethod.GET)
     public String edit(String name, Model model) {
-        SysGenTable table = generatorService.findByName(name);
+        GenTable table = generatorService.findByName(name);
 
-        List<SysGenColumn> columnList = generatorService.findAllColumn(name);
+        List<GenColumn> columnList = generatorService.findAllColumn(name);
 
 
         model.addAttribute("columnList", columnList);
@@ -59,17 +59,17 @@ public class TableController {
 
     @RequestMapping(value = "update.ajax", method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject update(SysGenTable table, String columnList) {
+    public JSONObject update(GenTable table, String columnList) {
 
         JSONArray jsonArray = JSONArray.fromObject(columnList);
 
-        List<SysGenColumn> columns = new ArrayList<SysGenColumn>();
+        List<GenColumn> columns = new ArrayList<GenColumn>();
 
         for (int j = 0; j < jsonArray.size(); j++) {
             JSONObject obj = jsonArray.getJSONObject(j);
 
-            SysGenColumn sysGenColumn = (SysGenColumn) JSONObject.toBean(obj, SysGenColumn.class);
-            columns.add(sysGenColumn);
+            GenColumn genColumn = (GenColumn) JSONObject.toBean(obj, GenColumn.class);
+            columns.add(genColumn);
         }
 
         generatorService.saveAll(table, columns);

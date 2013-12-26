@@ -33,13 +33,13 @@
             <div class="col-lg-10">
                 <form id="addForm" class="form-horizontal" role="form">
 
-                    <input type="hidden" id="id" name="id" value="${sysDeptRole.id}" />
+                    <input type="hidden" id="id" name="id" value="${role.id}" />
 
                     <div class="form-group">
                         <label class="col-lg-3 control-label no-padding-left" for="name"> 名称 </label>
 
                         <div class="col-lg-9">
-                            <input type="text" id="name" name="name" value="${sysDeptRole.name}" placeholder="名称" class="col-xs-10 col-sm-5"/>
+                            <input type="text" id="name" name="name" value="${role.name}" placeholder="名称" class="col-xs-10 col-sm-5"/>
                         </div>
                     </div>
                     <div class="space-4"></div>
@@ -55,7 +55,7 @@
 
                         <div class="col-lg-9">
                             <textarea style="padding: 5px;" id="descp" name="descp" placeholder="描述"
-                                      class="col-xs-10 col-sm-5">$!{sysDeptRole.descp}</textarea>
+                                      class="col-xs-10 col-sm-5">$!{role.descp}</textarea>
                         </div>
                     </div>
 
@@ -67,7 +67,7 @@
                         <div class="col-lg-5">
                             <div class="ace-spinner" style="width: 70px;">
                                 <div class="input-group">
-                                    <input type="text" id="oorder" name="oorder" value="${sysDeptRole.oorder}" />
+                                    <input type="text" id="oorder" name="oorder" value="${role.oorder}" />
                                 </div>
                             </div>
                         </div>

@@ -1,7 +1,6 @@
 package com.jeasywebframework.service.dept;
 
-import com.jeasywebframework.domain.dept.SysDeptDepartment;
-import org.springframework.data.domain.Sort;
+import com.jeasywebframework.domain.dept.Department;
 
 import java.util.List;
 
@@ -12,19 +11,19 @@ public interface DepartmentService {
     String CACHE_VALUE = "sys_dept_department";
 
 
-    SysDeptDepartment findOne(Long id);
+    Department findOne(Long id);
 
-    void saveAndFlush(SysDeptDepartment sysDeptDepartment);
+    void saveAndFlush(Department department);
 
 
-    void save(SysDeptDepartment sysDeptDepartment);
+    void save(Department department);
 
 
     Long countByParentId(Long parentId);
 
 
-    List<SysDeptDepartment> findAll(Sort sort);
+    List<Department> findAll();
 
 
-    SysDeptDepartment findByCode(String code);
+    Department findByCode(String code);
 }

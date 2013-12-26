@@ -1,6 +1,6 @@
 package com.jeasywebframework.service.dept;
 
-import com.jeasywebframework.domain.dept.SysDeptUser;
+import com.jeasywebframework.domain.dept.User;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,8 @@ public class UserServiceTest extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void test_loginCheck() {
-        SysDeptUser sysDeptUser = userService.loginCheck("admin", "admin");
-        Assert.notNull(sysDeptUser);
+        User user = userService.loginCheck("admin", "admin");
+        Assert.notNull(user);
     }
 
 

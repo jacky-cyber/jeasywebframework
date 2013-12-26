@@ -1,14 +1,11 @@
 package com.jeasywebframework.domain.dev;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by jeasywebframework@gmail.com on 13-12-26.
  */
-@Entity
-@Table(name = "sys_dev_inside")
 public class Tracker {
 
     public Tracker() {
@@ -18,40 +15,28 @@ public class Tracker {
         this.childrenNum = 0L;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "start_time", nullable = false)
     private Long startTime;
 
-    @Column(name = "end_time", nullable = false)
     private Long endTime;
 
-    @Column(name = "thread_name", nullable = false)
     private String threadName;
 
-    @Column(nullable = false)
     private String ip;
 
-    @Column(nullable = false)
     private String tag;
 
     private String descp;
 
-    @Column(nullable = false)
     private Integer level;
 
-    @Column(name = "children_num", nullable = false)
     private Long childrenNum;
 
-    @Column(name = "parent_id", nullable = false)
     private Long parentId;
 
-    @Column(nullable = false)
     private String path;
 
-    @Transient
     private List<Tracker> children = new ArrayList<Tracker>();
 
     // =========================================================================

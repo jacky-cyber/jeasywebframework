@@ -1,8 +1,8 @@
 package com.jeasywebframework.web.controller.sys.dept;
 
 import com.jeasywebframework.domain.dept.HostHolder;
-import com.jeasywebframework.domain.dept.SysDeptDepartment;
-import com.jeasywebframework.domain.dept.SysDeptUser;
+import com.jeasywebframework.domain.dept.Department;
+import com.jeasywebframework.domain.dept.User;
 import com.jeasywebframework.service.dept.DepartmentService;
 import com.jeasywebframework.service.dept.UserService;
 import com.jeasywebframework.utils.AjaxUtil;
@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
-import java.util.StringTokenizer;
 
 
 /**
@@ -60,7 +59,7 @@ public class UserController {
             @RequestParam(value = "rows", defaultValue = "20") int rows
     ) {
         Pageable pageable = new PageRequest(page - 1, rows);
-        Page<SysDeptUser> pageRst = userService.findByKeywordAndDeptId(pageable, keyword, deptId);
+        Page<User> pageRst = userService.findByKeywordAndDeptId(pageable, keyword, deptId);
         return AjaxUtil.jqGridJson(pageRst);
     }
 
@@ -68,7 +67,7 @@ public class UserController {
     @RequestMapping(value = "add.html", method = RequestMethod.GET)
     public String add(@RequestParam(value = "deptId", defaultValue = "0") Long deptId, Model model) {
         if (deptId > -1L) {
-            SysDeptDepartment department = departmentService.findOne(deptId);
+            Department department = departmentService.findOne(deptId);
 
             model.addAttribute("departmentId", deptId);
             model.addAttribute("pIdName", department.getName());
@@ -83,15 +82,15 @@ public class UserController {
 
     @RequestMapping(value = "save.ajax", method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject save(SysDeptUser sysDeptUser, String password2, HostHolder hostHolder) {
+    public JSONObject save(User user, String password2, HostHolder hostHolder) {
 
 
-        if (StringUtils.isEmpty(sysDeptUser.getUsername())) {
+        if (StringUtils.isEmpty(user.getUsername())) {
             return AjaxUtil.failure("账号不能为空值，请重新输入数据！");
         }
 
 
-        if (!org.apache.commons.lang.StringUtils.equals(password2, sysDeptUser.getPassword())) {
+        if (!org.apache.commons.lang.StringUtils.equals(password2, user.getPassword())) {
             return AjaxUtil.failure("密码和确认密码不一致，请重新输入数据！");
         }
 
@@ -101,29 +100,29 @@ public class UserController {
 
 
         Date date = new Date(System.currentTimeMillis());
-        sysDeptUser.setCreateTime(date);
-        sysDeptUser.setUpdateTime(date);
-        sysDeptUser.setCreateUserId(hostHolder.getHostId());
-        sysDeptUser.setUpdateUserId(hostHolder.getHostId());
+        user.setCreateTime(date);
+        user.setUpdateTime(date);
+        user.setCreateUserId(hostHolder.getHostId());
+        user.setUpdateUserId(hostHolder.getHostId());
 
 
         String salt = RandomStringUtils.random(8);
-        String pwd1 = MD5Util.getMD5Str(sysDeptUser.getPassword()) + salt;
+        String pwd1 = MD5Util.getMD5Str(user.getPassword()) + salt;
         String password = MD5Util.getMD5Str(pwd1);
 
-        sysDeptUser.setSalt(salt);
-        sysDeptUser.setPassword(password);
+        user.setSalt(salt);
+        user.setPassword(password);
 
-        userService.save(sysDeptUser);
+        userService.save(user);
         return AjaxUtil.success(null);
     }
 
 
     @RequestMapping(value = "edit.html", method = RequestMethod.GET)
     public String edit(Long id, Model model) {
-        SysDeptUser sysDeptUser = userService.findOne(id);
+        User user = userService.findOne(id);
 
-        SysDeptDepartment department = departmentService.findOne(sysDeptUser.getDepartmentId());
+        Department department = departmentService.findOne(user.getDepartmentId());
         if (department != null) {
             model.addAttribute("departmentId", department.getId());
             model.addAttribute("pIdName", department.getName());
@@ -133,30 +132,30 @@ public class UserController {
         }
 
 
-        model.addAttribute("user", sysDeptUser);
+        model.addAttribute("user", user);
         return "sys/dept/user/edit";
     }
 
 
     @RequestMapping(value = "update.ajax", method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject update(SysDeptUser sysDeptUser, HostHolder hostHolder) {
-        SysDeptUser old = userService.findOne(sysDeptUser.getId());
+    public JSONObject update(User user, HostHolder hostHolder) {
+        User old = userService.findOne(user.getId());
 
         Date date = new Date(System.currentTimeMillis());
-        sysDeptUser.setUpdateTime(date);
-        sysDeptUser.setUpdateUserId(hostHolder.getHostId());
+        user.setUpdateTime(date);
+        user.setUpdateUserId(hostHolder.getHostId());
 
 
         //不能修改的属性
-        sysDeptUser.setCreateTime(old.getCreateTime());
-        sysDeptUser.setCreateUserId(old.getCreateUserId());
+        user.setCreateTime(old.getCreateTime());
+        user.setCreateUserId(old.getCreateUserId());
 
-        sysDeptUser.setSalt(old.getSalt());
-        sysDeptUser.setPassword(old.getPassword());
+        user.setSalt(old.getSalt());
+        user.setPassword(old.getPassword());
 
 
-        userService.saveAndFlush(sysDeptUser);
+        userService.saveAndFlush(user);
         return AjaxUtil.success(null);
     }
 

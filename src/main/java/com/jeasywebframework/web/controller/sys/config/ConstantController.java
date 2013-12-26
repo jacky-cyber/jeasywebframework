@@ -1,8 +1,8 @@
 package com.jeasywebframework.web.controller.sys.config;
 
-import com.jeasywebframework.dao.config.SysConfigConstantDao;
-import com.jeasywebframework.domain.config.SysConfigConstant;
+import com.jeasywebframework.domain.config.Constant;
 import com.jeasywebframework.domain.dept.HostHolder;
+import com.jeasywebframework.service.config.ConstantService;
 import com.jeasywebframework.utils.AjaxUtil;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +26,9 @@ import java.util.Date;
 @RequestMapping("/sys/config/constant/")
 public class ConstantController {
 
+
     @Autowired
-    private SysConfigConstantDao sysConfigConstantDao;
+    private ConstantService constantService;
 
     @RequestMapping(value = "list.html", method = RequestMethod.GET)
     public String list() {
@@ -38,7 +39,7 @@ public class ConstantController {
     public JSONObject listGrid(@RequestParam(value = "page", defaultValue = "1") int page,
                                @RequestParam(value = "rows", defaultValue = "20") int rows) {
         Pageable pageable = new PageRequest(page - 1, rows);
-        Page<SysConfigConstant> pageRst = sysConfigConstantDao.findAll(pageable);
+        Page<Constant> pageRst = constantService.findAll(pageable);
         return AjaxUtil.jqGridJson(pageRst);
     }
 
@@ -49,15 +50,15 @@ public class ConstantController {
 
     @RequestMapping(value = "save.ajax", method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject save(SysConfigConstant sysConfigConstant, HostHolder hostHolder) {
+    public JSONObject save(Constant constant, HostHolder hostHolder) {
         Date now = new Date(System.currentTimeMillis());
-        sysConfigConstant.setUpdateTime(now);
-        sysConfigConstant.setUpdateUserId(hostHolder.getHostId());
+        constant.setUpdateTime(now);
+        constant.setUpdateUserId(hostHolder.getHostId());
 
-        sysConfigConstant.setCreateUserId(hostHolder.getHostId());
-        sysConfigConstant.setCreateTime(now);
+        constant.setCreateUserId(hostHolder.getHostId());
+        constant.setCreateTime(now);
 
-        sysConfigConstantDao.save(sysConfigConstant);
+        constantService.save(constant);
 
         return AjaxUtil.success();
     }
@@ -65,24 +66,24 @@ public class ConstantController {
 
     @RequestMapping(value = "edit.html", method = RequestMethod.GET)
     public String edit(Long id, Model model) {
-        SysConfigConstant sysConfigConstant = sysConfigConstantDao.findOne(id);
-        model.addAttribute("constant", sysConfigConstant);
+        Constant constant = constantService.findOne(id);
+        model.addAttribute("constant", constant);
 
         return "sys/config/constant/edit";
     }
 
     @RequestMapping(value = "update.ajax", method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject update(SysConfigConstant sysConfigConstant, HostHolder hostHolder) {
+    public JSONObject update(Constant constant, HostHolder hostHolder) {
         Date now = new Date(System.currentTimeMillis());
-        sysConfigConstant.setUpdateTime(now);
-        sysConfigConstant.setUpdateUserId(hostHolder.getHostId());
+        constant.setUpdateTime(now);
+        constant.setUpdateUserId(hostHolder.getHostId());
 
-        SysConfigConstant old = sysConfigConstantDao.findOne(sysConfigConstant.getId());
-        sysConfigConstant.setCreateUserId(old.getUpdateUserId());
-        sysConfigConstant.setCreateTime(old.getCreateTime());
+        Constant old = constantService.findOne(constant.getId());
+        constant.setCreateUserId(old.getUpdateUserId());
+        constant.setCreateTime(old.getCreateTime());
 
-        sysConfigConstantDao.saveAndFlush(sysConfigConstant);
+        constantService.saveAndFlush(constant);
 
         return AjaxUtil.success();
     }

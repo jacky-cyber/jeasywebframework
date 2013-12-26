@@ -1,16 +1,13 @@
 package com.jeasywebframework.web.controller.sys.dev;
 
-import com.jeasywebframework.dao.dev.SysDevInsideDao;
+import com.jeasywebframework.dao.dev.TrackerDao;
 import com.jeasywebframework.domain.dev.Tracker;
 import com.jeasywebframework.utils.AjaxUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +25,7 @@ import java.util.List;
 public class InsideController {
 
     @Autowired
-    private SysDevInsideDao sysDevInsideDao;
+    private TrackerDao trackerDao;
 
     @RequestMapping(value = "list.html", method = RequestMethod.GET)
     public String list() {
@@ -40,14 +37,17 @@ public class InsideController {
     public JSONObject listGrid(@RequestParam(value = "page", defaultValue = "1") int page,
                                @RequestParam(value = "rows", defaultValue = "20") int rows) {
         Pageable pageable = new PageRequest(page - 1, rows);
-        Page<Tracker> pageRst = sysDevInsideDao.findByParentId(0L, pageable);
+        Long count = trackerDao.countByParentId(0L);
+        List<Tracker> list = trackerDao.findByParentId(0L, pageable.getOffset(), pageable.getPageSize());
+
+        Page<Tracker> pageRst = new PageImpl<Tracker>(list, pageable, count);
 
         return AjaxUtil.jqGridJson(pageRst);
     }
 
     @RequestMapping(value = "detail.html", method = RequestMethod.GET)
     public String detail(Long id, Model model) {
-        Tracker sysDevInside = sysDevInsideDao.findOne(id);
+        Tracker sysDevInside = trackerDao.findOne(id);
         model.addAttribute("inside", sysDevInside);
 
         return "sys/dev/inside/detail";
@@ -58,10 +58,9 @@ public class InsideController {
     public JSONObject listDetail(Long id) {
         JSONObject jsonObject = new JSONObject();
 
-        Tracker inside = sysDevInsideDao.findOne(id);
+        Tracker inside = trackerDao.findOne(id);
 
-        List<Tracker> insideList = sysDevInsideDao.findByPathLike(inside.getPath() + "%",
-                new Sort(Sort.Direction.ASC, "path"));
+        List<Tracker> insideList = trackerDao.findByPathLike(inside.getPath() + "%");
 
         JSONArray jsonArray = new JSONArray();
         for (Tracker department : insideList) {

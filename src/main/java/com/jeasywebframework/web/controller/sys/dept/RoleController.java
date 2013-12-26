@@ -1,8 +1,8 @@
 package com.jeasywebframework.web.controller.sys.dept;
 
 import com.jeasywebframework.domain.dept.HostHolder;
-import com.jeasywebframework.domain.dept.SysDeptRole;
-import com.jeasywebframework.domain.dept.SysDeptRoleResource;
+import com.jeasywebframework.domain.dept.Role;
+import com.jeasywebframework.domain.dept.RoleResource;
 import com.jeasywebframework.service.dept.RoleService;
 import com.jeasywebframework.utils.AjaxUtil;
 import net.sf.json.JSONObject;
@@ -50,7 +50,7 @@ public class RoleController {
     public JSONObject listData(@RequestParam(value = "page", defaultValue = "1") int page,
                                @RequestParam(value = "rows", defaultValue = "50") int rows) {
         Pageable pageable = new PageRequest(page - 1, rows);
-        Page<SysDeptRole> pageRst = roleService.findAll(pageable);
+        Page<Role> pageRst = roleService.findAll(pageable);
         return AjaxUtil.jqGridJson(pageRst);
     }
 
@@ -62,30 +62,30 @@ public class RoleController {
 
     @RequestMapping(value = "save.ajax", method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject save(SysDeptRole sysDeptRole, String resourceIds, HostHolder hostHolder) {
+    public JSONObject save(Role role, String resourceIds, HostHolder hostHolder) {
         // TODO
         Date now = new Date(System.currentTimeMillis());
-        sysDeptRole.setCreateTime(now);
-        sysDeptRole.setUpdateTime(now);
+        role.setCreateTime(now);
+        role.setUpdateTime(now);
 
-        sysDeptRole.setCreateUserId(hostHolder.getHostId());
-        sysDeptRole.setUpdateUserId(hostHolder.getHostId());
+        role.setCreateUserId(hostHolder.getHostId());
+        role.setUpdateUserId(hostHolder.getHostId());
 
 
-        roleService.save(sysDeptRole, resourceIds);
+        roleService.save(role, resourceIds);
         return AjaxUtil.success();
     }
 
 
     @RequestMapping(value = "edit.html", method = RequestMethod.GET)
     public String edit(Model model, Long id) {
-        SysDeptRole sysDeptRole = roleService.findOne(id);
-        model.addAttribute("sysDeptRole", sysDeptRole);
+        Role role = roleService.findOne(id);
+        model.addAttribute("sysDeptRole", role);
 
-        List<SysDeptRoleResource> sysDeptRoleResourceList = roleService.findAllRoleResourceByRoleId(id);
+        List<RoleResource> roleResourceList = roleService.findAllRoleResourceByRoleId(id);
         List<String> resouceIds = new ArrayList<String>();
-        for (SysDeptRoleResource sysDeptRoleResource : sysDeptRoleResourceList) {
-            resouceIds.add(sysDeptRoleResource.getId() + "");
+        for (RoleResource roleResource : roleResourceList) {
+            resouceIds.add(roleResource.getId() + "");
         }
 
         model.addAttribute("resourceIds", StringUtils.join(resouceIds, ","));
@@ -96,20 +96,20 @@ public class RoleController {
 
     @RequestMapping(value = "update.ajax", method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject update(SysDeptRole sysDeptRole, String resourceIds, HostHolder hostHolder) {
+    public JSONObject update(Role role, String resourceIds, HostHolder hostHolder) {
         // TODO
         Date now = new Date(System.currentTimeMillis());
-        sysDeptRole.setUpdateTime(now);
-        sysDeptRole.setUpdateUserId(hostHolder.getHostId());
+        role.setUpdateTime(now);
+        role.setUpdateUserId(hostHolder.getHostId());
 
 
         // TODO 不能修改的数据项目
-        SysDeptRole old = roleService.findOne(sysDeptRole.getId());
-        sysDeptRole.setCreateTime(old.getCreateTime());
-        sysDeptRole.setCreateUserId(old.getCreateUserId());
+        Role old = roleService.findOne(role.getId());
+        role.setCreateTime(old.getCreateTime());
+        role.setCreateUserId(old.getCreateUserId());
 
 
-        roleService.update(sysDeptRole, resourceIds);
+        roleService.update(role, resourceIds);
         return AjaxUtil.success();
     }
 

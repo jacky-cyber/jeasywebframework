@@ -2,7 +2,7 @@ package com.jeasywebframework.web.controller.sys;
 
 import com.jeasywebframework.domain.dept.HostHolder;
 import com.jeasywebframework.domain.dept.LoginType;
-import com.jeasywebframework.domain.dept.SysDeptUser;
+import com.jeasywebframework.domain.dept.User;
 import com.jeasywebframework.service.annotations.LoginRequired;
 import com.jeasywebframework.service.dept.UserService;
 import com.jeasywebframework.utils.AjaxUtil;
@@ -65,21 +65,21 @@ public class LoginController {
         }
 
 
-        SysDeptUser sysDeptUser = userService.loginCheck(username, password);
-        if (sysDeptUser == null) {
+        User user = userService.loginCheck(username, password);
+        if (user == null) {
             return AjaxUtil.failure("用户名或者密码错误，请重新输入!");
         }
         String domain = "jeasywebframework.com";
 
 
         try {
-            String salt = sysDeptUser.getSalt();
-            String pwd = sysDeptUser.getPassword();
+            String salt = user.getSalt();
+            String pwd = user.getPassword();
             String CP = MD5Util.getMD5Str(pwd) + salt;
             String CP1 = MD5Util.getMD5Str(CP);
 
 
-            CookieUtil.setCookie(response, domain, HostHolder.COOKIE_KEY_USERNAME, DESUtil.encrypt(sysDeptUser.getUsername()), 30 * 60 * 60);
+            CookieUtil.setCookie(response, domain, HostHolder.COOKIE_KEY_USERNAME, DESUtil.encrypt(user.getUsername()), 30 * 60 * 60);
             CookieUtil.setCookie(response, domain, HostHolder.COOKIE_KEY_PWD, DESUtil.encrypt(CP1), 30 * 60 * 60);
         } catch (Exception e) {
             logger.error("setRoot cookie error.", e);

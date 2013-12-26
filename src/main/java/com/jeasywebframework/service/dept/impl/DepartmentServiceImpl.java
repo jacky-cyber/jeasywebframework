@@ -1,14 +1,9 @@
 package com.jeasywebframework.service.dept.impl;
 
-import com.jeasywebframework.dao.dept.SysDeptDepartmentDao;
-import com.jeasywebframework.domain.dept.SysDeptDepartment;
+import com.jeasywebframework.dao.dept.DepartmentDao;
+import com.jeasywebframework.domain.dept.Department;
 import com.jeasywebframework.service.dept.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,43 +15,41 @@ import java.util.List;
 public class DepartmentServiceImpl implements DepartmentService {
 
     @Autowired
-    private SysDeptDepartmentDao sysDeptDepartmentDao;
+    private DepartmentDao departmentDao;
 
 
     @Override
-    public SysDeptDepartment findOne(Long id) {
-        return sysDeptDepartmentDao.findOne(id);
+    public Department findOne(Long id) {
+        return departmentDao.findOne(id);
     }
 
     @Override
-    public void saveAndFlush(SysDeptDepartment sysDeptDepartment) {
-        sysDeptDepartmentDao.saveAndFlush(sysDeptDepartment);
+    public void saveAndFlush(Department department) {
+        departmentDao.update(department);
 
     }
 
 
     @Override
-    public void save(SysDeptDepartment sysDeptDepartment) {
-        sysDeptDepartmentDao.saveAndFlush(sysDeptDepartment);
+    public void save(Department department) {
+        departmentDao.save(department);
 
     }
 
     @Override
     public Long countByParentId(Long parentId) {
-        return sysDeptDepartmentDao.countByParentId(parentId);
+        return departmentDao.countByParentId(parentId);
     }
 
     @Override
-    public List<SysDeptDepartment> findAll(Sort sort) {
-
-        List<SysDeptDepartment> departments = sysDeptDepartmentDao.findAll(sort);
-
+    public List<Department> findAll() {
+        List<Department> departments = departmentDao.findAll();
         return departments;
     }
 
     @Override
-    public SysDeptDepartment findByCode(String code) {
-        return sysDeptDepartmentDao.findByCode(code);
+    public Department findByCode(String code) {
+        return departmentDao.findByCode(code);
     }
 
 

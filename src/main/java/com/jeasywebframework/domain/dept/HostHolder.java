@@ -17,11 +17,11 @@ public class HostHolder {
 
 
 
-    private SysDeptUser host;
-    private SysDeptDepartment department;
-    private List<SysDeptRole> roleList;
-    private List<SysDeptResource> resourceList;
-    private List<SysDeptResource> moduleList;
+    private User host;
+    private Department department;
+    private List<Role> roleList;
+    private List<Resource> resourceList;
+    private List<Resource> moduleList;
 
 
     // ==========================================================================================
@@ -29,43 +29,43 @@ public class HostHolder {
     // ==========================================================================================
 
 
-    public List<SysDeptResource> getModuleList() {
+    public List<Resource> getModuleList() {
         return moduleList;
     }
 
-    public void setModuleList(List<SysDeptResource> moduleList) {
+    public void setModuleList(List<Resource> moduleList) {
         this.moduleList = moduleList;
     }
 
-    public SysDeptDepartment getDepartment() {
+    public Department getDepartment() {
         return department;
     }
 
-    public void setDepartment(SysDeptDepartment department) {
+    public void setDepartment(Department department) {
         this.department = department;
     }
 
-    public List<SysDeptRole> getRoleList() {
+    public List<Role> getRoleList() {
         return roleList;
     }
 
-    public void setRoleList(List<SysDeptRole> roleList) {
+    public void setRoleList(List<Role> roleList) {
         this.roleList = roleList;
     }
 
-    public List<SysDeptResource> getResourceList() {
+    public List<Resource> getResourceList() {
         return resourceList;
     }
 
-    public void setResourceList(List<SysDeptResource> resourceList) {
+    public void setResourceList(List<Resource> resourceList) {
         this.resourceList = resourceList;
     }
 
-    public SysDeptUser getHost() {
+    public User getHost() {
         return host;
     }
 
-    public void setHost(SysDeptUser host) {
+    public void setHost(User host) {
         this.host = host;
     }
 
