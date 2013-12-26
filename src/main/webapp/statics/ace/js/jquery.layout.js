@@ -68,10 +68,10 @@ $.layout = {
 ,	revision:	0.033007 // 1.3.0 final = 1.0300 - major(n+).minor(nn)+patch(nn+)
 
 	// $.layout.browser REPLACES $.browser
-,	browser:	{} // set below
+,	browser:	{} // setRoot below
 
 	// *PREDEFINED* EFFECTS & DEFAULTS 
-	// MUST list effect here - OR MUST set an fxSettings option (can be an empty hash: {})
+	// MUST list effect here - OR MUST setRoot an fxSettings option (can be an empty hash: {})
 ,	effects: {
 
 	//	Pane Open/Close Animations
@@ -306,7 +306,7 @@ $.layout = {
 	}
 
 //	arrays of plugin or other methods to be triggered for events in *each layout* - will be passed 'Instance'
-,	onCreate:	[]	// runs when layout is just starting to be created - right after options are set
+,	onCreate:	[]	// runs when layout is just starting to be created - right after options are setRoot
 ,	onLoad:		[]	// runs after layout container and global events init, but before initPanes is called
 ,	onReady:	[]	// runs after initialization *completes* - ie, after initPanes completes successfully
 ,	onDestroy:	[]	// runs after layout is destroyed
@@ -449,7 +449,7 @@ $.layout = {
 		,	n	= $.layout.cssNum
 		,	W	= outerWidth
 		;
-		// strip border and/or padding from outerWidth to get CSS Width
+		// strip border and/or padding from outerWidth to getRoot CSS Width
 		if (bs !== "border-box")
 			W -= (b($E, "Left") + b($E, "Right"));
 		if (bs === "content-box")
@@ -474,7 +474,7 @@ $.layout = {
 		,	n	= $.layout.cssNum
 		,	H	= outerHeight
 		;
-		// strip border and/or padding from outerHeight to get CSS Height
+		// strip border and/or padding from outerHeight to getRoot CSS Height
 		if (bs !== "border-box")
 			H -= (b($E, "Top") + b($E, "Bottom"));
 		if (bs === "content-box")
@@ -489,7 +489,7 @@ $.layout = {
 	* @param {Array.<Object>}	$E					Must pass a jQuery object - first element is processed
 	* @param {string}			prop				The name of the CSS property, eg: top, width, etc.
 	* @param {boolean=}			[allowAuto=false]	true = return 'auto' if that is value; false = return 0
-	* @return {(string|number)}						Usually used to get an integer value for position (top, left) or size (height, width)
+	* @return {(string|number)}						Usually used to getRoot an integer value for position (top, left) or size (height, width)
 	*/
 ,	cssNum: function ($E, prop, allowAuto) {
 		if (!$E.jquery) $E = $($E);
@@ -589,7 +589,7 @@ $.layout = {
 			var pos = $.support.fixedPosition ? 'fixed' : 'absolute'
 			,	$e = $('<div id="layoutLogger" style="position: '+ pos +'; top: 5px; z-index: 999999; max-width: 25%; overflow: hidden; border: 1px solid #000; border-radius: 5px; background: #FBFBFB; box-shadow: 0 2px 10px rgba(0,0,0,0.3);">'
 				+	'<div style="font-size: 13px; font-weight: bold; padding: 5px 10px; background: #F6F6F6; border-radius: 5px 5px 0 0; cursor: move;">'
-				+	'<span style="float: right; padding-left: 7px; cursor: pointer;" title="Remove Console" onclick="$(this).closest(\'#layoutLogger\').remove()">X</span>Layout console.log</div>'
+				+	'<span style="float: right; padding-left: 7px; cursor: pointer;" title="Remove Console" onclick="$(this).closest(\'#layoutLogger\').removeRoot()">X</span>Layout console.log</div>'
 				+	'<ul style="font-size: 13px; font-weight: none; list-style: none; margin: 0; padding: 0 0 2px;"></ul>'
 				+ '</div>'
 				).appendTo("body");
@@ -626,8 +626,8 @@ $.layout.browser = {
 	// ONLY IE reverts to old box-model - update for older jQ onReady
 ,	boxModel:	!ie || $.support.boxModel !== false
 };
-if (b) $.layout.browser[b] = true; // set CURRENT browser
-/*	OLD versions of jQuery only set $.support.boxModel after page is loaded
+if (b) $.layout.browser[b] = true; // setRoot CURRENT browser
+/*	OLD versions of jQuery only setRoot $.support.boxModel after page is loaded
  *	so if this is IE, use support.boxModel to test for quirks-mode (ONLY IE changes boxModel) */
 if (ie) $(function(){ $.layout.browser.boxModel = $.support.boxModel; });
 
@@ -658,7 +658,7 @@ $.layout.defaults = {
 //	Changing this zIndex value will cause other zIndex values to automatically change
 ,	zIndex:						null		// the PANE zIndex - resizers and masks will be +1
 //	DO NOT CHANGE the zIndex values below unless you clearly understand their relationships
-,	zIndexes: {								// set _default_ z-index values here...
+,	zIndexes: {								// setRoot _default_ z-index values here...
 		pane_normal:			0			// normal z-index for panes
 	,	content_mask:			1			// applied to overlays used to mask content INSIDE panes during resizing
 	,	resizer_normal:			2			// normal z-index for resizer-bars
@@ -678,7 +678,7 @@ $.layout.defaults = {
 /*
  *	PANE DEFAULT SETTINGS
  *	- settings under the 'panes' key become the default settings for *all panes*
- *	- ALL pane-options can also be set specifically for each panes, which will override these 'default values'
+ *	- ALL pane-options can also be setRoot specifically for each panes, which will override these 'default values'
  */
 ,	panes: { // default options for 'all panes' - will be overridden by 'per-pane settings'
 		applyDemoStyles: 		false		// NOTE: renamed from applyDefaultStyles for clarity
@@ -755,7 +755,7 @@ $.layout.defaults = {
 	,	fxSettings:				{}			// can be passed, eg: { easing: "easeOutBounce", duration: 1500 }
 	,	fxOpacityFix:			true		// tries to fix opacity in IE to restore anti-aliasing after animation
 	,	animatePaneSizing:		false		// true = animate resizing after dragging resizer-bar OR sizePane() is called
-	/*  NOTE: Action-specific FX options are auto-generated from the options above if not specifically set:
+	/*  NOTE: Action-specific FX options are auto-generated from the options above if not specifically setRoot:
 		fxName_open:			"slide"		// 'Open' pane animation
 		fnName_close:			"slide"		// 'Close' pane animation
 		fxName_size:			"slide"		// 'Size' pane animation - when animatePaneSizing = true
@@ -795,8 +795,8 @@ $.layout.defaults = {
 	}
 /*
  *	PANE-SPECIFIC SETTINGS
- *	- options listed below MUST be specified per-pane - they CANNOT be set under 'panes'
- *	- all options under the 'panes' key can also be set specifically for any pane
+ *	- options listed below MUST be specified per-pane - they CANNOT be setRoot under 'panes'
+ *	- all options under the 'panes' key can also be setRoot specifically for any pane
  *	- most options under the 'panes' key apply only to 'border-panes' - NOT the the center-pane
  */
 ,	north: {
@@ -842,7 +842,7 @@ $.layout.optionsMap = {
 	+	"showOverflowOnHover,maskContents,maskObjects,liveContentResizing,"
 	+	"containerSelector,children,initChildren,resizeChildren,destroyChildren,"
 	+	"onresize,onresize_start,onresize_end,onsizecontent,onsizecontent_start,onsizecontent_end").split(",")
-	// options that MUST be specifically set 'per-pane' - CANNOT set in the panes (defaults) key
+	// options that MUST be specifically setRoot 'per-pane' - CANNOT setRoot in the panes (defaults) key
 ,	noDefault: ("paneSelector,resizerCursor,customHotkey").split(",")
 };
 
@@ -946,7 +946,7 @@ $.layout.backwardCompatibility = {
 		function getBranch (path, create) {
 			var a = path.split(".") // split keys into array
 			,	c = a.length - 1
-			,	D = { branch: opts, key: a[c] } // init branch at top & set key (last item)
+			,	D = { branch: opts, key: a[c] } // init branch at top & setRoot key (last item)
 			,	i = 0, k, undef;
 			for (; i<c; i++) { // skip the last key (data)
 				k = a[i];
@@ -958,7 +958,7 @@ $.layout.backwardCompatibility = {
 						D.branch = {}; // branch is undefined
 				}
 				else
-					D.branch = D.branch[ k ]; // get child-branch
+					D.branch = D.branch[ k ]; // getRoot child-branch
 			}
 			return D;
 		};
@@ -1043,7 +1043,7 @@ $.fn.layout = function (opts) {
 /**
  * parent/child-layout pointers
  */
-//,	hasParentLayout	= false	- exists ONLY inside Instance so can be set externally
+//,	hasParentLayout	= false	- exists ONLY inside Instance so can be setRoot externally
 ,	children = {
 		north:		null
 	,	south:		null
@@ -1086,7 +1086,7 @@ $.fn.layout = function (opts) {
 	*
 	* @param {string}				evtName					Name of the layout callback, eg "onresize_start"
 	* @param {(string|boolean)=}	[pane=""]				This is passed only so we can pass the 'pane object' to the callback
-	* @param {(string|boolean)=}	[skipBoundEvents=false]	True = do not run events bound to the elements - only the callbacks set in options
+	* @param {(string|boolean)=}	[skipBoundEvents=false]	True = do not run events bound to the elements - only the callbacks setRoot in options
 	*/
 ,	_runCallbacks = function (evtName, pane, skipBoundEvents) {
 		var	hasPane	= pane && isStr(pane)
@@ -1106,7 +1106,7 @@ $.fn.layout = function (opts) {
 			pane = "";
 		}
 
-		// first trigger the callback set in the options
+		// first trigger the callback setRoot in the options
 		if (fn) {
 			try {
 				// convert function name (string) to function object
@@ -1363,12 +1363,12 @@ $.fn.layout = function (opts) {
 		,	limitSize		= (containerSize - paneSpacing - (isSliding ? 0 : (_parseSize("center", minCenterSize, dir) + altPaneSize + altPaneSpacing)))
 		,	minSize			= s.minSize = max( _parseSize(pane, o.minSize), cssMinDims(pane).minSize )
 		,	maxSize			= s.maxSize = min( (o.maxSize ? _parseSize(pane, o.maxSize) : 100000), limitSize )
-		,	r				= s.resizerPosition = {} // used to set resizing limits
+		,	r				= s.resizerPosition = {} // used to setRoot resizing limits
 		,	top				= sC.inset.top
 		,	left			= sC.inset.left
 		,	W				= sC.innerWidth
 		,	H				= sC.innerHeight
-		,	rW				= o.spacing_open // subtract resizer-width to get top/left position for south/east
+		,	rW				= o.spacing_open // subtract resizer-width to getRoot top/left position for south/east
 		;
 		switch (pane) {
 			case "north":	r.min = top + minSize;
@@ -1387,7 +1387,7 @@ $.fn.layout = function (opts) {
 	}
 
 	/**
-	* Returns data for setting the size/position of center pane. Also used to set Height for east/west panes
+	* Returns data for setting the size/position of center pane. Also used to setRoot Height for east/west panes
 	*
 	* @return JSON  Returns a hash of all dimensions: top, bottom, left, right, (outer) width and (outer) height
 	*/
@@ -1405,7 +1405,7 @@ $.fn.layout = function (opts) {
 		// calc center-pane outer dimensions
 		d.width		= sC.innerWidth - d.left - d.right;  // outerWidth
 		d.height	= sC.innerHeight - d.bottom - d.top; // outerHeight
-		// add the 'container border/padding' to get final positions relative to the container
+		// add the 'container border/padding' to getRoot final positions relative to the container
 		d.top		+= sC.inset.top;
 		d.bottom	+= sC.inset.bottom;
 		d.left		+= sC.inset.left;
@@ -1435,7 +1435,7 @@ $.fn.layout = function (opts) {
 		,	_alt	= _state === _closed ? _open : _closed
 		,	classes = (root+_hover) + (root+_pane+_hover) + (root+_state+_hover) + (root+_pane+_state+_hover)
 		;
-		if (allStates) // when 'removing' classes, also remove alternate-state classes
+		if (allStates) // when 'removing' classes, also removeRoot alternate-state classes
 			classes += (root+_alt+_hover) + (root+_pane+_alt+_hover);
 
 		if (type=="resizer" && $El.hasClass(root+_slide))
@@ -1472,11 +1472,11 @@ $.fn.layout = function (opts) {
 		,	pane	= $(e).data("layoutEdge")
 		,	name	= pane +"ResizerLeave"
 		;
-		timer.clear(pane+"_openSlider"); // cancel slideOpen timer, if set
-		timer.clear(name); // cancel enableSelection timer - may re/set below
+		timer.clear(pane+"_openSlider"); // cancel slideOpen timer, if setRoot
+		timer.clear(name); // cancel enableSelection timer - may re/setRoot below
 		// this method calls itself on a timer because it needs to allow
-		// enough time for dragging to kick-in and set the isResizing flag
-		// dragging has a 100ms delay set, so this delay must be >100
+		// enough time for dragging to kick-in and setRoot the isResizing flag
+		// dragging has a 100ms delay setRoot, so this delay must be >100
 		if (!el) // 1st call - mouseleave event
 			timer.set(name, function(){ onResizerLeave(evt, e); }, 200);
 		// if user is resizing, then dragStop will enableSelection(), so can skip it here
@@ -1530,7 +1530,7 @@ $.fn.layout = function (opts) {
 		runPluginCallbacks( Instance, $.layout.onLoad );
 
 		// if layout elements are hidden, then layout WILL NOT complete initialization!
-		// initLayoutElements will set initialized=true and run the onload callback IF successful
+		// initLayoutElements will setRoot initialized=true and run the onload callback IF successful
 		if (o.initPanes) _initLayoutElements();
 
 		delete s.creatingLayout;
@@ -1641,10 +1641,10 @@ $.fn.layout = function (opts) {
 				var $cont	= $(this)
 				,	child	= $cont.data("layout") //	see if a child-layout ALREADY exists on this element
 				;
-				// if no layout exists, but children are set, try to create the layout now
+				// if no layout exists, but children are setRoot, try to create the layout now
 				if (!child) {
 					// TODO: see about moving this to the stateManagement plugin, as a method
-					// set a unique child-instance key for this layout, if not already set
+					// setRoot a unique child-instance key for this layout, if not already setRoot
 					setInstanceKey({ container: $cont, options: co }, s );
 					// If THIS layout has a hash in stateManagement.autoLoad,
 					// then see if it also contains state-data for this child-layout
@@ -1707,7 +1707,7 @@ $.fn.layout = function (opts) {
 			$.each( pC, function (key, child) {
 				if (child.destroyed) delete pC[key]
 			});
-			// if no more children, remove the children hash
+			// if no more children, removeRoot the children hash
 			if ($.isEmptyObject( pC ))
 				pC = children[pane] = null; // clear children hash
 		}
@@ -1721,10 +1721,10 @@ $.fn.layout = function (opts) {
 		// if a newChild instance was passed, add it to children[pane]
 		if (newChild) {
 			// update child.state
-			newChild.hasParentLayout = true; // set parent-flag in child
+			newChild.hasParentLayout = true; // setRoot parent-flag in child
 			// instanceKey is a key-name used in both state and children
 			o = newChild.options;
-			// set a unique child-instance key for this layout, if not already set
+			// setRoot a unique child-instance key for this layout, if not already setRoot
 			setInstanceKey( newChild, s );
 			// add pointer to pane.children hash
 			if (!pC) pC = children[pane] = {}; // create an empty children hash
@@ -1754,7 +1754,7 @@ $.fn.layout = function (opts) {
 			if (dims.innerWidth !== sC.innerWidth || dims.innerHeight !== sC.innerHeight)
 				resizeAll();
 		}, delay);
-		// ALSO set fixed-delay timer, if not already running
+		// ALSO setRoot fixed-delay timer, if not already running
 		if (!timer.data["winResizeRepeater"]) setWindowResizeRepeater();
 	}
 
@@ -1830,11 +1830,11 @@ $.fn.layout = function (opts) {
 			$N.bind("layout"+ name.toLowerCase() +"."+ sID, Instance[ layoutMethods[name] || name ]);
 		}
 
-		// if this container is another layout's 'pane', then set child/parent pointers
+		// if this container is another layout's 'pane', then setRoot child/parent pointers
 		if (isChild) {
 			// update parent flag
 			Instance.hasParentLayout = true;
-			// set pointers to THIS child-layout (Instance) in parent-layout
+			// setRoot pointers to THIS child-layout (Instance) in parent-layout
 			parent.refreshChildren( pane, Instance );
 		}
 
@@ -1934,7 +1934,7 @@ $.fn.layout = function (opts) {
 					// apply edge-positioning created above
 					$N.css( o.outset );
 				}
-				// set current layout-container dimensions
+				// setRoot current layout-container dimensions
 				$.extend(sC, elDims( $N, o.inset )); // passing inset means DO NOT include insetX values
 			}
 			else {
@@ -1943,7 +1943,7 @@ $.fn.layout = function (opts) {
 				if (!p || !p.match(/(fixed|absolute|relative)/))
 					$N.css("position","relative");
 
-				// set current layout-container dimensions
+				// setRoot current layout-container dimensions
 				if ( $N.is(":visible") ) {
 					$.extend(sC, elDims( $N, o.inset )); // passing inset means DO NOT change insetX (padding) values
 					if (sC.innerHeight < 1) // container has no 'height' - warn developer
@@ -1992,7 +1992,7 @@ $.fn.layout = function (opts) {
 
 		// if user-options has 'panes' key (pane-defaults), clean it...
 		if (!$.isEmptyObject(opts.panes)) {
-			// REMOVE any pane-defaults that MUST be set per-pane
+			// REMOVE any pane-defaults that MUST be setRoot per-pane
 			data = $.layout.optionsMap.noDefault;
 			for (i=0, c=data.length; i<c; i++) {
 				key = data[i];
@@ -2036,7 +2036,7 @@ $.fn.layout = function (opts) {
 				data = $.layout.optionsMap.center;		// list of 'center-pane keys'
 				for (i=0, c=data.length; i<c; i++) {	// loop the list...
 					key = data[i];
-					// only need to use pane-default if pane-specific value not set
+					// only need to use pane-default if pane-specific value not setRoot
 					if (!opts.center[key] && (opts.panes[key] || !o[key]))
 						o[key] = d[key]; // pane-default
 				}
@@ -2091,7 +2091,7 @@ $.fn.layout = function (opts) {
 				if (fxName === "none" || !options.effects[fxName] || !fxExists)
 					fxName = o[sName] = "none"; // effect not loaded OR unrecognized fxName
 
-				// set vars for effects subkeys to simplify logic
+				// setRoot vars for effects subkeys to simplify logic
 				var	fx		= options.effects[fxName] || {}	// effects.slide
 				,	fx_all	= fx.all	|| null				// effects.slide.all
 				,	fx_pane	= fx[pane]	|| null				// effects.slide.west
@@ -2200,7 +2200,7 @@ $.fn.layout = function (opts) {
 		,	$P		= $Ps[pane]
 		,	size, minSize, maxSize, child
 		;
-		// if pane-pointer already exists, remove the old one first
+		// if pane-pointer already exists, removeRoot the old one first
 		if ($P)
 			removePane( pane, false, true, false );
 		else
@@ -2313,7 +2313,7 @@ $.fn.layout = function (opts) {
 			CSS.width = cssW($P, size);
 		//else if (isCenter) {}
 
-		$P.css(CSS); // apply size -- top, bottom & height will be set by sizeMidPanes
+		$P.css(CSS); // apply size -- top, bottom & height will be setRoot by sizeMidPanes
 		if (dir != "horz") sizeMidPanes(pane, true); // true = skipCallback
 
 		// if manually adding a pane AFTER layout initialization, then...
@@ -2381,7 +2381,7 @@ $.fn.layout = function (opts) {
 ,	setPanePosition = function (panes) {
 		panes = panes ? panes.split(",") : _c.borderPanes;
 
-		// create toggler DIVs for each pane, and set object pointers for them, eg: $R.north = north toggler DIV
+		// create toggler DIVs for each pane, and setRoot object pointers for them, eg: $R.north = north toggler DIV
 		$.each(panes, function (i, pane) {
 			var $P	= $Ps[pane]
 			,	$R	= $Rs[pane]
@@ -2392,7 +2392,7 @@ $.fn.layout = function (opts) {
 			;
 			if (!$P) return; // pane does not exist - skip
 
-			// set css-position to account for container borders & padding
+			// setRoot css-position to account for container borders & padding
 			switch (pane) {
 				case "north": 	CSS.top 	= sC.inset.top;
 								CSS.left 	= sC.inset.left;
@@ -2402,11 +2402,11 @@ $.fn.layout = function (opts) {
 								CSS.left 	= sC.inset.left;
 								CSS.right 	= sC.inset.right;
 								break;
-				case "west": 	CSS.left 	= sC.inset.left; // top, bottom & height set by sizeMidPanes()
+				case "west": 	CSS.left 	= sC.inset.left; // top, bottom & height setRoot by sizeMidPanes()
 								break;
 				case "east": 	CSS.right 	= sC.inset.right; // ditto
 								break;
-				case "center":	// top, left, width & height set by sizeMidPanes()
+				case "center":	// top, left, width & height setRoot by sizeMidPanes()
 			}
 			// apply position
 			$P.css(CSS); 
@@ -2428,7 +2428,7 @@ $.fn.layout = function (opts) {
 ,	initHandles = function (panes) {
 		panes = panes ? panes.split(",") : _c.borderPanes;
 
-		// create toggler DIVs for each pane, and set object pointers for them, eg: $R.north = north toggler DIV
+		// create toggler DIVs for each pane, and setRoot object pointers for them, eg: $R.north = north toggler DIV
 		$.each(panes, function (i, pane) {
 			var $P		= $Ps[pane];
 			$Rs[pane]	= false; // INIT
@@ -2526,7 +2526,7 @@ $.fn.layout = function (opts) {
 				setAsOpen(pane);	// onOpen will be called, but NOT onResize
 			else {
 				setAsClosed(pane);	// onClose will be called
-				bindStartSlidingEvents(pane, true); // will enable events IF option is set
+				bindStartSlidingEvents(pane, true); // will enable events IF option is setRoot
 			}
 
 		});
@@ -2588,7 +2588,7 @@ $.fn.layout = function (opts) {
 	*/
 ,	initResizable = function (panes) {
 		var	draggingAvailable = $.layout.plugins.draggable
-		,	side // set in start()
+		,	side // setRoot in start()
 		;
 		panes = panes ? panes.split(",") : _c.borderPanes;
 
@@ -2607,7 +2607,7 @@ $.fn.layout = function (opts) {
 			,	$R		= $Rs[pane]
 			,	base	= o.resizerClass
 			,	lastPos	= 0 // used when live-resizing
-			,	r, live // set in start because may change
+			,	r, live // setRoot in start because may change
 			//	'drag' classes are applied to the ORIGINAL resizer-bar while dragging is in process
 			,	resizerClass		= base+"-drag"				// resizer-drag
 			,	resizerPaneClass	= base+"-"+pane+"-drag"		// resizer-north-drag
@@ -2708,7 +2708,7 @@ $.fn.layout = function (opts) {
 			,	stop: function (e, ui) {
 					$('body').enableSelection(); // RE-ENABLE TEXT SELECTION
 					window.defaultStatus = ""; // clear 'resizing limit' message from statusbar
-					$R.removeClass( resizerClass +" "+ resizerPaneClass ); // remove drag classes from Resizer
+					$R.removeClass( resizerClass +" "+ resizerPaneClass ); // removeRoot drag classes from Resizer
 					s.isResizing		= false;
 					state.paneResizing	= false; // easy to see if ANY pane is resizing
 					resizePanes(e, ui, pane, true); // true = resizingDone
@@ -2740,7 +2740,7 @@ $.fn.layout = function (opts) {
 				case "south":	resizerPos = sC.layoutHeight - dragPos.top  - o.spacing_open; break;
 				case "east":	resizerPos = sC.layoutWidth  - dragPos.left - o.spacing_open; break;
 			};
-			// remove container margin from resizer position to get the pane size
+			// removeRoot container margin from resizer position to getRoot the pane size
 			var newSize = resizerPos - sC.inset[c.side];
 
 			// Disable OR Resize Mask(s) created in drag.start
@@ -2838,7 +2838,7 @@ $.fn.layout = function (opts) {
 		if (force || !state.paneResizing) {
 			$Ms.hide(); // hide ALL masks
 		}
-		// if ANY pane is sliding, then DO NOT remove masks from panes with maskObjects enabled
+		// if ANY pane is sliding, then DO NOT removeRoot masks from panes with maskObjects enabled
 		else if (!force && !$.isEmptyObject( state.panesSliding )) {
 			var	i = $Ms.length - 1
 			,	p, $M;
@@ -2939,7 +2939,7 @@ $.fn.layout = function (opts) {
 	* @param {boolean=}	[destroyChildren=false]		Destory Child-Layouts first?
 	*/
 ,	destroy = function (evt_or_destroyChildren, destroyChildren) {
-		// UNBIND layout events and remove global object
+		// UNBIND layout events and removeRoot global object
 		$(window).unbind("."+ sID);		// resize & unload
 		$(document).unbind("."+ sID);	// keyDown (hotkeys)
 
@@ -2949,7 +2949,7 @@ $.fn.layout = function (opts) {
 		else // no event, so transfer 1st param to destroyChildren param
 			destroyChildren = evt_or_destroyChildren;
 
-		// need to look for parent layout BEFORE we remove the container data, else skips a level
+		// need to look for parent layout BEFORE we removeRoot the container data, else skips a level
 		//var parentPane = Instance.hasParentLayout ? $.layout.getParentPaneInstance( $N ) : null;
 
 		// reset layout-container
@@ -2957,13 +2957,13 @@ $.fn.layout = function (opts) {
 			.removeData("layout")
 			.removeData("layoutContainer")
 			.removeClass(options.containerClass)
-			.unbind("."+ sID) // remove ALL Layout events
+			.unbind("."+ sID) // removeRoot ALL Layout events
 		;
 
-		// remove all mask elements that have been created
+		// removeRoot all mask elements that have been created
 		$Ms.remove();
 
-		// loop all panes to remove layout classes, attributes and bindings
+		// loop all panes to removeRoot layout classes, attributes and bindings
 		$.each(_c.allPanes, function (i, pane) {
 			removePane( pane, false, true, destroyChildren ); // true = skipResize
 		});
@@ -3020,7 +3020,7 @@ $.fn.layout = function (opts) {
 		,	$R	= $Rs[pane]
 		,	$T	= $Ts[pane]
 		;
-		// NOTE: elements can still exist even after remove()
+		// NOTE: elements can still exist even after removeRoot()
 		//		so check for missing data(), which is cleared by removed()
 		if ($P && $.isEmptyObject( $P.data() )) $P = false;
 		if ($C && $.isEmptyObject( $C.data() )) $C = false;
@@ -3045,16 +3045,16 @@ $.fn.layout = function (opts) {
 				if (child.destroyed)	// destroy was successful
 					delete pC[key];
 			});
-			// if no more children, remove the children hash
+			// if no more children, removeRoot the children hash
 			if ($.isEmptyObject( pC )) {
 				pC = children[pane] = null; // clear children hash
 				hasChildren = false;
 			}
 		}
 
-		// Note: can't 'remove' a pane element with non-destroyed children
+		// Note: can't 'removeRoot' a pane element with non-destroyed children
 		if ($P && remove && !hasChildren)
-			$P.remove(); // remove the pane-element and everything inside it
+			$P.remove(); // removeRoot the pane-element and everything inside it
 		else if ($P && $P[0]) {
 			//	create list of ALL pane-classes that need to be removed
 			var	root	= o.paneClass // default="ui-layout-pane"
@@ -3066,15 +3066,15 @@ $.fn.layout = function (opts) {
 							pRoot, pRoot+_open, pRoot+_closed, pRoot+_sliding ]	// pane-specific classes
 			;
 			$.merge(classes, getHoverClasses($P, true)); // ADD hover-classes
-			// remove all Layout classes from pane-element
-			$P	.removeClass( classes.join(" ") ) // remove ALL pane-classes
+			// removeRoot all Layout classes from pane-element
+			$P	.removeClass( classes.join(" ") ) // removeRoot ALL pane-classes
 				.removeData("parentLayout")
 				.removeData("layoutPane")
 				.removeData("layoutRole")
 				.removeData("layoutEdge")
-				.removeData("autoHidden")	// in case set
-				.unbind("."+ sID) // remove ALL Layout events
-				// TODO: remove these extra unbind commands when jQuery is fixed
+				.removeData("autoHidden")	// in case setRoot
+				.unbind("."+ sID) // removeRoot ALL Layout events
+				// TODO: removeRoot these extra unbind commands when jQuery is fixed
 				//.unbind("mouseenter"+ sID)
 				//.unbind("mouseleave"+ sID)
 			;
@@ -3089,7 +3089,7 @@ $.fn.layout = function (opts) {
 			}
 			else if ($C)
 				$C.css( $C.data(css) ).removeData(css).removeData("layoutRole");
-			// remove pane AFTER content in case there was a nested layout
+			// removeRoot pane AFTER content in case there was a nested layout
 			if (!$P.data(d))
 				$P.css( $P.data(css) ).removeData(css);
 		}
@@ -3214,7 +3214,7 @@ $.fn.layout = function (opts) {
 		if (false === _runCallbacks("onshow_start", pane)) return;
 
 		s.isShowing = true; // used by onopen/onclose
-		//s.isHidden  = false; - will be set by open/close - if not cancelled
+		//s.isHidden  = false; - will be setRoot by open/close - if not cancelled
 		s.isSliding = false; // just in case
 		delete state.panesSliding[pane];
 
@@ -3324,7 +3324,7 @@ $.fn.layout = function (opts) {
 			else if (isShowing) s.isHidden = false;
 
 			if (s.isSliding) // pane is being closed, so UNBIND trigger events
-				bindStopSlidingEvents(pane, false); // will set isSliding=false
+				bindStopSlidingEvents(pane, false); // will setRoot isSliding=false
 			else // resize panes adjacent to this one
 				sizeMidPanes(_c[pane].dir === "horz" ? "" : "center", false); // false = NOT skipCallback
 
@@ -3333,7 +3333,7 @@ $.fn.layout = function (opts) {
 
 			// CLOSE THE PANE
 			if (doFX) { // animate the close
-				lockPaneForFX(pane, true);	// need to set left/top so animation will work
+				lockPaneForFX(pane, true);	// need to setRoot left/top so animation will work
 				$P.hide( o.fxName_close, o.fxSettings_close, o.fxSpeed_close, function () {
 					lockPaneForFX(pane, false); // undo
 					if (s.isClosed) close_2();
@@ -3458,7 +3458,7 @@ $.fn.layout = function (opts) {
 				return;
 			}
 
-			if (s.autoResize && s.size != o.size) // resize pane to original size set in options
+			if (s.autoResize && s.size != o.size) // resize pane to original size setRoot in options
 				sizePane(pane, o.size, true, true, true); // true=skipCallback/noAnimation/forceResize
 			else
 				// make sure there is enough space available to open the pane
@@ -3481,10 +3481,10 @@ $.fn.layout = function (opts) {
 				return queueNext(); // ABORT
 			}
 
-			if (slide) // START Sliding - will set isSliding=true
+			if (slide) // START Sliding - will setRoot isSliding=true
 				bindStopSlidingEvents(pane, true); // BIND trigger events to close sliding-pane
 			else if (s.isSliding) // PIN PANE (stop sliding) - open pane 'normally' instead
-				bindStopSlidingEvents(pane, false); // UNBIND trigger events - will set isSliding=false
+				bindStopSlidingEvents(pane, false); // UNBIND trigger events - will setRoot isSliding=false
 			else if (o.slidable)
 				bindStartSlidingEvents(pane, false); // UNBIND trigger events
 
@@ -3505,7 +3505,7 @@ $.fn.layout = function (opts) {
 
 			if (doFX) { // ANIMATE
 				// mask adjacent panes with objects
-				lockPaneForFX(pane, true);	// need to set left/top so animation will work
+				lockPaneForFX(pane, true);	// need to setRoot left/top so animation will work
 					$P.show( o.fxName_open, o.fxSettings_open, o.fxSpeed_open, function() {
 					lockPaneForFX(pane, false); // undo
 					if (s.isVisible) open_2(); // continue
@@ -3531,7 +3531,7 @@ $.fn.layout = function (opts) {
 				sizeMidPanes(_c[pane].dir=="vert" ? "center" : "", false); // false = NOT skipCallback
 			}
 
-			// set classes, position handles and execute callbacks...
+			// setRoot classes, position handles and execute callbacks...
 			setAsOpen(pane);
 		};
 	
@@ -3566,7 +3566,7 @@ $.fn.layout = function (opts) {
 		else // in case 'was sliding'
 			$R.removeClass( rClass+_sliding +" "+ rClass+_pane+_sliding )
 
-		removeHover( 0, $R ); // remove hover classes
+		removeHover( 0, $R ); // removeRoot hover classes
 		if (o.resizable && $.layout.plugins.draggable)
 			$R	.draggable("enable")
 				.css("cursor", o.resizerCursor)
@@ -3579,7 +3579,7 @@ $.fn.layout = function (opts) {
 			$T	.removeClass( tClass+_closed +" "+ tClass+_pane+_closed )
 				.addClass( tClass+_open +" "+ tClass+_pane+_open )
 				.attr("title", o.tips.Close); // may be blank
-			removeHover( 0, $T ); // remove hover classes
+			removeHover( 0, $T ); // removeRoot hover classes
 			// toggler-content - if exists
 			$T.children(".content-closed").hide();
 			$T.children(".content-open").css("display","block");
@@ -3688,10 +3688,10 @@ $.fn.layout = function (opts) {
 
 
 	/**
-	* Must set left/top on East/South panes so animation will work properly
+	* Must setRoot left/top on East/South panes so animation will work properly
 	*
 	* @param {string}	pane	The pane to lock, 'east' or 'south' - any other is ignored!
-	* @param {boolean}	doLock  true = set left/top, false = remove
+	* @param {boolean}	doLock  true = setRoot left/top, false = removeRoot
 	*/
 ,	lockPaneForFX = function (pane, doLock) {
 		var $P	= $Ps[pane]
@@ -3743,22 +3743,22 @@ $.fn.layout = function (opts) {
 		else if (!evtName.match(/(click|dblclick|mouseenter)/)) 
 			evtName = o.slideTrigger_open = "click";
 
-		// must remove double-click-toggle when using dblclick-slide
+		// must removeRoot double-click-toggle when using dblclick-slide
 		if (o.resizerDblClickToggle && evtName.match(/click/)) {
 			$R[enable ? "unbind" : "bind"]('dblclick.'+ sID, toggle)
 		}
 
 		$R
-			// add or remove event
+			// add or removeRoot event
 			[enable ? "bind" : "unbind"](evtName +'.'+ sID, slideOpen)
-			// set the appropriate cursor & title/tip
+			// setRoot the appropriate cursor & title/tip
 			.css("cursor", enable ? o.sliderCursor : "default")
 			.attr("title", enable ? o.tips.Slide : "")
 		;
 	}
 
 	/**
-	* Add or remove 'mouseleave' events to 'slide close' when pane is 'sliding' open or closed
+	* Add or removeRoot 'mouseleave' events to 'slide close' when pane is 'sliding' open or closed
 	* Also increases zIndex when pane is sliding open
 	* See bindStartSlidingEvents for code to control 'slide open'
 	*
@@ -3781,7 +3781,7 @@ $.fn.layout = function (opts) {
 		if (enable) {
 			s.isSliding = true;
 			state.panesSliding[pane] = true;
-			// remove 'slideOpen' event from resizer
+			// removeRoot 'slideOpen' event from resizer
 			// ALSO will raise the zIndex of the pane & resizer
 			bindStartSlidingEvents(pane, false);
 		}
@@ -3798,7 +3798,7 @@ $.fn.layout = function (opts) {
 		if (!evtName.match(/(click|mouseleave)/))
 			evtName = o.slideTrigger_close = "mouseleave"; // also catches 'mouseout'
 
-		// add/remove slide triggers
+		// add/removeRoot slide triggers
 		$R[action](evtName, slideClose); // base event on resize
 		// need extra events for mouseleave
 		if (evtName === "mouseleave") {
@@ -3813,7 +3813,7 @@ $.fn.layout = function (opts) {
 			timer.clear(pane+"_closeSlider");
 		else if (evtName === "click" && !o.resizable) {
 			// IF pane is not resizable (which already has a cursor and tip) 
-			// then set the a cursor & title/tip on resizer when sliding
+			// then setRoot the a cursor & title/tip on resizer when sliding
 			$R.css("cursor", enable ? o.sliderCursor : "default");
 			$R.attr("title", enable ? o.tips.Close : ""); // use Toggler-tip, eg: "Close Pane"
 		}
@@ -3885,7 +3885,7 @@ $.fn.layout = function (opts) {
 
 			// if was previously hidden due to noRoom, then RESET because NOW there is room
 			if (s.noRoom) {
-				// s.noRoom state will be set by open or show
+				// s.noRoom state will be setRoot by open or show
 				if (s.wasOpen && o.closable) {
 					if (o.autoReopen)
 						open(pane, false, true, true); // true = noAnimation, true = noAlert
@@ -3897,7 +3897,7 @@ $.fn.layout = function (opts) {
 			}
 		}
 		else { // !hasRoom - pane CANNOT fit
-			if (!s.noRoom) { // pane not set as noRoom yet, so hide or close it now...
+			if (!s.noRoom) { // pane not setRoot as noRoom yet, so hide or close it now...
 				s.noRoom = true; // update state
 				s.wasOpen = !s.isClosed && !s.isSliding;
 				if (s.isClosed){} // SKIP
@@ -4056,7 +4056,7 @@ $.fn.layout = function (opts) {
 					_log(lastTry, false, true);
 				}
 				_log(thisTry, false, true);
-				// after 4 tries, is as close as its gonna get!
+				// after 4 tries, is as close as its gonna getRoot!
 				if (tries.length > 3) break;
 
 				tries.push( thisTry );
@@ -4132,7 +4132,7 @@ $.fn.layout = function (opts) {
 					$P.css(visCSS);
 					return true; // SKIP - pane already the correct size
 				}
-				// set state for makePaneFit() logic
+				// setRoot state for makePaneFit() logic
 				$.extend(s, cssMinDims(pane), {
 					maxWidth:	newCenter.width
 				,	maxHeight:	newCenter.height
@@ -4178,8 +4178,8 @@ $.fn.layout = function (opts) {
 					}
 				}
 			}
-			else { // for east and west, set only the height, which is same as center height
-				// set state.min/maxWidth/Height for makePaneFit() logic
+			else { // for east and west, setRoot only the height, which is same as center height
+				// setRoot state.min/maxWidth/Height for makePaneFit() logic
 				if (s.isVisible && !s.noVerticalRoom)
 					$.extend(s, elDims($P), cssMinDims(pane))
 				if (!force && !s.noVerticalRoom && newCenter.height === s.outerHeight) {
@@ -4280,7 +4280,7 @@ $.fn.layout = function (opts) {
 		}
 
 		// onresizeall_start will CANCEL resizing if returns false
-		// state.container has already been set, so user can access this info for calcuations
+		// state.container has already been setRoot, so user can access this info for calcuations
 		if (false === _runCallbacks("onresizeall_start")) return false;
 
 		var	// see if container is now 'smaller' than before
@@ -4293,7 +4293,7 @@ $.fn.layout = function (opts) {
 			if (!$Ps[pane]) return; // no pane - SKIP
 			o = options[pane];
 			s = state[pane];
-			if (s.autoResize && s.size != o.size) // resize pane to original size set in options
+			if (s.autoResize && s.size != o.size) // resize pane to original size setRoot in options
 				sizePane(pane, o.size, true, true, true); // true=skipCallback/noAnimation/forceResize
 			else {
 				setSizeLimits(pane);
@@ -4359,7 +4359,7 @@ $.fn.layout = function (opts) {
 			;
 			if (!$P || !$C || !$P.is(":visible")) return true; // NOT VISIBLE - skip
 
-			// if content-element was REMOVED, update OR remove the pointer
+			// if content-element was REMOVED, update OR removeRoot the pointer
 			if (!$C.length) {
 				initContent(pane, false);	// false = do NOT sizeContent() - already there!
 				if (!$C) return;			// no replacement element found - pointer have been removed
@@ -4484,7 +4484,7 @@ $.fn.layout = function (opts) {
 				});
 			}
 
-			// remove hover classes
+			// removeRoot hover classes
 			removeHover( o, $R );
 
 			if ($T) {
@@ -4549,7 +4549,7 @@ $.fn.layout = function (opts) {
 					});
 				}
 
-				// remove ALL hover classes
+				// removeRoot ALL hover classes
 				removeHover( 0, $T );
 			}
 
@@ -4702,7 +4702,7 @@ $.fn.layout = function (opts) {
 		state[pane1] = {};
 		state[pane2] = {};
 		
-		// ALWAYS remove the resizer & toggler elements
+		// ALWAYS removeRoot the resizer & toggler elements
 		if ($Ts[pane1]) $Ts[pane1].remove();
 		if ($Ts[pane2]) $Ts[pane2].remove();
 		if ($Rs[pane1]) $Rs[pane1].remove();
@@ -4774,7 +4774,7 @@ $.fn.layout = function (opts) {
 			;
 			$Cs[pane] = C ? $(C) : false;
 
-			// set options and state
+			// setRoot options and state
 			options[pane]	= $.extend(true, {}, oPane.options, fx);
 			state[pane]		= $.extend(true, {}, oPane.state);
 
@@ -4802,7 +4802,7 @@ $.fn.layout = function (opts) {
 				setAsOpen(pane, true); // true = skipCallback
 			else {
 				setAsClosed(pane);
-				bindStartSlidingEvents(pane, true); // will enable events IF option is set
+				bindStartSlidingEvents(pane, true); // will enable events IF option is setRoot
 			}
 
 			// DESTROY the object
@@ -4817,7 +4817,7 @@ $.fn.layout = function (opts) {
 	*
 	* @see  open(), setAsOpen(), setAsClosed()
 	* @param {string}	pane   These are the params returned to callbacks by layout()
-	* @param {boolean}	doPin  True means set the pin 'down', False means 'up'
+	* @param {boolean}	doPin  True means setRoot the pin 'down', False means 'up'
 	*/
 ,	syncPinBtns = function (pane, doPin) {
 		if ($.layout.plugins.buttons)
@@ -5012,10 +5012,10 @@ $.fn.layout = function (opts) {
 
 	// init global vars
 	var 
-		$Ps	= {}	// Panes x5		- set in initPanes()
-	,	$Cs	= {}	// Content x5	- set in initPanes()
-	,	$Rs	= {}	// Resizers x4	- set in initHandles()
-	,	$Ts	= {}	// Togglers x4	- set in initHandles()
+		$Ps	= {}	// Panes x5		- setRoot in initPanes()
+	,	$Cs	= {}	// Content x5	- setRoot in initPanes()
+	,	$Rs	= {}	// Resizers x4	- setRoot in initHandles()
+	,	$Ts	= {}	// Togglers x4	- setRoot in initHandles()
 	,	$Ms	= $([])	// Masks - up to 2 masks per pane (IFRAME + DIV)
 	//	aliases for code brevity
 	,	sC	= state.container // alias for easy access to 'container dimensions'
@@ -5048,12 +5048,12 @@ $.fn.layout = function (opts) {
 	,	sizePane:			manualSizePane	// method - pass a 'pane' AND an 'outer-size' in pixels or percent, or 'auto'
 	,	sizeContent:		sizeContent		// method - pass a 'pane'
 	,	swapPanes:			swapPanes		// method - pass TWO 'panes' - will swap them
-	,	showMasks:			showMasks		// method - pass a 'pane' OR list of panes - default = all panes with mask option set
+	,	showMasks:			showMasks		// method - pass a 'pane' OR list of panes - default = all panes with mask option setRoot
 	,	hideMasks:			hideMasks		// method - ditto'
 	//	pane element methods
 	,	initContent:		initContent		// method - ditto
 	,	addPane:			addPane			// method - pass a 'pane'
-	,	removePane:			removePane		// method - pass a 'pane' to remove from layout, add 'true' to delete the pane-elem
+	,	removePane:			removePane		// method - pass a 'pane' to removeRoot from layout, add 'true' to delete the pane-elem
 	,	createChildren:		createChildren	// method - pass a 'pane' and (optional) layout-options (OVERRIDES options[pane].children
 	,	refreshChildren:	refreshChildren	// method - pass a 'pane' and a layout-instance
 	//	special pane option setting
@@ -5073,7 +5073,7 @@ $.fn.layout = function (opts) {
 	//	callback triggering
 	,	runCallbacks:		_runCallbacks	// method - pass evtName & pane (if a pane-event), eg: trigger("onopen", "west")
 	//	alias collections of options, state and children - created in addPane and extended elsewhere
-	,	hasParentLayout:	false			// set by initContainer()
+	,	hasParentLayout:	false			// setRoot by initContainer()
 	,	children:			children		// pointers to child-layouts, eg: Instance.children.west.layoutName
 	,	north:				false			// alias group: { name: pane, pane: $Ps[pane], options: options[pane], state: state[pane], children: children[pane] }
 	,	south:				false			// ditto
@@ -5330,8 +5330,8 @@ $.layout.state = {
 			/*
 			 *	layout NOT initialized, so just update its options
 			 */
-			// MUST remove pane.children keys before applying to options
-			// use a copy so we don't remove keys from original data
+			// MUST removeRoot pane.children keys before applying to options
+			// use a copy so we don't removeRoot keys from original data
 			var o = $.extend(true, {}, data);
 			//delete o.center; // center has no state-data - only children
 			$.each($.layout.config.allPanes, function (idx, pane) {
@@ -5396,7 +5396,7 @@ $.layout.state = {
 	/**
 	 * Get the *current layout state* and return it as a hash
 	 *
-	 * @param {Object=}		inst	// Layout instance to get state for
+	 * @param {Object=}		inst	// Layout instance to getRoot state for
 	 * @param {object=}		[opts]	// State-Managements override options
 	 */
 ,	readState: function (inst, opts) {
@@ -5526,11 +5526,11 @@ $.layout.state = {
 		}
 		else if ( sm.enabled ) {
 			// update the options from cookie or callback
-			// if options is a function, call it to get stateData
+			// if options is a function, call it to getRoot stateData
 			if ($.isFunction( sm.autoLoad )) {
 				var d = {};
 				try {
-					d = sm.autoLoad( inst, inst.state, inst.options, inst.options.name || '' ); // try to get data from fn
+					d = sm.autoLoad( inst, inst.state, inst.options, inst.options.name || '' ); // try to getRoot data from fn
 				} catch (e) {}
 				if (d && $.isPlainObject( d ) && !$.isEmptyObject( d ))
 					inst.loadState(d);
@@ -5546,7 +5546,7 @@ $.layout.state = {
 			// if options is a function, call it to save the stateData
 			if ($.isFunction( sm.autoSave )) {
 				try {
-					sm.autoSave( inst, inst.state, inst.options, inst.options.name || '' ); // try to get data from fn
+					sm.autoSave( inst, inst.state, inst.options, inst.options.name || '' ); // try to getRoot data from fn
 				} catch (e) {}
 			}
 			else // any truthy value will trigger saveCookie
@@ -5608,7 +5608,7 @@ $.layout.buttons = {
 		$.each("toggle,open,close,pin,toggle-slide,open-slide".split(","), function (i, action) {
 			$.each($.layout.config.borderPanes, function (ii, pane) {
 				$("."+pre+action+"-"+pane).each(function(){
-					// if button was previously 'bound', data.layoutName was set, but is blank if layout has no 'name'
+					// if button was previously 'bound', data.layoutName was setRoot, but is blank if layout has no 'name'
 					name = $(this).data("layoutName") || $(this).attr("layoutName");
 					if (name == undefined || name === layout)
 						inst.bindButton(this, action, pane);
@@ -5770,7 +5770,7 @@ $.layout.buttons = {
 	* @param {Object}			inst	Layout Instance object
 	* @param {Array.<Object>}	$Pin	The pin-span element in a jQuery wrapper
 	* @param {string}			pane	These are the params returned to callbacks by layout()
-	* @param {boolean}			doPin	true = set the pin 'down', false = set it 'up'
+	* @param {boolean}			doPin	true = setRoot the pin 'down', false = setRoot it 'up'
 	*/
 ,	setPinState: function (inst, $Pin, pane, doPin) {
 		var updown = $Pin.attr("pin");
@@ -5798,7 +5798,7 @@ $.layout.buttons = {
 	*
 	* @param {Object}			inst	Layout Instance object
 	* @param {string}	pane	These are the params returned to callbacks by layout()
-	* @param {boolean}	doPin	True means set the pin 'down', False means 'up'
+	* @param {boolean}	doPin	True means setRoot the pin 'down', False means 'up'
 	*/
 ,	syncPinBtns: function (inst, pane, doPin) {
 		// REAL METHOD IS _INSIDE_ LAYOUT - THIS IS HERE JUST FOR REFERENCE
@@ -5888,7 +5888,7 @@ $.layout.browserZoom = {
 		//	MINIMUM 100ms interval, for performance
 		,	ms	= inst.hasParentLayout ?  5000 : Math.max( o.browserZoomCheckInterval, 100 )
 		;
-		// set the timer
+		// setRoot the timer
 		setTimeout(function(){
 			if (inst.destroyed || !o.resizeWithWindow) return;
 			var d = $.layout.browserZoom.ratio();
@@ -5896,7 +5896,7 @@ $.layout.browserZoom = {
 				s.browserZoom = d;
 				inst.resizeAll();
 			}
-			// set a NEW timeout
+			// setRoot a NEW timeout
 			$.layout.browserZoom._setTimer(inst);
 		}
 		,	ms );

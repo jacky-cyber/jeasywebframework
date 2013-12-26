@@ -2675,7 +2675,7 @@
 						nextNode = nodes[nodes.length-1].getNextNode();
 					}
 
-					//set node in selected
+					//setRoot node in selected
 					curNode = $$("<ul class='zTreeDragUL'></ul>", setting);
 					for (i=0, l=nodes.length; i<l; i++) {
 						tmpNode = nodes[i];
@@ -2749,7 +2749,7 @@
 					isTreeRight = (isRight && (targetSetting.treeObj.scrollLeft() + targetSetting.treeObj.width()+10) >= scrollWidth);
 
 					if (event.target && tools.isChildOrSelf(event.target, targetSetting.treeId)) {
-						//get node <li> dom
+						//getRoot node <li> dom
 						var targetObj = event.target;
 						while (targetObj && targetObj.tagName && !tools.eqs(targetObj.tagName, "li") && targetObj.id != targetSetting.treeId) {
 							targetObj = targetObj.parentNode;
@@ -3009,7 +3009,7 @@
 			}
 
 			//Avoid FireFox's Bug
-			//If zTree Div CSS set 'overflow', so drag node outside of zTree, and event.target is error.
+			//If zTree Div CSS setRoot 'overflow', so drag node outside of zTree, and event.target is error.
 			if(eventMouseDown.preventDefault) {
 				eventMouseDown.preventDefault();
 			}
@@ -3097,7 +3097,7 @@
 				return;
 			}
 			var aObj = $$(node, consts.id.A, setting),
-			removeStr = "<span class='" + consts.className.BUTTON + " remove' id='" + node.tId + consts.id.REMOVE + "' title='"+tools.apply(setting.edit.removeTitle, [setting.treeId, node], setting.edit.removeTitle)+"' treeNode"+consts.id.REMOVE+" style='display:none;'></span>";
+			removeStr = "<span class='" + consts.className.BUTTON + " removeRoot' id='" + node.tId + consts.id.REMOVE + "' title='"+tools.apply(setting.edit.removeTitle, [setting.treeId, node], setting.edit.removeTitle)+"' treeNode"+consts.id.REMOVE+" style='display:none;'></span>";
 			aObj.append(removeStr);
 
 			$$(node, consts.id.REMOVE, setting).bind('click',

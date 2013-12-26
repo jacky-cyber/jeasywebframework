@@ -26,12 +26,15 @@ public class SysDeptDepartmentDaoTest extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void test_countByParentId() {
+        int o = 0;
+
         sysDeptDepartmentDao.countByParentId(0L);
     }
 
 
     @Test
     public void test_findAll() {
+        int o = 0;
         sysDeptDepartmentDao.findAll(new Sort(Sort.Direction.ASC, "path"));
     }
 

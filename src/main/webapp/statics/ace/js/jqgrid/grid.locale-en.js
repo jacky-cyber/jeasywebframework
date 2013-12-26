@@ -81,7 +81,7 @@ $.extend($.jgrid,{
 	},
 	errors : {
 		errcap : "Error",
-		nourl : "No url is set",
+		nourl : "No url is setRoot",
 		norecords: "No records to process",
 		model : "Length of colNames <> colModel!"
 	},

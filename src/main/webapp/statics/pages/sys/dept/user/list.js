@@ -1,4 +1,3 @@
-// bdp.pages.urm.user.list.init();
 
 $(document).ready(function () {
     var nodeId = $('#deptId').val();

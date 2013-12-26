@@ -21,8 +21,7 @@ public class SysDeptDepartment implements Serializable {
     @Column(nullable = false)
     private String enabled;
 
-    @Column(nullable = false)
-    private String path;
+
 
     @Column(nullable = false)
     private String name;
@@ -40,6 +39,9 @@ public class SysDeptDepartment implements Serializable {
 
     @Column(name = "parent_id", nullable = false)
     private Long parentId;
+
+    @Column(nullable = false)
+    private String path;
 
     @Column(name = "create_time", nullable = false)
     private Date createTime; // 创建时间

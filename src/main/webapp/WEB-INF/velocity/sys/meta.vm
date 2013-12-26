@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="/statics/ace/css/ace-rtl.min.css"/>
     <link rel="stylesheet" href="/statics/ace/css/ace-skins.min.css"/>
     <link rel="stylesheet" href="/statics/ace/css/ace-jd.css"/>
-    <link rel="stylesheet" href="/statics/plugin/layer/skin/layer.css"/>
 
 
     <script src="/statics/ace/js/ace-extra.min.js"></script>

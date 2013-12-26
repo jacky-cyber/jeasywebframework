@@ -19,7 +19,7 @@
 
     <!--默认数据源 -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
-        <property name="filters" value="stat"/>
+        <!--<property name="filters" value="stat"/>-->
 
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/jeasywebframework?characterEncoding=UTF-8"/>
@@ -49,7 +49,7 @@
 
     <bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
         <property name="database" value="MYSQL"/>
-        <property name="showSql" value="false"/>
+        <property name="showSql" value="true"/>
         <property name="generateDdl" value="true"/>
     </bean>
 
@@ -74,22 +74,38 @@
     <!-- 使用annotation定义事务 -->
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
-    <!-- 定义aspectj -->
-    <aop:aspectj-autoproxy proxy-target-class="true"/>
-
-
     <context:component-scan base-package="com.jeasywebframework.service">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
     </context:component-scan>
 
 
+    <!-- 定义aspectj -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <bean id="logAspectForService" class="com.jeasywebframework.service.spring.LogAspectForService"/>
+    <aop:config>
+        <aop:pointcut id="logPointServiceCut" expression="execution(* *..service*..*(..))"/>
+        <aop:aspect ref="logAspectForService">
+            <aop:around pointcut-ref="logPointServiceCut" method="invoke"/>
+        </aop:aspect>
+    </aop:config>
+
+
+    <bean id="logAspectForDao" class="com.jeasywebframework.service.spring.LogAspectForDao"/>
+    <aop:config>
+        <aop:pointcut id="logPointDaoCut" expression="execution(* com.jeasywebframework.dao.*.*(..))"/>
+        <aop:aspect ref="logAspectForDao">
+            <aop:around pointcut-ref="logPointDaoCut" method="invoke"/>
+        </aop:aspect>
+    </aop:config>
+
+
+    <!--================== 下面是Cache相关配置 ==================-->
     <cache:annotation-driven/>
     <!-- generic cache manager -->
     <!-- cacheManager工厂类，指定ehcache.xml的位置 -->
     <bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
         <property name="configLocation" value="classpath:/cache/ehcache.xml"/>
     </bean>
-
     <!-- 声明cacheManager -->
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
         <property name="cacheManager" ref="cacheManagerFactory"/>

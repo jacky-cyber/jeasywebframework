@@ -1,6 +1,5 @@
 package com.jeasywebframework.web.controller.sys.dev;
 
-import com.jeasywebframework.dao.dev.SysDevSqlLogDao;
 import com.jeasywebframework.domain.dept.HostHolder;
 import com.jeasywebframework.domain.dev.SysDevSqlLog;
 import com.jeasywebframework.service.dev.SqlLogService;
@@ -91,7 +90,7 @@ public class SqlController {
             sqlLog.setSqlType("query");
 
             sqlLog.setSql(sql);
-            sqlLog.setIp(IpUtil.getIp(request));
+            sqlLog.setIp(IpUtil.getRequestIp(request));
 
         } catch (Exception ex) {
             logger.error("记录用户操作记录失败！", ex);
@@ -201,7 +200,7 @@ public class SqlController {
             Date now = new Date(System.currentTimeMillis());
 
             SysDevSqlLog sqlLog = new SysDevSqlLog();
-            sqlLog.setIp(IpUtil.getIp(request));
+            sqlLog.setIp(IpUtil.getRequestIp(request));
             sqlLog.setCreateUserId(hostHolder.getHostId());
             sqlLog.setCreateTime(now);
             sqlLog.setUpdateTime(now);

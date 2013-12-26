@@ -2,8 +2,11 @@ package com.jeasywebframework.web.interceptor;
 
 import com.jeasywebframework.domain.dept.HostHolder;
 import com.jeasywebframework.domain.dept.SysDeptUser;
+import com.jeasywebframework.domain.dev.Tracker;
 import com.jeasywebframework.service.dept.UserService;
+import com.jeasywebframework.service.dev.TrackerHolder;
 import com.jeasywebframework.utils.CookieUtil;
+import com.jeasywebframework.utils.IpUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,29 +33,53 @@ public class HostHolderInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String _username = CookieUtil.getCookie(request, HostHolder.COOKIE_KEY_USERNAME);
-        String _pwd = CookieUtil.getCookie(request, HostHolder.COOKIE_KEY_PWD);
+        String url = request.getRequestURL().toString();
 
-//        logger.debug("cookie username========>" + _username);
-//        logger.debug("cookie password========>" + _pwd);
-        HostHolder hostHolder = new HostHolder();
+        if (url.indexOf(".ajax") > -1 || url.indexOf(".html") > -1) {
+            Tracker inside = new Tracker();
+            inside.setStartTime(System.currentTimeMillis());
+            inside.setIp(IpUtil.getLocalIp());
+            inside.setTag("Interceptor[" + HostHolderInterceptor.class.getName() + "]");
+            inside.setThreadName(Thread.currentThread().getName());
+
+            request.setAttribute("$inside_HostHolderInterceptor", inside);
+
+            TrackerHolder.getInstance().setCurrent(inside);
+            Tracker parent = TrackerHolder.getInstance().getRoot();
+            parent.addChild(inside);
 
 
-        if (StringUtils.isNotBlank(_username) && StringUtils.isNotBlank(_pwd)) {
-            SysDeptUser sysDeptUser = userService.findByCookieUsernameAndPwd(_username, _pwd);
+            String _username = CookieUtil.getCookie(request, HostHolder.COOKIE_KEY_USERNAME);
+            String _pwd = CookieUtil.getCookie(request, HostHolder.COOKIE_KEY_PWD);
 
-            if (sysDeptUser != null) {
-                hostHolder.setHost(sysDeptUser);
+            HostHolder hostHolder = new HostHolder();
+
+            if (StringUtils.isNotBlank(_username) && StringUtils.isNotBlank(_pwd)) {
+                SysDeptUser sysDeptUser = userService.findByCookieUsernameAndPwd(_username, _pwd);
+
+                if (sysDeptUser != null) {
+                    hostHolder.setHost(sysDeptUser);
+                }
+
             }
 
+
+
+            request.setAttribute(HostHolder.REQUEST_KEY_HOLDER, hostHolder);
         }
 
-        request.setAttribute(HostHolder.REQUEST_KEY_HOLDER, hostHolder);
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        Tracker inside = (Tracker) request.getAttribute("$inside_HostHolderInterceptor");
+        if (inside != null) {
+            inside.setEndTime(System.currentTimeMillis());
+
+            Tracker parent = TrackerHolder.getInstance().getRoot();
+            TrackerHolder.getInstance().setCurrent(parent);
+        }
 
     }
 

@@ -1,0 +1,47 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "start_date": "2013-12-25 12:11:11",
+            "end_date": "2013-12-25 14:11:11",
+            "duration": 5,
+            "text": "URL[/sys/dept/user/list.ajax]",
+            "progress": 0.8,
+            "sortorder": 20,
+            "parent": 0,
+            "open": true
+        },
+        {
+            "id": 2,
+            "start_date": "2013-12-25 12:11:12",
+            "duration": 4,
+            "text": "Task #1",
+            "progress": 0.5,
+            "sortorder": 10,
+            "parent": 1,
+            "open": true
+        },
+
+        {
+            "id": 5,
+            "start_date": "2013-12-25 12:11:14",
+            "duration":  2,
+            "text": "Task #1.1",
+            "progress": 0.34,
+            "sortorder": 10,
+            "parent": 2,
+            "open": true
+        },
+        {
+            "id": 6,
+            "start_date": "2013-12-25 12:11:15",
+            "duration": 1,
+            "text": "Task #1.2",
+            "progress": 0.491477,
+            "sortorder": 20,
+            "parent": 2,
+            "open": true
+        }
+
+    ]
+}

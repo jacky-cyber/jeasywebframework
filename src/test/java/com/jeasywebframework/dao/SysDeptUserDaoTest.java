@@ -16,7 +16,7 @@ import java.util.Date;
 /**
  * Created by jeasywebframework@gmail.com on 13-12-18.
  */
-//@Ignore
+@Ignore
 @ContextConfiguration("classpath:applicationContext.xml")
 public class SysDeptUserDaoTest extends AbstractJUnit4SpringContextTests {
 

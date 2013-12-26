@@ -2843,14 +2843,14 @@
 						}).editable('setValue', null);
 						*/
 						
-						//so we remove it altogether and create a new element
+						//so we removeRoot it altogether and create a new element
 						var city = $('#city').removeAttr('id').get(0);
 						$(city).clone().attr('id', 'city').text('Select City').editable({
 							type: 'select2',
 							value : null,
 							source: new_source
 						}).insertAfter(city);//insert it after previous instance
-						$(city).remove();//remove previous instance
+						$(city).remove();//removeRoot previous instance
 						
 					}
 			    });
@@ -3041,7 +3041,7 @@
 						no_icon:'icon-picture',
 						thumbnail:'small',
 						before_remove: function() {
-							//don't remove/reset files while being uploaded
+							//don't removeRoot/reset files while being uploaded
 							return !working;
 						},
 						before_change: function(files, dropped) {

@@ -2076,7 +2076,7 @@
 				});
 				
 				$( "#eq > span" ).css({width:'90%', 'float':'left', margin:'15px'}).each(function() {
-					// read initial values from markup and remove that
+					// read initial values from markup and removeRoot that
 					var value = parseInt( $( this ).text(), 10 );
 					$( this ).empty().slider({
 						value: value,
@@ -2107,7 +2107,7 @@
 					no_icon:'icon-cloud-upload',
 					droppable:true,
 					thumbnail:'small'//large | fit
-					//,icon_remove:null//set null, to hide remove/reset button
+					//,icon_remove:null//setRoot null, to hide removeRoot/reset button
 					/**,before_change:function(files, dropped) {
 						//Check an example below
 						//or examples/file-upload.html
@@ -2208,7 +2208,7 @@
 				$(".knob").knob();
 				
 				
-				//we could just set the data-provide="tag" of the element inside HTML, but IE8 fails!
+				//we could just setRoot the data-provide="tag" of the element inside HTML, but IE8 fails!
 				var tag_input = $('#form-field-tags');
 				if(! ( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) 
 				{
@@ -2241,7 +2241,7 @@
 				
 				//chosen plugin inside a modal will have a zero width because the select element is originally hidden
 				//and its width cannot be determined.
-				//so we set the width after modal is show
+				//so we setRoot the width after modal is show
 				$('#modal-form').on('shown.bs.modal', function () {
 					$(this).find('.chosen-container').each(function(){
 						$(this).find('a:first-child').css('width' , '210px');

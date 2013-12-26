@@ -2,9 +2,12 @@ package com.jeasywebframework.web.interceptor;
 
 import com.jeasywebframework.domain.dept.HostHolder;
 import com.jeasywebframework.domain.dept.LoginType;
+import com.jeasywebframework.domain.dev.Tracker;
 import com.jeasywebframework.service.dept.UserService;
 import com.jeasywebframework.service.annotations.LoginRequired;
+import com.jeasywebframework.service.dev.TrackerHolder;
 import com.jeasywebframework.utils.AjaxUtil;
+import com.jeasywebframework.utils.IpUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +32,37 @@ public class LoginRequiredInterceptor implements HandlerInterceptor {
     @Autowired
     private UserService userService;
 
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        Tracker inside = (Tracker) request.getAttribute("$inside_LoginRequiredInterceptor");
+        if (inside != null) {
+            inside.setEndTime(System.currentTimeMillis());
+
+            Tracker parent = TrackerHolder.getInstance().getRoot();
+            TrackerHolder.getInstance().setCurrent(parent);
+        }
+
+    }
+
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String url = request.getRequestURI().toString();
 
-        if (url.indexOf("/statics/") > -1) {
+        if (url.indexOf(".ajax") == -1 && url.indexOf(".html") == -1) {
             return true;
         }
+
+        Tracker inside = new Tracker();
+        inside.setStartTime(System.currentTimeMillis());
+        inside.setIp(IpUtil.getLocalIp());
+        inside.setTag("Interceptor[" + LoginRequiredInterceptor.class.getName() + "]");
+        inside.setThreadName(Thread.currentThread().getName());
+
+        TrackerHolder.getInstance().setCurrent(inside);
+        TrackerHolder.getInstance().getRoot().addChild(inside);
+        request.setAttribute("$inside_LoginRequiredInterceptor", inside);
+
 
         HostHolder hostHolder = (HostHolder) request.getAttribute(HostHolder.REQUEST_KEY_HOLDER);
         if (handler instanceof HandlerMethod) {
@@ -137,11 +163,6 @@ public class LoginRequiredInterceptor implements HandlerInterceptor {
         return false;
     }
 
-
-    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-
-    }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {

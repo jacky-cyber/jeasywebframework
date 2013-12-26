@@ -82,7 +82,7 @@ public class LoginController {
             CookieUtil.setCookie(response, domain, HostHolder.COOKIE_KEY_USERNAME, DESUtil.encrypt(sysDeptUser.getUsername()), 30 * 60 * 60);
             CookieUtil.setCookie(response, domain, HostHolder.COOKIE_KEY_PWD, DESUtil.encrypt(CP1), 30 * 60 * 60);
         } catch (Exception e) {
-            logger.error("set cookie error.", e);
+            logger.error("setRoot cookie error.", e);
             e.printStackTrace();
         }
 
@@ -97,7 +97,7 @@ public class LoginController {
             CookieUtil.removeCookie(request, response, HostHolder.COOKIE_KEY_PWD);
         } catch (Exception ex) {
             ex.printStackTrace();
-            logger.error("remove cookie error.", ex);
+            logger.error("removeRoot cookie error.", ex);
         }
         return "sys/dept/login";
     }

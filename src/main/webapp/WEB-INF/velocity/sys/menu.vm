@@ -97,4 +97,21 @@
         </ul>
     </li>
 
+    <li id="menu_dev"  >
+        <a href="#" class="dropdown-toggle" >
+            <i class="icon-code"></i> <span class="menu-text">开发模式</span>
+            <b class="arrow icon-angle-down"></b>
+        </a>
+
+        <ul class="submenu">
+            <li id="menu_dev_sql">
+                <a href="/sys/dev/sql/index.html"  >  <i class="icon-double-angle-right"></i>通用查询功能 </a>
+            </li>
+            <li id="menu_dev_inside">
+                <a href="/sys/dev/inside/list.html"  >  <i class="icon-double-angle-right"></i>性能监控功能 </a>
+            </li>
+
+        </ul>
+    </li>
+
 </ul>

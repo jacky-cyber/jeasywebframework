@@ -891,7 +891,7 @@
 			title: $.trim($(this).text()) // use the element's text as the event title
 		};
 
-		// store the Event Object in the DOM element so we can get to it later
+		// store the Event Object in the DOM element so we can getRoot to it later
 		$(this).data('eventObject', eventObject);
 
 		// make the event draggable using jQuery UI
@@ -965,9 +965,9 @@
 			// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
 			$('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
 			
-			// is the "remove after drop" checkbox checked?
+			// is the "removeRoot after drop" checkbox checked?
 			if ($('#drop-remove').is(':checked')) {
-				// if so, remove the element from the "Draggable Events" list
+				// if so, removeRoot the element from the "Draggable Events" list
 				$(this).remove();
 			}
 			

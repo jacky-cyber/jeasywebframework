@@ -8,7 +8,7 @@ $.extend( true, $.fn.dataTable.defaults, {
 } );
 
 
-/* API method to get paging information */
+/* API method to getRoot paging information */
 $.fn.dataTableExt.oApi.fnPagingInfo = function ( oSettings )
 {
     return {
@@ -82,7 +82,7 @@ $.extend( $.fn.dataTableExt.oPagination, {
                         } );
                 }
  
-                // Add / remove disabled classes from the static elements
+                // Add / removeRoot disabled classes from the static elements
                 if ( oPaging.iPage === 0 ) {
                     $('li:first', an[i]).addClass('disabled');
                 } else {

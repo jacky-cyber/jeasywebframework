@@ -22,9 +22,6 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Autowired
     private SysDeptDepartmentDao sysDeptDepartmentDao;
 
-    @Autowired
-    private CacheManager cacheManager;
-
 
     @Override
     public SysDeptDepartment findOne(Long id) {
@@ -34,16 +31,14 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public void saveAndFlush(SysDeptDepartment sysDeptDepartment) {
         sysDeptDepartmentDao.saveAndFlush(sysDeptDepartment);
-        Cache cache = cacheManager.getCache(CACHE_VALUE);
-        cache.clear();
+
     }
 
 
     @Override
     public void save(SysDeptDepartment sysDeptDepartment) {
         sysDeptDepartmentDao.saveAndFlush(sysDeptDepartment);
-        Cache cache = cacheManager.getCache(CACHE_VALUE);
-        cache.clear();
+
     }
 
     @Override
@@ -53,12 +48,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public List<SysDeptDepartment> findAll(Sort sort) {
-        Cache cache = cacheManager.getCache(CACHE_VALUE);
-        List<SysDeptDepartment> departments = cache.get("findAll", List.class);
-        if (departments == null) {
-            departments = sysDeptDepartmentDao.findAll(sort);
-            cache.put("findAll", departments);
-        }
+
+        List<SysDeptDepartment> departments = sysDeptDepartmentDao.findAll(sort);
+
         return departments;
     }
 

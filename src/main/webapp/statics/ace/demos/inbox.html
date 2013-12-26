@@ -1817,7 +1817,7 @@
 						message_list.next().addClass('hide');
 						$('.message-container').find('.message-loading-overlay').remove();
 			
-						//close and remove the inline opened message if any!
+						//close and removeRoot the inline opened message if any!
 			
 						//hide all navbars
 						$('.message-navbar').addClass('hide');
@@ -2064,12 +2064,12 @@
 				$('.message-form button[type=reset]').on('click', function(){
 					$('.message-form .message-body').empty();
 					
-					$('.message-form .ace-file-input:not(:first-child)').remove();
+					$('.message-form .ace-file-input:not(:first-child)').removeRoot();
 					$('.message-form input[type=file]').ace_file_input('reset_input');
 					
 					
 					var val = tag_input.data('value');
-					tag_input.parent().find('.tag').remove();
+					tag_input.parent().find('.tag').removeRoot();
 					$(val.split(',')).each(function(k,v){
 						tag_input.before('<span class="tag">'+v+'<button class="close" type="button">&times;</button></span>');
 					});
