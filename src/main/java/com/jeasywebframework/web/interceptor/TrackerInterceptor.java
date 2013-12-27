@@ -40,6 +40,8 @@ public class TrackerInterceptor implements HandlerInterceptor {
             httpServletRequest.setAttribute("$inside_InsideInterceptor", parent);
             TrackerHolder.getInstance().setCurrent(parent);
             TrackerHolder.getInstance().setRoot(parent);
+
+            logger.debug("$$$$$$$$$$$$$$add Tracker: " + parent.getTag());
         }
 
         if (url.indexOf(".html") > -1) {
@@ -55,6 +57,11 @@ public class TrackerInterceptor implements HandlerInterceptor {
         Tracker parent = (Tracker) httpServletRequest.getAttribute("$inside_InsideInterceptor");
 
         if (parent != null) {
+            if (parent.getTag().indexOf("/dev/inside/") > -1) {
+                return;
+            }
+
+
             parent.setEndTime(System.currentTimeMillis());
 
             trackerDao.save(parent);

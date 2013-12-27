@@ -35,4 +35,4 @@
 </div>
 
 
-<script type="application/javascript" src="/statics/pages/sys/dev/inside/detail.js?_v=${staticVersion}"></script>
+<script type="application/javascript" src="/statics/pages/sys/dev/tracker/detail.js?_v=${staticVersion}"></script>

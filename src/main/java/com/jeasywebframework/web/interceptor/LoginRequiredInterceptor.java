@@ -34,13 +34,7 @@ public class LoginRequiredInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        Tracker inside = (Tracker) request.getAttribute("$inside_LoginRequiredInterceptor");
-        if (inside != null) {
-            inside.setEndTime(System.currentTimeMillis());
 
-            Tracker parent = TrackerHolder.getInstance().getRoot();
-            TrackerHolder.getInstance().setCurrent(parent);
-        }
 
     }
 
@@ -61,9 +55,20 @@ public class LoginRequiredInterceptor implements HandlerInterceptor {
 
         TrackerHolder.getInstance().setCurrent(inside);
         TrackerHolder.getInstance().getRoot().addChild(inside);
-        request.setAttribute("$inside_LoginRequiredInterceptor", inside);
+
+        try {
+            return execute(url, request, response, handler);
+        } finally {
+            inside.setEndTime(System.currentTimeMillis());
+
+            Tracker parent = TrackerHolder.getInstance().getRoot();
+            TrackerHolder.getInstance().setCurrent(parent);
+        }
 
 
+    }
+
+    private boolean execute(String url, HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
         HostHolder hostHolder = (HostHolder) request.getAttribute(HostHolder.REQUEST_KEY_HOLDER);
         if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
@@ -113,7 +118,6 @@ public class LoginRequiredInterceptor implements HandlerInterceptor {
                 }
             }
         }
-
         return true;
     }
 

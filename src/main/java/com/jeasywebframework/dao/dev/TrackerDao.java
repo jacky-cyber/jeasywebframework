@@ -37,7 +37,7 @@ public interface TrackerDao {
     @Select("SELECT COUNT(id) FROM " + TABLE_NAME + " WHERE parent_id = #{parentId}")
     Long countByParentId(@Param("parentId") Long parentId);
 
-    @Select("SELECT " + ALL_FIELDS + " FROM " + TABLE_NAME + " WHERE  parent_id = #{parentId}  LIMIT #{offset}, #{limit}")
+    @Select("SELECT " + ALL_FIELDS + " FROM " + TABLE_NAME + " WHERE  parent_id = #{parentId} ORDER BY start_time DESC LIMIT #{offset}, #{limit} ")
     List<Tracker> findByParentId(@Param("parentId") Long parentId, @Param("offset") int offset, @Param("limit") int limit);
 
     @Select("SELECT " + ALL_FIELDS + " FROM " + TABLE_NAME + " WHERE  path LIKE #{path} ORDER BY start_time ASC ")

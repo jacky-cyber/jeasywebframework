@@ -16,25 +16,35 @@ public class LogAspectForService {
 
 
     public Object invoke(ProceedingJoinPoint joinPoint) throws Throwable {
-        logger.info("Beginning method: " + joinPoint.toLongString());
+//        logger.info("Beginning method: " + joinPoint.toLongString());
 
+        Tracker root = TrackerHolder.getInstance().getRoot();
         Tracker insideParent = TrackerHolder.getInstance().getCurrent();
         Tracker tracker = null;
 
-        if (insideParent != null) {
+        if (root != null && insideParent != null) {
             tracker = new Tracker();
             tracker.setThreadName(Thread.currentThread().getName());
-            tracker.setTag(joinPoint.toShortString());
+            String tag = joinPoint.toShortString();
+//execution(DepartmentServiceImpl.findAll())
+            int i1 = tag.indexOf("(");
+            String s1 = tag.substring(i1 + 1, tag.length() - 3);
+
+            tracker.setTag(s1);
             tracker.setDescp(joinPoint.toLongString());
             tracker.setIp(IpUtil.getLocalIp());
             tracker.setStartTime(System.currentTimeMillis());
+
+//            logger.debug("$$$$$$$$$$$$$$add Tracker: " + tracker.getTag());
+
+            TrackerHolder.getInstance().setCurrent(tracker);
         }
 
         Object result;
         try {
             result = joinPoint.proceed();
         } finally {
-            if (insideParent != null) {
+            if (root != null && insideParent != null) {
                 tracker.setEndTime(System.currentTimeMillis());
                 insideParent.addChild(tracker);
                 TrackerHolder.getInstance().setCurrent(insideParent);

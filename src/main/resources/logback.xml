@@ -8,10 +8,11 @@
 
 
     <logger name="com.jeasywebframework" level="DEBUG"/>
-    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.springframework" level="error"/>
 
-    
-    <root level="INFO">
+    <logger name="com.jeasywebframework.dao" level="error"/>
+
+    <root level="error">
         <appender-ref ref="console"/>
     </root>
 

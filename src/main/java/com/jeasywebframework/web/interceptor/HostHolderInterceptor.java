@@ -36,17 +36,16 @@ public class HostHolderInterceptor implements HandlerInterceptor {
         String url = request.getRequestURL().toString();
 
         if (url.indexOf(".ajax") > -1 || url.indexOf(".html") > -1) {
-            Tracker inside = new Tracker();
-            inside.setStartTime(System.currentTimeMillis());
-            inside.setIp(IpUtil.getLocalIp());
-            inside.setTag("Interceptor[" + HostHolderInterceptor.class.getName() + "]");
-            inside.setThreadName(Thread.currentThread().getName());
+            Tracker tracker = new Tracker();
+            tracker.setStartTime(System.currentTimeMillis());
+            tracker.setIp(IpUtil.getLocalIp());
+            tracker.setTag("Interceptor[" + HostHolderInterceptor.class.getName() + "]");
+            tracker.setThreadName(Thread.currentThread().getName());
 
-            request.setAttribute("$inside_HostHolderInterceptor", inside);
 
-            TrackerHolder.getInstance().setCurrent(inside);
+            TrackerHolder.getInstance().setCurrent(tracker);
             Tracker parent = TrackerHolder.getInstance().getRoot();
-            parent.addChild(inside);
+            parent.addChild(tracker);
 
 
             String _username = CookieUtil.getCookie(request, HostHolder.COOKIE_KEY_USERNAME);
@@ -64,6 +63,10 @@ public class HostHolderInterceptor implements HandlerInterceptor {
             }
 
 
+            if (tracker != null) {
+                tracker.setEndTime(System.currentTimeMillis());
+                TrackerHolder.getInstance().setCurrent(parent);
+            }
 
             request.setAttribute(HostHolder.REQUEST_KEY_HOLDER, hostHolder);
         }
@@ -73,13 +76,7 @@ public class HostHolderInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        Tracker inside = (Tracker) request.getAttribute("$inside_HostHolderInterceptor");
-        if (inside != null) {
-            inside.setEndTime(System.currentTimeMillis());
 
-            Tracker parent = TrackerHolder.getInstance().getRoot();
-            TrackerHolder.getInstance().setCurrent(parent);
-        }
 
     }
 

@@ -108,7 +108,7 @@
                 <a href="/sys/dev/sql/index.html"  >  <i class="icon-double-angle-right"></i>通用查询功能 </a>
             </li>
             <li id="menu_dev_inside">
-                <a href="/sys/dev/inside/list.html"  >  <i class="icon-double-angle-right"></i>性能监控功能 </a>
+                <a href="/sys/dev/tracker/list.html"  >  <i class="icon-double-angle-right"></i>性能监控功能 </a>
             </li>
 
         </ul>

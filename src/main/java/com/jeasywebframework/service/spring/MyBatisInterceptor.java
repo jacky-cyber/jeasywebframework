@@ -37,7 +37,7 @@ public class MyBatisInterceptor implements Interceptor {
     public Object intercept(Invocation invocation) throws Throwable {
         MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
         String sqlId = mappedStatement.getId();
-        logger.info("Execute Dao[" + sqlId + "]");
+//        logger.info("Execute Dao[" + sqlId + "]");
 
 
         Object parameter = null;
@@ -49,23 +49,41 @@ public class MyBatisInterceptor implements Interceptor {
         String sql = getSQL(configuration, boundSql);
 
         Tracker insideParent = TrackerHolder.getInstance().getCurrent();
+        Tracker root = TrackerHolder.getInstance().getRoot();
+
         Tracker tracker = null;
 
-        if (insideParent != null) {
+        boolean addTracker = true;
+
+        if (sqlId.indexOf("!selectKey") > -1) {
+            addTracker = false;
+        }
+
+        if (sqlId.indexOf("com.jeasywebframework.dao.dev.TrackerDao") > -1) {
+            addTracker = false;
+        }
+
+        if (addTracker && root != null && insideParent != null) {
+
             tracker = new Tracker();
             tracker.setThreadName(Thread.currentThread().getName());
             tracker.setTag("DAO[" + sqlId + "]");
             tracker.setDescp(sql);
             tracker.setIp(IpUtil.getLocalIp());
             tracker.setStartTime(System.currentTimeMillis());
+//            logger.debug("$$$$$$$$$$$$$$add Tracker: " + tracker.getTag());
+
         }
 
         try {
             return invocation.proceed();
         } finally {
-            if (insideParent != null) {
+            if (addTracker && root != null && insideParent != null) {
                 tracker.setEndTime(System.currentTimeMillis());
                 insideParent.addChild(tracker);
+
+//                logger.debug("Add tracker for DAO[" + sqlId + "].");
+
                 TrackerHolder.getInstance().setCurrent(insideParent);
             }
         }

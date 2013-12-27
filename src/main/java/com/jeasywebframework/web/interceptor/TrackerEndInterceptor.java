@@ -4,6 +4,8 @@ import com.jeasywebframework.domain.dept.HostHolder;
 import com.jeasywebframework.domain.dev.Tracker;
 import com.jeasywebframework.service.dev.TrackerHolder;
 import com.jeasywebframework.utils.IpUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,6 +18,8 @@ import java.lang.reflect.Method;
  * Created by jeasywebframework@gmail.com on 13-12-26.
  */
 public class TrackerEndInterceptor implements HandlerInterceptor {
+
+    private static final Logger logger = LoggerFactory.getLogger(TrackerEndInterceptor.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -39,6 +43,8 @@ public class TrackerEndInterceptor implements HandlerInterceptor {
                 Tracker parent = TrackerHolder.getInstance().getRoot();
                 parent.addChild(inside);
                 request.setAttribute("$inside_TrackerEndInterceptor", inside);
+
+//                logger.debug("$$$$$$$$$$$$$$add Tracker: " + inside.getTag());
             }
 
         }

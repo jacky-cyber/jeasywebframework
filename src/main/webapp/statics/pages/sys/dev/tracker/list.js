@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
 
     var grid_selector = "#grid-table";
@@ -6,7 +5,7 @@ $(document).ready(function () {
 
 
     $(grid_selector).jqGrid({
-        url: "/sys/dev/inside/list.ajax",
+        url: "/sys/dev/tracker/list.ajax",
         datatype: "json",
         height: '100%',
         mtype: "GET",
@@ -16,14 +15,17 @@ $(document).ready(function () {
         },
         colNames: [ 'ID', 'tag', '开始时间', '结束时间' , '操作' ],
         colModel: [
-            {name: 'id', index: 'id', width: 60  },
-            {name: 'tag', index: 'tag', width: 100  },
-            {name: 'startTime', index: 'startTime', width: 80  },
-            {name: 'endTime', index: 'endTime', width: 130  },
-
+            {name: 'id', index: 'id', hidden: true  },
+            {name: 'tag', index: 'tag', width: 200,
+                formatter: function (p1, p2, record) {
+                    return '<a href="/sys/dev/tracker/detail.html?id=' + record.id + '">' + record.tag + '</a>';
+                }
+            },
+            {name: 'startTime', index: 'startTime', width: 50  },
+            {name: 'endTime', index: 'endTime', width: 50  },
             {name: 'ops', index: '', fixed: true, width: 80, sortable: false, resize: false,
                 formatter: function (p1, p2, record) {
-                    var btn_edit = '<a href="/sys/dev/inside/detail.html?id=' + record.id + '" class="no-underline btn btn-xs btn-info" title="查看详情"><i class="icon-zoom-in bigger-120"></i></a>'
+                    var btn_edit = '<a href="/sys/dev/tracker/detail.html?id=' + record.id + '" class="no-underline btn btn-xs btn-info" title="查看详情"><i class="icon-zoom-in bigger-120"></i></a>'
                     return btn_edit;
                 }
             }
@@ -58,7 +60,6 @@ $(document).ready(function () {
 
         }
     });
-
 
 
 });
