@@ -273,13 +273,13 @@ CREATE TABLE `sys_dev_sql_log` (
 DROP TABLE IF EXISTS `sys_dev_tracker`;
 CREATE TABLE `sys_dev_tracker` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `tag` varchar(5000) NOT NULL,
+  `tag` varchar(255) NOT NULL,
   `ip` varchar(255) NOT NULL,
   `thread_name` varchar(255) NOT NULL,
   `start_time` bigint(20) NOT NULL,
   `end_time` bigint(20) NOT NULL,
 
-  `descp` varchar(5000) DEFAULT NULL,
+  `descp` varchar(2000) DEFAULT NULL,
 
   `level` int(11) NOT NULL,
   `parent_id` bigint(20) NOT NULL,

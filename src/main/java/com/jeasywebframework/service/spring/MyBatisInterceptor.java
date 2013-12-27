@@ -13,6 +13,8 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.DateFormat;
 import java.util.*;
@@ -26,12 +28,18 @@ import java.util.*;
 })
 public class MyBatisInterceptor implements Interceptor {
 
+    private static final Logger logger = LoggerFactory.getLogger(MyBatisInterceptor.class);
+
+
     private Properties properties;
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
         MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
         String sqlId = mappedStatement.getId();
+        logger.info("Execute Dao[" + sqlId + "]");
+
+
         Object parameter = null;
         if (invocation.getArgs().length > 1) {
             parameter = invocation.getArgs()[1];
@@ -40,14 +48,13 @@ public class MyBatisInterceptor implements Interceptor {
         Configuration configuration = mappedStatement.getConfiguration();
         String sql = getSQL(configuration, boundSql);
 
-
         Tracker insideParent = TrackerHolder.getInstance().getCurrent();
         Tracker tracker = null;
 
         if (insideParent != null) {
             tracker = new Tracker();
             tracker.setThreadName(Thread.currentThread().getName());
-            tracker.setTag("DAO[" + sql + "]");
+            tracker.setTag("DAO[" + sqlId + "]");
             tracker.setDescp(sql);
             tracker.setIp(IpUtil.getLocalIp());
             tracker.setStartTime(System.currentTimeMillis());
