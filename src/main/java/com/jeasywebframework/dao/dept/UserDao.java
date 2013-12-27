@@ -1,5 +1,6 @@
 package com.jeasywebframework.dao.dept;
 
+import com.jeasywebframework.domain.Fields;
 import com.jeasywebframework.domain.dept.User;
 import org.apache.ibatis.annotations.*;
 
@@ -12,10 +13,28 @@ public interface UserDao {
 
     String TABLE_NAME = " sys_dept_user ";
 
-    String ALL_FIELDS = "";
-    String INSERT_FIELDS = "";
-    String VALUE_FIELDS = "";
-    String UPDATE_FIELDS = "";
+    String ALL_FIELDS = Fields.ID_SELECT
+            + " username, password, salt, birthday, department_id AS departmentId, enabled, address, oorder, "
+            + " msn, qq, sex, postcode, name, mobile, home_phone AS homePhone, office_phone AS officePhone, "
+            + " email, id_card AS idCard, descp, "
+            + Fields.AUDIT_SELECT;
+
+    String INSERT_FIELDS = " username, password, salt, birthday, department_id, enabled, address, oorder, "
+            + " msn, qq, sex, postcode, name, mobile, home_phone, office_phone, "
+            + " email, id_card, descp, "
+            + Fields.AUDIT_INSERT;
+
+    String VALUE_FIELDS = " #{username}, #{password}, #{salt}, #{birthday}, #{departmentId}, #{enabled}, #{address}, #{oorder}, "
+            + " #{msn}, #{qq}, #{sex}, #{postcode}, #{name}, #{mobile}, #{homePhone}, #{officePhone}, "
+            + " #{email}, #{idCard}, #{descp}, "
+            + Fields.AUDIT_VALUE;
+
+    String UPDATE_FIELDS = "  username = #{username}, password = #{password}, salt = #{salt}, birthday = #{birthday}, "
+            + " department_id = #{departmentId}, enabled = #{enabled}, address = #{address}, oorder = #{oorder}, "
+            + " msn = #{msn}, qq = #{qq}, sex = #{sex}, postcode = #{postcode}, name = #{name},"
+            + " mobile = #{mobile}, home_phone = #{homePhone}, office_phone = #{officePhone}, "
+            + " email = #{email}, id_card = #{idCard}, descp = #{descp}, "
+            + Fields.AUDIT_UPDATE;
 
 
     @Select("SELECT " + ALL_FIELDS + " FROM " + TABLE_NAME + " WHERE username = #{username} ")
@@ -25,6 +44,7 @@ public interface UserDao {
     void delete(@Param("id") Long id);
 
     @Insert("INSERT INTO " + TABLE_NAME + "(" + INSERT_FIELDS + ")VALUES(" + VALUE_FIELDS + ")")
+    @SelectKey(before = false, statement = "SELECT LAST_INSERT_ID() AS id ", keyProperty = "id", resultType = Long.class)
     void save(User user);
 
     @Select("SELECT " + ALL_FIELDS + " FROM " + TABLE_NAME + " WHERE id = #{id} ")

@@ -1,13 +1,14 @@
 package com.jeasywebframework.domain.config;
 
 
+import com.jeasywebframework.domain.BaseAudit;
+
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by jeasywebframework@gmail.com on 13-12-25.
  */
-public class Constant implements Serializable {
+public class Constant extends BaseAudit implements Serializable {
 
     private Long id;
 
@@ -19,13 +20,7 @@ public class Constant implements Serializable {
 
     private String enabled;
 
-    private Date createTime;
 
-    private Date updateTime;
-
-    private Long createUserId;
-
-    private Long updateUserId;
 
     // ================================
 
@@ -69,35 +64,4 @@ public class Constant implements Serializable {
         this.enabled = enabled;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Long getCreateUserId() {
-        return createUserId;
-    }
-
-    public void setCreateUserId(Long createUserId) {
-        this.createUserId = createUserId;
-    }
-
-    public Long getUpdateUserId() {
-        return updateUserId;
-    }
-
-    public void setUpdateUserId(Long updateUserId) {
-        this.updateUserId = updateUserId;
-    }
 }

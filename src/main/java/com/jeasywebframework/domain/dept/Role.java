@@ -1,11 +1,13 @@
 package com.jeasywebframework.domain.dept;
 
-import java.util.Date;
+import com.jeasywebframework.domain.BaseAudit;
+
+import java.io.Serializable;
 
 /**
  * Created by jeasywebframework@gmail.com on 13-12-18.
  */
-public class Role {
+public class Role extends BaseAudit implements Serializable {
 
     private Long id;
 
@@ -17,13 +19,6 @@ public class Role {
 
     private Long oorder;
 
-    private Long createUserId;
-
-    private Long updateUserId;
-
-    private Date createTime;
-
-    private Date updateTime;
 
 
     // ========================================================================================
@@ -31,37 +26,6 @@ public class Role {
     // ========================================================================================
 
 
-    public Long getCreateUserId() {
-        return createUserId;
-    }
-
-    public void setCreateUserId(Long createUserId) {
-        this.createUserId = createUserId;
-    }
-
-    public Long getUpdateUserId() {
-        return updateUserId;
-    }
-
-    public void setUpdateUserId(Long updateUserId) {
-        this.updateUserId = updateUserId;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 
     public Long getId() {
         return id;

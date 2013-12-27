@@ -102,15 +102,5 @@
     </mvc:interceptors>
 
 
-    <!-- 定义aspectj
-    <aop:aspectj-autoproxy  />
-    <bean id="logAspectForController" class="com.jeasywebframework.service.spring.LogAspectForController"  />
-    <aop:config>
-        <aop:pointcut id="logPointCutController" expression="execution(* org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(..))" />
-        <aop:aspect ref="logAspectForController">
-            <aop:around pointcut-ref="logPointCutController" method="invoke" />
-        </aop:aspect>
-    </aop:config>
-    -->
 
 </beans>

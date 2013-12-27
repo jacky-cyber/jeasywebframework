@@ -11,7 +11,7 @@ import org.springframework.util.Assert;
 /**
  * Created by jeasywebframework@gmail.com on 13-12-19.
  */
-@Ignore
+//@Ignore
 @ContextConfiguration("classpath:applicationContext.xml")
 public class DepartmentDaoTest extends AbstractJUnit4SpringContextTests {
 

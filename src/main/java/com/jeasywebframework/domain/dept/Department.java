@@ -1,12 +1,13 @@
 package com.jeasywebframework.domain.dept;
 
+import com.jeasywebframework.domain.BaseAudit;
+
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by jeasywebframework@gmail.com on 13-12-18.
  */
-public class Department implements Serializable {
+public class Department extends BaseAudit implements Serializable {
 
     private Long id;
 
@@ -28,33 +29,11 @@ public class Department implements Serializable {
 
     private String path;
 
-    private Date createTime; // 创建时间
 
-    private Date updateTime; // 最后修改时间
-
-    private Long createUserId;
-
-    private Long updateUserId;
     // ========================================================================================
     // ========================================================================================
     // ========================================================================================
 
-
-    public Long getCreateUserId() {
-        return createUserId;
-    }
-
-    public void setCreateUserId(Long createUserId) {
-        this.createUserId = createUserId;
-    }
-
-    public Long getUpdateUserId() {
-        return updateUserId;
-    }
-
-    public void setUpdateUserId(Long updateUserId) {
-        this.updateUserId = updateUserId;
-    }
 
     public Long getChildrenNum() {
         return childrenNum;
@@ -64,21 +43,6 @@ public class Department implements Serializable {
         this.childrenNum = childrenNum;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 
     public String getPath() {
         return path;

@@ -1,12 +1,14 @@
 package com.jeasywebframework.domain.dept;
 
+import com.jeasywebframework.domain.BaseAudit;
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by jeasywebframework@gmail.com on 13-12-18.
  */
-public class User implements Serializable {
+public class User extends BaseAudit implements Serializable {
 
     private Long id; // 主键ID
 
@@ -48,35 +50,13 @@ public class User implements Serializable {
 
     private String descp;//描述
 
-    private Date createTime; // 创建时间
 
-    private Date updateTime; // 最后修改时间
-
-    private Long createUserId;
-
-    private Long updateUserId;
 
 
     // ========================================================================================
     // ========================================================================================
     // ========================================================================================
 
-
-    public Long getCreateUserId() {
-        return createUserId;
-    }
-
-    public void setCreateUserId(Long createUserId) {
-        this.createUserId = createUserId;
-    }
-
-    public Long getUpdateUserId() {
-        return updateUserId;
-    }
-
-    public void setUpdateUserId(Long updateUserId) {
-        this.updateUserId = updateUserId;
-    }
 
     public Long getOorder() {
         return oorder;
@@ -208,21 +188,6 @@ public class User implements Serializable {
         this.idCard = idCard;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 
     public Long getId() {
         return id;

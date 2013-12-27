@@ -18,10 +18,10 @@ $(document).ready(function () {
         colNames: [ 'ID', 'tag', '开始时间', '结束时间', '耗时(ms)'  ],
         colModel: [
             {name: 'id', index: 'id', hidden: true, width: 60, key: true },
-            {name: 'tag', index: 'tag'  },
+            {name: 'tag', index: 'tag', width: 200 },
             {name: 'startTime', index: 'startTime', width: 80  },
             {name: 'endTime', index: 'endTime', width: 130, hidden: true },
-            {name: 'cost', index: 'cost', width: 130  }
+            {name: 'cost', index: 'cost', width: 30  }
 
 
         ],

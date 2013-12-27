@@ -1,12 +1,13 @@
 package com.jeasywebframework.domain.dept;
 
+import com.jeasywebframework.domain.BaseAudit;
+
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by jeasywebframework@gmail.com on 13-12-18.
  */
-public class Resource implements Serializable {
+public class Resource extends BaseAudit implements Serializable {
 
     public static final String PATH = "path";
 
@@ -51,13 +52,6 @@ public class Resource implements Serializable {
 
     // =========================
 
-    private Date createTime; // 创建时间
-
-    private Date updateTime; // 最后修改时间
-
-    private Long createUserId;
-
-    private Long updateUserId;
     // ========================================================================================
     // ========================================================================================
     // ========================================================================================
@@ -135,22 +129,6 @@ public class Resource implements Serializable {
         this.ext5 = ext5;
     }
 
-    public Long getCreateUserId() {
-        return createUserId;
-    }
-
-    public void setCreateUserId(Long createUserId) {
-        this.createUserId = createUserId;
-    }
-
-    public Long getUpdateUserId() {
-        return updateUserId;
-    }
-
-    public void setUpdateUserId(Long updateUserId) {
-        this.updateUserId = updateUserId;
-    }
-
     public Long getChildrenNum() {
         return childrenNum;
     }
@@ -175,21 +153,6 @@ public class Resource implements Serializable {
         this.level = level;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 
     public String getCode() {
         return code;

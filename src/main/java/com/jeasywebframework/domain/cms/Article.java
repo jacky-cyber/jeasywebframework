@@ -1,12 +1,14 @@
 package com.jeasywebframework.domain.cms;
 
+import com.jeasywebframework.domain.BaseAudit;
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by jeasywebframework@gmail.com on 13-12-18.
  */
-public class Article implements Serializable{
+public class Article extends BaseAudit implements Serializable {
 
     private Long id; // 主键id
 
@@ -40,22 +42,11 @@ public class Article implements Serializable{
     private String content; // 正文
 
 
-    private Long createUserId; // 创建人id
-
-    private Long updateUserId;
-
-    private Date createTime; // 创建时间
-
-    private Date updateTime; // 更新时间
-
-
-
     // ========================================================================================
     // ========================================================================================
     // ========================================================================================
 
     /**
-     *
      * @return
      */
     public Long getId() {
@@ -63,7 +54,6 @@ public class Article implements Serializable{
     }
 
     /**
-     *
      * @param id
      */
     public void setId(Long id) {
@@ -166,36 +156,5 @@ public class Article implements Serializable{
         this.content = content;
     }
 
-    public Long getCreateUserId() {
-        return createUserId;
-    }
-
-    public void setCreateUserId(Long createUserId) {
-        this.createUserId = createUserId;
-    }
-
-    public Long getUpdateUserId() {
-        return updateUserId;
-    }
-
-    public void setUpdateUserId(Long updateUserId) {
-        this.updateUserId = updateUserId;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 
 }

@@ -1,18 +1,26 @@
 package com.jeasywebframework.domain.dev;
 
+import com.jeasywebframework.domain.BaseAudit;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by jeasywebframework@gmail.com on 13-12-26.
  */
-public class Tracker {
+public class Tracker extends BaseAudit {
 
     public Tracker() {
         this.parentId = 0L;
         this.level = 0;
         this.path = "/";
         this.childrenNum = 0L;
+
+        this.createUserId = 0L;
+        this.createTime = new Date(System.currentTimeMillis());
+        this.updateUserId = 0L;
+        this.updateTime = new Date(System.currentTimeMillis());
     }
 
     private Long id;

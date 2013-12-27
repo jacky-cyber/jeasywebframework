@@ -226,6 +226,10 @@ CREATE TABLE `sys_dev_gen_column` (
   `required_msg` varchar(255) DEFAULT NULL,
   `small_name` varchar(255) DEFAULT NULL,
   `table_name` varchar(255) DEFAULT NULL,
+  `create_time` datetime NOT NULL,
+  `create_user_id` bigint(20) NOT NULL,
+  `update_time` datetime NOT NULL,
+  `update_user_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -243,6 +247,10 @@ CREATE TABLE `sys_dev_gen_table` (
   `name` varchar(255) DEFAULT NULL,
   `url_prefix` varchar(255) DEFAULT NULL,
   `velocity_path_prefix` varchar(255) DEFAULT NULL,
+  `create_time` datetime NOT NULL,
+  `create_user_id` bigint(20) NOT NULL,
+  `update_time` datetime NOT NULL,
+  `update_user_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -250,11 +258,12 @@ CREATE TABLE `sys_dev_gen_table` (
 DROP TABLE IF EXISTS `sys_dev_sql_log`;
 CREATE TABLE `sys_dev_sql_log` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `sql_text` varchar(255) NOT NULL,
+  `sql_type` varchar(255) NOT NULL,
+  `ip` varchar(255) NOT NULL,
+  `descp` varchar(255) NOT NULL,
   `create_time` datetime NOT NULL,
   `create_user_id` bigint(20) NOT NULL,
-  `ip` varchar(255) NOT NULL,
-  `sql_str` varchar(255) NOT NULL,
-  `sql_type` varchar(255) NOT NULL,
   `update_time` datetime NOT NULL,
   `update_user_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
@@ -264,16 +273,23 @@ CREATE TABLE `sys_dev_sql_log` (
 DROP TABLE IF EXISTS `sys_dev_tracker`;
 CREATE TABLE `sys_dev_tracker` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `children_num` bigint(20) NOT NULL,
-  `descp` varchar(255) DEFAULT NULL,
-  `end_time` bigint(20) NOT NULL,
+  `tag` varchar(5000) NOT NULL,
   `ip` varchar(255) NOT NULL,
+  `thread_name` varchar(255) NOT NULL,
+  `start_time` bigint(20) NOT NULL,
+  `end_time` bigint(20) NOT NULL,
+
+  `descp` varchar(5000) DEFAULT NULL,
+
   `level` int(11) NOT NULL,
   `parent_id` bigint(20) NOT NULL,
+  `children_num` bigint(20) NOT NULL,
   `path` varchar(255) NOT NULL,
-  `start_time` bigint(20) NOT NULL,
-  `tag` varchar(255) NOT NULL,
-  `thread_name` varchar(255) NOT NULL,
+
+  `create_time` datetime NOT NULL,
+  `create_user_id` bigint(20) NOT NULL,
+  `update_time` datetime NOT NULL,
+  `update_user_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

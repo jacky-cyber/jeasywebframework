@@ -1,12 +1,13 @@
 package com.jeasywebframework.domain.config;
 
+import com.jeasywebframework.domain.BaseAudit;
+
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by jeasywebframework@gmail.com on 13-12-21.
  */
-public class Dict implements Serializable {
+public class Dict extends BaseAudit implements Serializable {
 
     private Long id;
 
@@ -15,15 +16,6 @@ public class Dict implements Serializable {
     private String descp;
 
     private String groupName;
-
-    private Date createTime;
-
-    private Date updateTime;
-
-    private Long createUserId;
-
-    private Long updateUserId;
-
 
     public String getGroupName() {
         return groupName;
@@ -57,35 +49,4 @@ public class Dict implements Serializable {
         this.descp = descp;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Long getCreateUserId() {
-        return createUserId;
-    }
-
-    public void setCreateUserId(Long createUserId) {
-        this.createUserId = createUserId;
-    }
-
-    public Long getUpdateUserId() {
-        return updateUserId;
-    }
-
-    public void setUpdateUserId(Long updateUserId) {
-        this.updateUserId = updateUserId;
-    }
 }

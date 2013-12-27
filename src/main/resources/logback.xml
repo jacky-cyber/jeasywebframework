@@ -8,8 +8,7 @@
 
 
     <logger name="com.jeasywebframework" level="DEBUG"/>
-    <logger name="org.springframework" level="DEBUG"/>
-    <logger name="org.hibernate" level="DEBUG"/>
+    <logger name="org.springframework" level="INFO"/>
 
     
     <root level="INFO">

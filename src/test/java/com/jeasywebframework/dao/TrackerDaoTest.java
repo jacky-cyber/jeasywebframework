@@ -2,6 +2,7 @@ package com.jeasywebframework.dao;
 
 import com.jeasywebframework.dao.dev.TrackerDao;
 import com.jeasywebframework.domain.dev.Tracker;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * Created by jeasywebframework@gmail.com on 13-12-19.
  */
-//@Ignore
+@Ignore
 @ContextConfiguration("classpath:applicationContext.xml")
 public class TrackerDaoTest extends AbstractJUnit4SpringContextTests {
 

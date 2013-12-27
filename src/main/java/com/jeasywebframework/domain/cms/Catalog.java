@@ -1,18 +1,19 @@
 package com.jeasywebframework.domain.cms;
 
+import com.jeasywebframework.domain.BaseAudit;
+
 import java.io.Serializable;
 
 /**
  * Created by jeasywebframework@gmail.com on 13-12-18.
  */
-public class Catalog implements Serializable {
+public class Catalog extends BaseAudit implements Serializable {
 
     public static final String INFO_TYPE_NEWS = "news"; //新闻
     public static final String INFO_TYPE_PHOTO = "photo"; // 图集
     public static final String INFO_TYPE_DOWNLOAD = "download"; // 下载
     public static final String INFO_TYPE_VEDIO = "vedio"; // 视频
     public static final String INFO_TYPE_PRODUCT = "product"; // 产品
-
 
 
     private Long id; // 主键ID

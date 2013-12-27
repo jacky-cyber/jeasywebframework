@@ -1,11 +1,22 @@
 package com.jeasywebframework.domain.dev;
 
+import com.jeasywebframework.domain.BaseAudit;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by jeasywebframework@gmail.com on 13-12-20.
  */
-public class GenTable implements Serializable {
+public class TableInfo extends BaseAudit implements Serializable {
+
+
+    public TableInfo() {
+        this.createUserId = 0L;
+        this.createTime = new Date(System.currentTimeMillis());
+        this.updateUserId = 0L;
+        this.updateTime = new Date(System.currentTimeMillis());
+    }
 
     private Long id;
 
@@ -37,7 +48,6 @@ public class GenTable implements Serializable {
         String b = clazz.substring(1, clazz.length());
         return a.toLowerCase() + b;
     }
-
 
 
     // ========================================================================================

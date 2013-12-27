@@ -1,11 +1,21 @@
 package com.jeasywebframework.domain.dev;
 
+import com.jeasywebframework.domain.BaseAudit;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by jeasywebframework@gmail.com on 13-12-20.
  */
-public class GenColumn implements Serializable {
+public class ColumnInfo extends BaseAudit implements Serializable {
+
+    public ColumnInfo() {
+        this.createUserId = 0L;
+        this.createTime = new Date(System.currentTimeMillis());
+        this.updateUserId = 0L;
+        this.updateTime = new Date(System.currentTimeMillis());
+    }
 
     private Long id;
 

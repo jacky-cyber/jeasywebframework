@@ -1,28 +1,34 @@
 package com.jeasywebframework.domain.dev;
 
+import com.jeasywebframework.domain.BaseAudit;
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by  jeasywebframework@gmail.com on 13-12-25.
  */
-public class SqlLog implements Serializable {
+public class SqlLog extends BaseAudit implements Serializable {
+
+    public SqlLog() {
+        this.createUserId = 0L;
+        this.createTime = new Date(System.currentTimeMillis());
+        this.updateUserId = 0L;
+        this.updateTime = new Date(System.currentTimeMillis());
+    }
+
     private Long id;
 
     private String sqlType;
 
     private String sql;
 
-
-    private Date createTime;
-
-    private Date updateTime;
-
-    private Long createUserId;
-
-    private Long updateUserId;
-
     private String ip;
+
+    // =====================================================================
+    // =====================================================================
+    // =====================================================================
+
 
     public String getSqlType() {
         return sqlType;
